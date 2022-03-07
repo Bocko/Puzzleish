@@ -12,6 +12,7 @@ public class PlayerItemPickUper : MonoBehaviour
     public float throwForce = 10;
     public float minHoldingDistance = 1;
     public float maxHoldingDistance = 3;
+    public float minMaxMouseThrowInput = 5;
 
     public string currentItemName;
     public bool moveable;
@@ -35,8 +36,11 @@ public class PlayerItemPickUper : MonoBehaviour
     {
         float mouse0Pos = Input.GetAxisRaw("Fire1");
         float mouse1Pos = Input.GetAxisRaw("Fire2");
-        float mouseX = Input.GetAxis("Mouse X") * playerLook.mouseSens * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * playerLook.mouseSens * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        //these two should only be in the mouse let go branch but the debug ray uses it...
+        float mouseXPlayerSens = mouseX * playerLook.mouseSens * Time.deltaTime;
+        float mouseYPlayerSens = mouseY * playerLook.mouseSens * Time.deltaTime;
 
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
@@ -58,8 +62,7 @@ public class PlayerItemPickUper : MonoBehaviour
                     distance = Vector3.Distance(headPivotPoint.position, hitInfo.transform.position);
                     distanceBetweenGrabPointAndCenter = Vector3.Distance(hitInfo.transform.position, hitInfo.point);
 
-                    holdingPoint.position = hitInfo.transform.position;
-                    holdingPoint.rotation = hitInfo.transform.rotation;
+                    holdingPoint.SetPositionAndRotation(hitInfo.transform.position, hitInfo.transform.rotation);
 
                     hitInfo.collider.attachedRigidbody.velocity = Vector3.zero;
                     hitInfo.collider.attachedRigidbody.angularVelocity = Vector3.zero;
@@ -84,7 +87,8 @@ public class PlayerItemPickUper : MonoBehaviour
 
             //rotating the force so its always perpendicular to the player
             //the force is rotated by multipling it with the main bodys rotation
-            Vector3 rotatedDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * new Vector3(Mathf.Clamp(mouseX, -5, 5), Mathf.Clamp(mouseY, -5, 5), 0);
+            Vector3 rotatedDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) 
+                                       * new Vector3(Mathf.Clamp(mouseXPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), Mathf.Clamp(mouseYPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), 0);
             hitInfo.collider.attachedRigidbody.AddForce(rotatedDirection * throwForce, ForceMode.Impulse);
 
         }// move the selected object to the offset point relative to the player
@@ -99,7 +103,7 @@ public class PlayerItemPickUper : MonoBehaviour
             if (moveGrabedItem != 0)
             {
                 float updatedDistance = distance + moveGrabedItem;
-                if (updatedDistance <= maxHoldingDistance + distanceBetweenGrabPointAndCenter && updatedDistance >= minHoldingDistance - distance)
+                if (updatedDistance <= maxHoldingDistance + distanceBetweenGrabPointAndCenter && updatedDistance >= minHoldingDistance - distanceBetweenGrabPointAndCenter)
                 {
                     distance = updatedDistance;
                     holdingPoint.position = headPivotPoint.position + dirToCurrentObjectCenter * distance;
@@ -114,16 +118,15 @@ public class PlayerItemPickUper : MonoBehaviour
                 holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseY * rotateSens * Time.deltaTime * Vector3.forward);
             }
 
-            hitInfo.transform.position = holdingPoint.position;
-            hitInfo.transform.rotation = holdingPoint.rotation;
+            hitInfo.transform.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);
 
             Debug.DrawRay(headPivotPoint.position, dirToCurrentObjectCenter * distance);
         }
 
         //debug ray for the throwforce
-        Vector3 dirToCurrentObjectCenter2 = ((headPivotPoint.position + headPivotPoint.forward * maxPickupDistance) - headPivotPoint.position).normalized;
-        Vector3 rotatedDirection2 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * new Vector3(Mathf.Clamp(mouseX,-5,5), Mathf.Clamp(mouseY, -5, 5), 0);
-        Debug.DrawRay(headPivotPoint.position + dirToCurrentObjectCenter2 * maxPickupDistance, rotatedDirection2 * throwForce);
+        Vector3 rotatedDirection2 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) 
+                                    * new Vector3(Mathf.Clamp(mouseXPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), Mathf.Clamp(mouseYPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), 0);
+        Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, rotatedDirection2 * throwForce);
     }
 
     void EnablePickedupObject(bool enable)

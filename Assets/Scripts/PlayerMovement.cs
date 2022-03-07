@@ -41,8 +41,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //adding fake force downwards on obejct that is below the player
         Ray ray = new Ray(groundChecker.position, new Vector3(0, -1f, 0));
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, groundDistance, groundMask))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, groundDistance, groundMask))
         {
             testSphere.position = hitInfo.point;
             if (hitInfo.collider.attachedRigidbody != null)
@@ -56,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (onGround && velocity.y < 0)
         {
-            //if on the ground set the saved velocity to 0 and add const gravity
+            //if on the ground reset the saved velocity to 0 and add const gravity
             velocity = Vector3.zero;
             velocity.y = -gravity;
         }
