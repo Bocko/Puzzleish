@@ -31,8 +31,8 @@ public class OnLadderMovement : MonoBehaviour
             //with this the player can climb in the ladder trigger when the camera is pointing up or down
             Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * headPivotPoint.forward).normalized;
             Vector3 upDownVelocity = inputDir * onLadderSpeed;
+
             /*
-             * 
             if (Input.GetButtonDown("Jump"))
             {
                 upDownVelocity += -headPivotPoint.forward.normalized * onLadderJumpForce;

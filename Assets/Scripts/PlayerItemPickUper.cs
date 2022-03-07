@@ -14,7 +14,9 @@ public class PlayerItemPickUper : MonoBehaviour
     public float maxHoldingDistance = 3;
     public float minMaxMouseThrowInput = 5;
 
+    [HideInInspector]
     public string currentItemName;
+    [HideInInspector]
     public bool moveable;
 
     bool HandEmpty;
@@ -38,9 +40,6 @@ public class PlayerItemPickUper : MonoBehaviour
         float mouse1Pos = Input.GetAxisRaw("Fire2");
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
-        //these two should only be in the mouse let go branch but the debug ray uses it...
-        float mouseXPlayerSens = mouseX * playerLook.mouseSens * Time.deltaTime;
-        float mouseYPlayerSens = mouseY * playerLook.mouseSens * Time.deltaTime;
 
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
@@ -85,15 +84,7 @@ public class PlayerItemPickUper : MonoBehaviour
             holdingPoint.position = headPivotPoint.position;
             EnablePickedupObject(true);
 
-            //rotating the force so its always perpendicular to the players x axis
-            //the force is rotated by multipling it with the main bodys y rotation
-            //rotating on the x axis so when looking up or down the force is always perpendicular to the players y axis
-            //the force is rotated by the headPivotpoints x axis and then its rotated by the bodys y axis
-            Vector3 rotatedXDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up)
-                                       * Vector3.right * Mathf.Clamp(mouseXPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput);
-            Vector3 rotatedYDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
-                                       * Vector3.up * Mathf.Clamp(mouseYPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput);
-            hitInfo.collider.attachedRigidbody.AddForce((rotatedXDirection + rotatedYDirection) * throwForce, ForceMode.Impulse);
+            hitInfo.collider.attachedRigidbody.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
 
         }// move the selected object to the offset point relative to the player
         else if (mouse0Pos == 1) //somehting in hand and left mouse is down
@@ -107,6 +98,7 @@ public class PlayerItemPickUper : MonoBehaviour
             if (moveGrabedItem != 0)
             {
                 float updatedDistance = distance + moveGrabedItem;
+                //adding and subtracting the difference between the ray hit point and the objects center so the scrolling wont get stuck if the object center is too far or close
                 if (updatedDistance <= maxHoldingDistance + distanceBetweenGrabPointAndCenter && updatedDistance >= minHoldingDistance - distanceBetweenGrabPointAndCenter)
                 {
                     distance = updatedDistance;
@@ -117,22 +109,48 @@ public class PlayerItemPickUper : MonoBehaviour
             //if the right mouse button is held down rotate the object holder by the mouse
             if (mouse1Pos == 1)
             {
+                playerLook.lockMouseMovement = true;
                 //add to the rotation
                 holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseX * rotateSens * Time.deltaTime * Vector3.up);
                 holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseY * rotateSens * Time.deltaTime * Vector3.forward);
             }
+
 
             hitInfo.transform.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);
 
             Debug.DrawRay(headPivotPoint.position, dirToCurrentObjectCenter * distance);
         }
 
+        if (playerLook.lockMouseMovement && mouse1Pos == 0)
+        {
+            playerLook.lockMouseMovement = false;
+        }
+
         //debug ray for the throwforce
         Vector3 rotatedDirection2 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up)
-                                    * new Vector3(Mathf.Clamp(mouseXPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), 0, 0);
+                                    * new Vector3(Mathf.Clamp(GetPlayerSensMouse(mouseX), -minMaxMouseThrowInput, minMaxMouseThrowInput), 0, 0);
         Vector3 rotatedDirection3 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
-                                    * new Vector3(0, Mathf.Clamp(mouseYPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput), 0);
+                                    * new Vector3(0, Mathf.Clamp(GetPlayerSensMouse(mouseY), -minMaxMouseThrowInput, minMaxMouseThrowInput), 0);
         Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, (rotatedDirection2 + rotatedDirection3) * throwForce);
+    }
+
+    Vector3 GetThrowForce(float mouseX, float mouseY)
+    {
+        //rotating the force so its always perpendicular to the players x axis
+        //the force is rotated by multipling it with the main bodys y rotation
+        //rotating on the x axis so when looking up or down the force is always perpendicular to the players y axis
+        //the force is rotated by the headPivotpoints x axis and then its rotated by the bodys y axis
+        Vector3 rotatedXDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up)
+                                   * Vector3.right * Mathf.Clamp(GetPlayerSensMouse(mouseX), -minMaxMouseThrowInput, minMaxMouseThrowInput);
+        Vector3 rotatedYDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
+                                   * Vector3.up * Mathf.Clamp(GetPlayerSensMouse(mouseY), -minMaxMouseThrowInput, minMaxMouseThrowInput);
+
+        return (rotatedXDirection + rotatedYDirection) * throwForce;
+    }
+
+    float GetPlayerSensMouse(float mouse)
+    {
+        return mouse * Time.deltaTime * playerLook.mouseSens;
     }
 
     void EnablePickedupObject(bool enable)

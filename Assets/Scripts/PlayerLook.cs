@@ -9,12 +9,14 @@ public class PlayerLook : MonoBehaviour
     public float upperLookAngleLimit = -90;
     public float lowerLookAngleLimit = 90;
     public Transform headPivotPoint;
+    public bool lockMouseMovement;
 
     Transform playerCam;
     float xRotation = 0f;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        lockMouseMovement = false;
         playerCam = transform.GetComponentInChildren<Camera>().transform;
         headPivotPoint.position = playerCam.position;
     }
@@ -23,14 +25,13 @@ public class PlayerLook : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
-        float mouse1Pos = Input.GetAxisRaw("Fire2");
 
-        if(mouse1Pos == 0)
+        if (!lockMouseMovement)
         {
             //negative x rotation to be not inverted
             xRotation += mouseY * (mouseInverted ? 1 : -1);
             xRotation = Mathf.Clamp(xRotation, upperLookAngleLimit, lowerLookAngleLimit);
-        
+
             //rotate cam then set the same rotation to head pivot point
             playerCam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             headPivotPoint.localRotation = playerCam.localRotation;

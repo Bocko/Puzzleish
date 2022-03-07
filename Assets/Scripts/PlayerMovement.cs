@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     CharacterController controller;
     Vector3 velocity;
     Vector3 moveVelocity;
+
+    Ray ray;
     bool onGround
     {
         get
@@ -35,21 +37,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        ray = new Ray();
     }
 
     void Update()
     {
-        //adding fake force downwards on obejct that is below the player
-        Ray ray = new Ray(groundChecker.position, new Vector3(0, -1f, 0));
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, groundDistance, groundMask))
-        {
-            testSphere.position = hitInfo.point;
-            if (hitInfo.collider.attachedRigidbody != null)
-            {
-                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(velocity.y) * Vector3.down, hitInfo.point);
-            }
-        }
-
         //adding gravity over time
         velocity.y += -gravity * gravityMultiplier * Time.deltaTime;
 
@@ -88,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && onGround)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
+            //saving the horizontal velocity so the jump keeps the players "momentum"(?)
             velocity += moveVelocity;
 
         }
@@ -96,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        FakeDownForceBelowPlayer();
         //limit speed so that when in the air you cant go faster than the limit when holding the forward key
         float tempY = moveVelocity.y;
         moveVelocity.y = 0;
@@ -106,6 +100,21 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity.y = tempY;// = new Vector3(moveVelocity.x, tempY, moveVelocity.z);
 
         controller.Move(moveVelocity * Time.deltaTime);
+    }
+
+    void FakeDownForceBelowPlayer()
+    {
+        //adding fake force downwards on obejct that is below the player
+        ray.origin = groundChecker.position;
+        ray.direction = Vector3.down;
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, groundDistance, groundMask))
+        {
+            testSphere.position = hitInfo.point;
+            if (hitInfo.collider.attachedRigidbody != null)
+            {
+                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(velocity.y) * Vector3.down, hitInfo.point);
+            }
+        }
     }
 
     private void OnDrawGizmos()
