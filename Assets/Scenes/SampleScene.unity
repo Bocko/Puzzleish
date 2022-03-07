@@ -3696,6 +3696,7 @@ MonoBehaviour:
   upperLookAngleLimit: -90
   lowerLookAngleLimit: 90
   headPivotPoint: {fileID: 85950395}
+  lockMouseMovement: 0
 --- !u!54 &1438934898
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3784,6 +3785,7 @@ MonoBehaviour:
   throwForce: 10
   minHoldingDistance: 1
   maxHoldingDistance: 3
+  minMaxMouseThrowInput: 5
   currentItemName: 
   moveable: 0
 --- !u!1 &1483852640
@@ -4999,8 +5001,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116879163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.0625, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1.25}
+  m_LocalPosition: {x: -1.25, y: 0.0625, z: 0}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.25}
   m_Children: []
   m_Father: {fileID: 65331701}
   m_RootOrder: 0
