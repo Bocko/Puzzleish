@@ -72,7 +72,7 @@ public class PlayerItemPickUper : MonoBehaviour
             }
 
         }// if the player lets go of the mouse button the object falls?
-        else if (fire1Down) //something in hand and left mouse is up
+        else if (!fire1Down) //something in hand and left mouse is up
         {
             print("hand let go");
 
@@ -132,9 +132,9 @@ public class PlayerItemPickUper : MonoBehaviour
         //the force is rotated by multipling it with the main bodys y rotation
         //rotating on the x axis so when looking up or down the force is always perpendicular to the players y axis
         //the force is rotated by the headPivotpoints x axis and then its rotated by the bodys y axis
-        Vector3 rotatedXDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up)
+        Vector3 rotatedXDirection = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up)
                                    * Vector3.right * Mathf.Clamp(GetPlayerSensMouse(mouseX), -minMaxMouseThrowInput, minMaxMouseThrowInput);
-        Vector3 rotatedYDirection = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
+        Vector3 rotatedYDirection = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
                                    * Vector3.up * Mathf.Clamp(GetPlayerSensMouse(mouseY), -minMaxMouseThrowInput, minMaxMouseThrowInput);
 
         return (rotatedXDirection + rotatedYDirection) * throwForce;
@@ -158,7 +158,6 @@ public class PlayerItemPickUper : MonoBehaviour
             hitInfo.collider.enabled = enable;
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

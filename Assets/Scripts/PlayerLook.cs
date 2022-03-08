@@ -39,4 +39,10 @@ public class PlayerLook : MonoBehaviour
             transform.Rotate(Vector3.up * mouseX);
         }
     }
+
+    public void AdjustCamAndHeadPivot(float amount)
+    {
+        playerCam.position = new Vector3(playerCam.position.x, playerCam.position.y + amount, playerCam.position.z);
+        headPivotPoint.position = playerCam.position;
+    }
 }

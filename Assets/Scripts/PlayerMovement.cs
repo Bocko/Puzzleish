@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Settings")]
     public float speed = 7f;
-    public float AltSpeed = 3f;
+    public float walkSpeed = 3f;
     public float inAirSpeed = 3f;
     public float mass = 10;
     public float gravity = 10f;
@@ -22,9 +22,21 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 3f;
     public float maxOppositeAngleCutOff = 130;
 
-    CharacterController controller;
+    [Header("Crouch Settings")]
+    public Transform headChecker;
+    public float headCheckerDistance = .1f;
+    public LayerMask headMask;
+    public float defaultHeight = 2;
+    public float crouchedHeight = 1.5f;
+    public float crouchTime = .01f;
+    float verticalAdjusmentAmount = .25f;
+
     Vector3 velocity;
     Vector3 moveVelocity;
+
+    CharacterController controller;
+    PlayerLook playerLook;
+    Transform playerBody;
 
     bool onGround
     {
@@ -33,11 +45,15 @@ public class PlayerMovement : MonoBehaviour
             return controller.isGrounded;
         }
     }
-    bool isCrouched;
+    bool isCrouched = false;
+    bool walking = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        playerLook = GetComponent<PlayerLook>();
+        playerBody = transform.Find("Player Body");
+        verticalAdjusmentAmount = defaultHeight - crouchedHeight;
     }
 
     void Update()
@@ -54,15 +70,21 @@ public class PlayerMovement : MonoBehaviour
 
         float movementVertical = Input.GetAxisRaw("Vertical");
         float movementHorizontal = Input.GetAxisRaw("Horizontal");
-        bool crouchDown = Input.GetAxisRaw("Crouch") == 1;
+        bool crouchDown = Input.GetAxis("Crouch") == 1;
+        bool walkDown = Input.GetAxis("Walk") == 1;
 
         //normalized input vector
         Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * transform.forward).normalized;
 
+        if (isCrouched != crouchDown)
+        {
+            Crouch();
+        }
+
         if (onGround)
         {
             //if on the ground and the walk key is held down reduce the speed
-            moveVelocity = inputDir * (Input.GetAxis("Walk") == 0 ? speed : AltSpeed);
+            moveVelocity = inputDir * ((walking || walkDown) ? walkSpeed : speed);
         }
         else
         {
@@ -116,9 +138,53 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Crouch()
+    {
+        if (!isCrouched)
+        {
+            transform.Translate(0, -verticalAdjusmentAmount, 0);
+            controller.height = crouchedHeight;
+            playerLook.AdjustCamAndHeadPivot(-verticalAdjusmentAmount / 2);
+            playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
+            isCrouched = true;
+            walking = true;
+        }
+        else
+        {
+            if (CheckAboveForUncrouch())
+            {
+                transform.Translate(0, verticalAdjusmentAmount, 0);
+                controller.height = defaultHeight;
+                playerBody.localScale = Vector3.one;
+                playerLook.AdjustCamAndHeadPivot(verticalAdjusmentAmount / 2);
+                isCrouched = false;
+                walking = false;
+            }
+        }
+    }
+
+    bool CheckAboveForUncrouch()
+    {
+        return !Physics.CheckSphere(headChecker.position + Vector3.up * verticalAdjusmentAmount, headCheckerDistance, headMask);
+    }
+
+    IEnumerator AnimateCrouch()
+    {
+        float percent = 0;
+        float crouchSpeed = 1f / crouchTime;
+        print(1f / crouchTime);
+        while (percent < 1)
+        {
+            percent += Time.deltaTime * crouchSpeed;
+
+            yield return null;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundChecker.position, groundDistance);
+        Gizmos.DrawSphere(headChecker.position + Vector3.up * verticalAdjusmentAmount, headCheckerDistance);
     }
 
     private void OnDisable()
