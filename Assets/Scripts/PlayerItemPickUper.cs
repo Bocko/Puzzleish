@@ -112,7 +112,7 @@ public class PlayerItemPickUper : MonoBehaviour
                 playerLook.lockMouseMovement = true;
                 //add to the rotation
                 holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseX * rotateSens * Time.deltaTime * Vector3.up);
-                holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseY * rotateSens * Time.deltaTime * Vector3.forward);
+                holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseY * rotateSens * Time.deltaTime * Vector3.right);
             }
 
 
@@ -127,11 +127,7 @@ public class PlayerItemPickUper : MonoBehaviour
         }
 
         //debug ray for the throwforce
-        Vector3 rotatedDirection2 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up)
-                                    * new Vector3(Mathf.Clamp(GetPlayerSensMouse(mouseX), -minMaxMouseThrowInput, minMaxMouseThrowInput), 0, 0);
-        Vector3 rotatedDirection3 = Quaternion.AngleAxis(headPivotPoint.parent.parent.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
-                                    * new Vector3(0, Mathf.Clamp(GetPlayerSensMouse(mouseY), -minMaxMouseThrowInput, minMaxMouseThrowInput), 0);
-        Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, (rotatedDirection2 + rotatedDirection3) * throwForce);
+        Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, GetThrowForce(mouseX, mouseY));
     }
 
     Vector3 GetThrowForce(float mouseX, float mouseY)
