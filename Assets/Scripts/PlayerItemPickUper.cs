@@ -34,8 +34,8 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void Update()
     {
-        float mouse0Pos = Input.GetAxisRaw("Fire1");
-        float mouse1Pos = Input.GetAxisRaw("Fire2");
+        bool fire1Down = Input.GetAxisRaw("Fire1") == 1;
+        bool fire2Down = Input.GetAxisRaw("Fire2") == 1;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
@@ -49,7 +49,7 @@ public class PlayerItemPickUper : MonoBehaviour
                 currentItemName = hitInfo.collider.name;
                 moveable = true;
                 //if the player hold mouse 0 (left mouse) the object can be moved by the player
-                if (mouse0Pos == 1)
+                if (fire1Down)
                 {
                     print("grabbed something");
                     HandEmpty = false;
@@ -72,7 +72,7 @@ public class PlayerItemPickUper : MonoBehaviour
             }
 
         }// if the player lets go of the mouse button the object falls?
-        else if (mouse0Pos == 0) //something in hand and left mouse is up
+        else if (fire1Down) //something in hand and left mouse is up
         {
             print("hand let go");
 
@@ -83,7 +83,7 @@ public class PlayerItemPickUper : MonoBehaviour
             hitInfo.collider.attachedRigidbody.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
 
         }// move the selected object to the offset point relative to the player
-        else if (mouse0Pos == 1) //somehting in hand and left mouse is down
+        else if (fire1Down) //somehting in hand and left mouse is down
         {
             print("hand holding something");
 
@@ -103,7 +103,7 @@ public class PlayerItemPickUper : MonoBehaviour
             }
 
             //if the right mouse button is held down rotate the object holder by the mouse
-            if (mouse1Pos == 1)
+            if (fire2Down)
             {
                 playerLook.lockMouseMovement = true;
                 //add to the rotation
@@ -117,7 +117,7 @@ public class PlayerItemPickUper : MonoBehaviour
             Debug.DrawRay(headPivotPoint.position, dirToCurrentObjectCenter * distance);
         }
 
-        if (playerLook.lockMouseMovement && mouse1Pos == 0)
+        if (playerLook.lockMouseMovement && fire2Down)
         {
             playerLook.lockMouseMovement = false;
         }

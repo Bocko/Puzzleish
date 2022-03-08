@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             return controller.isGrounded;
         }
     }
-    bool crouched;
+    bool isCrouched;
 
     void Start()
     {
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
         float movementVertical = Input.GetAxisRaw("Vertical");
         float movementHorizontal = Input.GetAxisRaw("Horizontal");
+        bool crouchDown = Input.GetAxisRaw("Crouch") == 1;
 
         //normalized input vector
         Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * transform.forward).normalized;
