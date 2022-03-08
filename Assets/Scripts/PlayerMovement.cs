@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     Vector3 moveVelocity;
 
-    Ray ray;
     bool onGround
     {
         get
@@ -34,10 +33,11 @@ public class PlayerMovement : MonoBehaviour
             return controller.isGrounded;
         }
     }
+    bool crouched;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        ray = new Ray();
     }
 
     void Update()
@@ -105,9 +105,7 @@ public class PlayerMovement : MonoBehaviour
     void FakeDownForceBelowPlayer()
     {
         //adding fake force downwards on obejct that is below the player
-        ray.origin = groundChecker.position;
-        ray.direction = Vector3.down;
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, groundDistance, groundMask))
+        if (Physics.Raycast(groundChecker.position, Vector3.down, out RaycastHit hitInfo, groundDistance, groundMask))
         {
             testSphere.position = hitInfo.point;
             if (hitInfo.collider.attachedRigidbody != null)

@@ -23,14 +23,12 @@ public class PlayerItemPickUper : MonoBehaviour
     float distance;
     float distanceBetweenGrabPointAndCenter;
 
-    Ray ray;
     RaycastHit hitInfo;
 
     PlayerLook playerLook;
     void Start()
     {
         playerLook = GetComponent<PlayerLook>();
-        ray = new Ray();
         HandEmpty = true;
     }
 
@@ -45,9 +43,7 @@ public class PlayerItemPickUper : MonoBehaviour
         if (HandEmpty)
         {
             print("hand empty");
-            ray.origin = headPivotPoint.position;
-            ray.direction = headPivotPoint.forward;
-            if (Physics.Raycast(ray, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
                 print("hit something");
                 currentItemName = hitInfo.collider.name;
