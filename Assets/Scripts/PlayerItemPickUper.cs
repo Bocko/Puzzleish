@@ -14,10 +14,8 @@ public class PlayerItemPickUper : MonoBehaviour
     public float maxHoldingDistance = 3;
     public float minMaxMouseThrowInput = 5;
 
-    [HideInInspector]
-    public string currentItemName;
-    [HideInInspector]
-    public bool moveable;
+    public string currentItemName { get; private set; }
+    public bool moveable { get; private set; }
 
     bool HandEmpty;
     float distance;
@@ -42,7 +40,7 @@ public class PlayerItemPickUper : MonoBehaviour
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
         {
-            print("hand empty");
+            //print("hand empty");
             if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
                 print("hit something");

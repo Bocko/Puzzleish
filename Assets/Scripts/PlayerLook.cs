@@ -10,6 +10,7 @@ public class PlayerLook : MonoBehaviour
     public float lowerLookAngleLimit = 90;
     public Transform headPivotPoint;
     public bool lockMouseMovement;
+    public float camHeightInPlayer { get; private set; }
 
     Transform playerCam;
     float xRotation = 0f;
@@ -18,6 +19,7 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         lockMouseMovement = false;
         playerCam = transform.GetComponentInChildren<Camera>().transform;
+        camHeightInPlayer = playerCam.localPosition.y;
         headPivotPoint.position = playerCam.position;
     }
 
@@ -40,9 +42,9 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
-    public void AdjustCamAndHeadPivot(float amount)
+    public void SetCamAndHeadPivotLocalYPos(float amount)
     {
-        playerCam.position = new Vector3(playerCam.position.x, playerCam.position.y + amount, playerCam.position.z);
+        playerCam.localPosition = Vector3.up * amount;
         headPivotPoint.position = playerCam.position;
     }
 }

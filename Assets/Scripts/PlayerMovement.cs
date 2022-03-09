@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask headMask;
     public float defaultHeight = 2;
     public float crouchedHeight = 1.5f;
-    public float crouchTime = .01f;
+    public float crouchTime = 0.1f;
     float verticalAdjusmentAmount = .25f;
 
     Vector3 velocity;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerLook playerLook;
     Transform playerBody;
 
-    bool onGround
+    private bool onGround
     {
         get
         {
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerLook = GetComponent<PlayerLook>();
         playerBody = transform.Find("Player Body");
-        verticalAdjusmentAmount = defaultHeight - crouchedHeight;
+        verticalAdjusmentAmount = (defaultHeight - crouchedHeight) / 2;
     }
 
     void Update()
@@ -141,13 +141,17 @@ public class PlayerMovement : MonoBehaviour
     void Crouch()
     {
         //player can crouch when its not already crouched
-        //when crouching the player get lowered
+        //when crouching the player gets lowered by half of the amount its height got reduced because its pivot in the middle so it gets smaller from the top and the bottom aswell NOTE: NOT ANYMORE WITH THE ANIMATION IN PLACE
+        //Cameras and the head pivot point are lower aswell by half of the difference between the crouching and the standing height
+        //bodys y scale is lowered by the ratio between the crouching and the standing height
         if (!isCrouched)
         {
-            controller.height = crouchedHeight;
-            transform.Translate(0, -verticalAdjusmentAmount / 2, 0);
-            playerLook.AdjustCamAndHeadPivot(-verticalAdjusmentAmount / 2);
-            playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
+            StopCoroutine(AnimateCrouch(1));
+            StartCoroutine(AnimateCrouch(-1));
+            //controller.height = crouchedHeight;
+            //transform.Translate(0, -verticalAdjusmentAmount, 0);
+            //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer - verticalAdjusmentAmount);
+            //playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
             isCrouched = true;
             walking = true;
         }
@@ -155,10 +159,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (CheckAboveForUncrouch())
             {
-                controller.height = defaultHeight;
-                transform.Translate(0, verticalAdjusmentAmount / 2, 0);
-                playerBody.localScale = Vector3.one;
-                playerLook.AdjustCamAndHeadPivot(verticalAdjusmentAmount / 2);
+                StopCoroutine(AnimateCrouch(-1));
+                StartCoroutine(AnimateCrouch(1));
+                //controller.height = defaultHeight;
+                //transform.Translate(0, verticalAdjusmentAmount, 0);
+                //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer);
+                //playerBody.localScale = Vector3.one;
                 isCrouched = false;
                 walking = false;
             }
@@ -167,17 +173,29 @@ public class PlayerMovement : MonoBehaviour
 
     bool CheckAboveForUncrouch()
     {
-        return !Physics.CheckSphere(headChecker.position + Vector3.up * verticalAdjusmentAmount, headCheckerDistance, headMask);
+        return !Physics.CheckSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance, headMask);
     }
 
-    IEnumerator AnimateCrouch()
+    IEnumerator AnimateCrouch(int dir)
     {
         float percent = 0;
         float crouchSpeed = 1f / crouchTime;
-        print(1f / crouchTime);
         while (percent < 1)
         {
             percent += Time.deltaTime * crouchSpeed;
+
+            if (dir == 1)
+            {
+                controller.height = Mathf.Lerp(crouchedHeight, defaultHeight, percent);
+                playerBody.localScale = new Vector3(1, Mathf.Lerp(crouchedHeight / defaultHeight, 1, percent), 1);
+                playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer - verticalAdjusmentAmount, playerLook.camHeightInPlayer, percent));
+            }
+            else
+            {
+                controller.height = Mathf.Lerp(defaultHeight, crouchedHeight, percent);
+                playerBody.localScale = new Vector3(1, Mathf.Lerp(1, crouchedHeight / defaultHeight, percent), 1);
+                playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer, playerLook.camHeightInPlayer - verticalAdjusmentAmount, percent));
+            }
 
             yield return null;
         }
@@ -186,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundChecker.position, groundDistance);
-        Gizmos.DrawSphere(headChecker.position + Vector3.up * verticalAdjusmentAmount, headCheckerDistance);
+        Gizmos.DrawSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance);
     }
 
     private void OnDisable()
