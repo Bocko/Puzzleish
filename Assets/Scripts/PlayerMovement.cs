@@ -140,10 +140,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
+        //player can crouch when its not already crouched
+        //when crouching the player get lowered
         if (!isCrouched)
         {
-            transform.Translate(0, -verticalAdjusmentAmount, 0);
             controller.height = crouchedHeight;
+            transform.Translate(0, -verticalAdjusmentAmount / 2, 0);
             playerLook.AdjustCamAndHeadPivot(-verticalAdjusmentAmount / 2);
             playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
             isCrouched = true;
@@ -153,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (CheckAboveForUncrouch())
             {
-                transform.Translate(0, verticalAdjusmentAmount, 0);
                 controller.height = defaultHeight;
+                transform.Translate(0, verticalAdjusmentAmount / 2, 0);
                 playerBody.localScale = Vector3.one;
                 playerLook.AdjustCamAndHeadPivot(verticalAdjusmentAmount / 2);
                 isCrouched = false;
