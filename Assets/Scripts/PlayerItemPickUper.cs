@@ -117,7 +117,7 @@ public class PlayerItemPickUper : MonoBehaviour
             Debug.DrawRay(headPivotPoint.position, dirToCurrentObjectCenter * distance);
         }
 
-        if (playerLook.lockMouseMovement && fire2Down)
+        if (playerLook.lockMouseMovement && !fire2Down)
         {
             playerLook.lockMouseMovement = false;
         }
