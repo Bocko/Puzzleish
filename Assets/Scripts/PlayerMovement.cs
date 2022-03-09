@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
             return controller.isGrounded;
         }
     }
-    bool isCrouched = false;
+    public bool isCrouched { get; private set; }
     bool walking = false;
 
     void Start()
@@ -105,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
             //saving the horizontal velocity so the jump keeps the players "momentum"(?)
             velocity += moveVelocity;
-
         }
 
         moveVelocity += velocity;

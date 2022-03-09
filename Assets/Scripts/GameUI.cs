@@ -10,15 +10,24 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI itemName;
     public Color highlightedPointerColor;
 
+    [Header("Stance Indicator")]
+    public Image stanceHolder;
+    public Sprite standing;
+    public Sprite crouching;
+    bool crouched;
+
     PlayerItemPickUper playerItemPickUper;
+    PlayerMovement playerMovement;
 
     Color defaultPointerColor;
 
     void Start()
     {
         playerItemPickUper = FindObjectOfType<PlayerItemPickUper>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
         itemName.text = "";
         defaultPointerColor = pointer.color;
+        crouched = playerMovement.isCrouched;
     }
 
     void Update()
@@ -31,6 +40,19 @@ public class GameUI : MonoBehaviour
         else
         {
             pointer.color = defaultPointerColor;
+        }
+
+        if(crouched != playerMovement.isCrouched)
+        {
+            crouched = playerMovement.isCrouched;
+            if (crouched)
+            {
+                stanceHolder.sprite = crouching;
+            }
+            else
+            {
+                stanceHolder.sprite = standing;
+            }
         }
     }
 }
