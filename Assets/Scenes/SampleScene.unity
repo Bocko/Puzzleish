@@ -3852,6 +3852,7 @@ GameObject:
   - component: {fileID: 1438934897}
   - component: {fileID: 1438934899}
   - component: {fileID: 1438934902}
+  - component: {fileID: 1438934900}
   - component: {fileID: 1438934895}
   - component: {fileID: 1438934898}
   m_Layer: 0
@@ -3932,6 +3933,7 @@ MonoBehaviour:
   defaultHeight: 2
   crouchedHeight: 1.5
   crouchTime: 0.1
+  publicVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1438934897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3981,6 +3983,24 @@ MonoBehaviour:
   headPivotPoint: {fileID: 85950395}
   onLadderSpeed: 5
   onLadderJumpForce: 10
+--- !u!114 &1438934900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438934893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7387a6afd1bc24ea217dfe1c71d47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuel: 100
+  fuel: 0
+  fuelRate: 0
+  fuelRefillRate: 0
+  refillDelay: 0
+  jetpackForce: 0
 --- !u!114 &1438934902
 MonoBehaviour:
   m_ObjectHideFlags: 0

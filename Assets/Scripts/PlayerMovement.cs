@@ -31,19 +31,23 @@ public class PlayerMovement : MonoBehaviour
     public float crouchTime = 0.1f;
     float verticalAdjusmentAmount = .25f;
 
-    Vector3 velocity;
-    Vector3 moveVelocity;
+    public Vector3 publicVelocity; // public velocity so it can be modified from outside
+    Vector3 verticalVelocity; // vertical velocity for appling gravity and to add force for jump
+    Vector3 savedVelocity; // saved velocity to saved the horizontal velocity before jump to the "momentum" in the air
+    Vector3 moveVelocity; // move velocity is to move around with the controls
+    Vector3 finalVelocity; // final velocity is to add all the above velocities together
 
     CharacterController controller;
     PlayerLook playerLook;
     Transform playerBody;
 
-    private bool onGround
+    public bool onGround
     {
         get
         {
             return controller.isGrounded;
         }
+        private set { }
     }
     public bool isCrouched { get; private set; }
     bool walking = false;
@@ -59,13 +63,13 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //adding gravity over time
-        velocity.y += -gravity * gravityMultiplier * Time.deltaTime;
+        verticalVelocity.y += -gravity * gravityMultiplier * Time.deltaTime;
 
-        if (onGround && velocity.y < 0)
+        if (onGround && verticalVelocity.y < 0)
         {
-            //if on the ground reset the saved velocity to 0 and add const gravity
-            velocity = Vector3.zero;
-            velocity.y = -gravity;
+            //if on the ground reset the saved velocity to 0 and add const gravity to vertical velocity
+            savedVelocity = Vector3.zero;
+            verticalVelocity.y = -gravity;
         }
 
         float movementVertical = Input.GetAxisRaw("Vertical");
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (onGround)
         {
-            //if on the ground and the walk key is held down reduce the speed
+            //if on the ground and the walk key is held down or the player is crouched reduce movement speed
             moveVelocity = inputDir * ((walking || walkDown) ? walkSpeed : speed);
         }
         else
@@ -91,37 +95,42 @@ public class PlayerMovement : MonoBehaviour
             //if not on the ground use inAirSpeed insted to give a minimal air control
             moveVelocity = inputDir * inAirSpeed;
 
-            //if the angle between the saved velocity and the current input vector is higher than the max zero the saved velocity
-            //note: this is only for the horizontal plane
-            if (Vector2.Angle(new Vector2(velocity.x, velocity.z), new Vector2(moveVelocity.x, moveVelocity.z)) > maxOppositeAngleCutOff)
+            //if the angle between the saved velocity and the current input vector is higher than the max reset the saved velocity
+            //note: this is only for the horizontal velocity
+            if (Vector2.Angle(new Vector2(savedVelocity.x, savedVelocity.z), new Vector2(moveVelocity.x, moveVelocity.z)) > maxOppositeAngleCutOff)
             {
-                velocity.x = 0;
-                velocity.z = 0;
+                savedVelocity = Vector3.zero;
             }
         }
         //if the jump key is pressed and the player is on the ground add enough upwards velocity to reach the set jump height
         if (Input.GetButtonDown("Jump") && onGround)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
+            verticalVelocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
             //saving the horizontal velocity so the jump keeps the players "momentum"(?)
-            velocity += moveVelocity;
+            savedVelocity = moveVelocity;
         }
 
-        moveVelocity += velocity;
+
+
     }
     void FixedUpdate()
     {
+        finalVelocity = Vector3.zero;
+
         FakeDownForceBelowPlayer();
+
+        moveVelocity += savedVelocity;
         //limit speed so that when in the air you cant go faster than the limit when holding the forward key
-        float tempY = moveVelocity.y;
-        moveVelocity.y = 0;
         if (moveVelocity.sqrMagnitude > Mathf.Pow(speed, 2))
         {
             moveVelocity = moveVelocity.normalized * speed;
         }
-        moveVelocity.y = tempY;// = new Vector3(moveVelocity.x, tempY, moveVelocity.z);
 
-        controller.Move(moveVelocity * Time.deltaTime);
+        finalVelocity += verticalVelocity;
+        finalVelocity += publicVelocity;
+        finalVelocity += moveVelocity;
+
+        controller.Move(finalVelocity * Time.deltaTime);
     }
 
     void FakeDownForceBelowPlayer()
@@ -132,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             testSphere.position = hitInfo.point;
             if (hitInfo.collider.attachedRigidbody != null)
             {
-                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(velocity.y) * Vector3.down, hitInfo.point);
+                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);
             }
         }
     }
@@ -208,6 +217,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        velocity = Vector3.zero;
+        verticalVelocity = Vector3.zero;
     }
 }
