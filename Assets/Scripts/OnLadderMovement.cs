@@ -10,11 +10,13 @@ public class OnLadderMovement : MonoBehaviour
 
     bool onLadder = false;
     PlayerMovement playerMovement;
+    PlayerJetpack playerJetpack;
     CharacterController controller;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerJetpack = GetComponent<PlayerJetpack>();
         controller = GetComponent<CharacterController>();
     }
 
@@ -62,6 +64,7 @@ public class OnLadderMovement : MonoBehaviour
     void PlayerMovementEnabled(bool enabled)
     {
         playerMovement.enabled = enabled;
+        playerJetpack.isOn = enabled;
         onLadder = !enabled;
     }
 }

@@ -6,29 +6,50 @@ public class PlayerJetpack : MonoBehaviour
 {
     public float maxFuel = 100;
     public float fuel;
-    public float fuelRate;
-    public float fuelRefillRate;
-    public float refillDelay;
-    public float jetpackForce = 100;
+    public float fuelBurnRate = 20;
+    public float fuelRefillRate = 10;
+    public float refillDelay = 1;
+    public float jetpackForce = 40;
+    float timeWaited = 0;
+
+    public bool isOn;
+
 
     PlayerMovement playerMovement;
-    Rigidbody playerRB;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerRB = GetComponent<Rigidbody>();
         fuel = maxFuel;
+        isOn = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool jumpDown = Input.GetAxis("Jump") == 1;
-
-        if(!playerMovement.onGround && jumpDown)
+        if (isOn)
         {
-            playerRB.AddForce(jetpackForce * Time.deltaTime * Vector3.up);
-            print(jetpackForce * Time.deltaTime * Vector3.up);
+            bool jetpackDown = Input.GetAxis("Jetpack") == 1;
+
+            if (playerMovement.onGround)
+            {
+                if(fuel < maxFuel)
+                {
+                    timeWaited += Time.deltaTime;
+                    if (timeWaited > refillDelay)
+                    {
+                        fuel += fuelRefillRate * Time.deltaTime;
+                    }
+                }
+            }
+            else
+            {
+                timeWaited = 0;
+                if (jetpackDown && fuel > 0)
+                {
+                    playerMovement.AddVelocity(jetpackForce * Time.deltaTime * Vector3.up);
+                    fuel -= fuelBurnRate * Time.deltaTime;
+                }
+            }
         }
     }
 }

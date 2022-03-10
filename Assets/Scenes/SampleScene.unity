@@ -3925,6 +3925,7 @@ MonoBehaviour:
   gravityMultiplier: 3
   jumpHeight: 3
   maxOppositeAngleCutOff: 130
+  maxUpwardsVerticalVelocity: 10
   headChecker: {fileID: 2094748509}
   headCheckerDistance: 0.1
   headMask:
@@ -3933,7 +3934,6 @@ MonoBehaviour:
   defaultHeight: 2
   crouchedHeight: 1.5
   crouchTime: 0.1
-  publicVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1438934897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3997,10 +3997,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFuel: 100
   fuel: 0
-  fuelRate: 0
-  fuelRefillRate: 0
-  refillDelay: 0
-  jetpackForce: 0
+  fuelBurnRate: 20
+  fuelRefillRate: 10
+  refillDelay: 1
+  jetpackForce: 40
+  isOn: 0
 --- !u!114 &1438934902
 MonoBehaviour:
   m_ObjectHideFlags: 0
