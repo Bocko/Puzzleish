@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerItemPickUper : MonoBehaviour
 {
+    public static event System.Action HandGrabbed;
+    public static event System.Action HandReleased;
+
     public Transform headPivotPoint;
     public Transform holdingPoint;
     public float maxPickupDistance = 3;
@@ -50,6 +53,9 @@ public class PlayerItemPickUper : MonoBehaviour
                 if (fire1Down)
                 {
                     print("grabbed something");
+
+                    HandGrabbed?.Invoke();
+
                     HandEmpty = false;
 
                     distance = Vector3.Distance(headPivotPoint.position, hitInfo.transform.position);
@@ -73,6 +79,8 @@ public class PlayerItemPickUper : MonoBehaviour
         else if (!fire1Down) //something in hand and left mouse is up
         {
             print("hand let go");
+
+            HandReleased?.Invoke();
 
             HandEmpty = true;
             holdingPoint.position = headPivotPoint.position;
