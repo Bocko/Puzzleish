@@ -12,7 +12,7 @@ public class PlayerJetpack : MonoBehaviour
     public float jetpackForce = 40;
     float timeWaited = 0;
 
-    public bool isOn;
+    public bool isOn { get; set; }
 
 
     PlayerMovement playerMovement;
@@ -29,6 +29,7 @@ public class PlayerJetpack : MonoBehaviour
         if (isOn)
         {
             bool jetpackDown = Input.GetAxis("Jetpack") == 1;
+            playerMovement.SetJetpackVelocity(Vector3.zero);
 
             if (playerMovement.onGround)
             {
@@ -46,7 +47,7 @@ public class PlayerJetpack : MonoBehaviour
                 timeWaited = 0;
                 if (jetpackDown && fuel > 0)
                 {
-                    playerMovement.AddVelocity(jetpackForce * Time.deltaTime * Vector3.up);
+                    playerMovement.SetJetpackVelocity(jetpackForce * Time.deltaTime * Vector3.up);
                     fuel -= fuelBurnRate * Time.deltaTime;
                 }
             }

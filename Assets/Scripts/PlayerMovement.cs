@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public float gravityMultiplier = 1f;
     public float jumpHeight = 3f;
     public float maxOppositeAngleCutOff = 130;
-    public float maxUpwardsVerticalVelocity = 10;
 
     [Header("Crouch Settings")]
     public Transform headChecker;
@@ -32,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchTime = 0.1f;
     float verticalAdjusmentAmount = .25f;
 
-    Vector3 publicVelocity; // public velocity so it can be modified from outside
+    Vector3 jetpackVelocity; // velocity for the jetpack
     Vector3 verticalVelocity; // vertical velocity for appling gravity and to add force for jump
     Vector3 savedVelocity; // saved velocity to saved the horizontal velocity before jump to the "momentum" in the air
     Vector3 moveVelocity; // move velocity is to move around with the controls
@@ -125,18 +124,12 @@ public class PlayerMovement : MonoBehaviour
             moveVelocity = moveVelocity.normalized * speed;
         }
 
-        verticalVelocity += publicVelocity;
-
-        if(verticalVelocity.y >= maxUpwardsVerticalVelocity)
-        {
-            verticalVelocity.y = maxUpwardsVerticalVelocity;
-        }
+        verticalVelocity += jetpackVelocity;
 
         finalVelocity += verticalVelocity;
         finalVelocity += moveVelocity;
 
         controller.Move(finalVelocity * Time.deltaTime);
-        publicVelocity = Vector3.zero;
     }
 
     void FakeDownForceBelowPlayer()
@@ -215,20 +208,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void AddVelocity(Vector3 velocity)
+    public void SetJetpackVelocity(Vector3 velocity)
     {
-        publicVelocity += velocity;
+        jetpackVelocity = velocity;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(groundChecker.position, groundDistance);
-        Gizmos.DrawSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance);
+        Gizmos.DrawSphere(groundChecker.position, groundDistance);//groundchecker
+        Gizmos.DrawSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance);//headchecker
     }
 
     private void OnDisable()
     {
-        publicVelocity = Vector3.zero;
+        jetpackVelocity = Vector3.zero;
         verticalVelocity = Vector3.zero;
         savedVelocity = Vector3.zero;
         moveVelocity = Vector3.zero;

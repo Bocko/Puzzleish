@@ -6,6 +6,7 @@ using TMPro;
 
 public class GameUI : MonoBehaviour
 {
+    [Header("Item Pick")]
     public Image pointer;
     public TextMeshProUGUI itemName;
     public Color highlightedPointerColor;
@@ -16,8 +17,16 @@ public class GameUI : MonoBehaviour
     public Sprite crouching;
     bool crouched;
 
+    [Header("Jetpack")]
+    public RectTransform jetpackFuelBarRect;
+    public Image jetpackFuelBarImage;
+    public GameObject jetpackDisabledIndicator;
+    public Gradient fuelGradient;
+    bool isOn;
+
     PlayerItemPickUper playerItemPickUper;
     PlayerMovement playerMovement;
+    PlayerJetpack playerJetpack;
 
     Color defaultPointerColor;
 
@@ -25,12 +34,21 @@ public class GameUI : MonoBehaviour
     {
         playerItemPickUper = FindObjectOfType<PlayerItemPickUper>();
         playerMovement = FindObjectOfType<PlayerMovement>();
+        playerJetpack = FindObjectOfType<PlayerJetpack>();
         itemName.text = "";
         defaultPointerColor = pointer.color;
         crouched = playerMovement.isCrouched;
+        isOn = playerJetpack.isOn;
     }
 
     void Update()
+    {
+        UpdatePointer();
+        UpdateStanceUI();
+        UpdateJetpackUI();
+    }
+
+    void UpdatePointer()
     {
         itemName.text = playerItemPickUper.currentItemName;
         if (playerItemPickUper.moveable)
@@ -41,8 +59,11 @@ public class GameUI : MonoBehaviour
         {
             pointer.color = defaultPointerColor;
         }
+    }
 
-        if(crouched != playerMovement.isCrouched)
+    void UpdateStanceUI()
+    {
+        if (crouched != playerMovement.isCrouched)
         {
             crouched = playerMovement.isCrouched;
             if (crouched)
@@ -54,5 +75,22 @@ public class GameUI : MonoBehaviour
                 stanceHolder.sprite = standing;
             }
         }
+    }
+
+    void UpdateJetpackUI()
+    {
+        if(isOn != playerJetpack.isOn)
+        {
+            isOn = playerJetpack.isOn;
+            jetpackDisabledIndicator.SetActive(!isOn);
+        }
+        float fuelPercent = playerJetpack.fuel / playerJetpack.maxFuel;
+        jetpackFuelBarRect.localScale = new Vector3(fuelPercent, 1, 1);
+        jetpackFuelBarImage.color = GetColorFromGradient(fuelPercent);
+    }
+
+    Color GetColorFromGradient(float value)
+    {
+        return fuelGradient.Evaluate(value);
     }
 }
