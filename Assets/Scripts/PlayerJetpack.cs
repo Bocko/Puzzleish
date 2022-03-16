@@ -12,8 +12,7 @@ public class PlayerJetpack : MonoBehaviour
     public float jetpackForce = 40;
     float timeWaited = 0;
 
-    public bool isOn { get; set; }
-
+    public bool isOn;
 
     PlayerMovement playerMovement;
     void Start()
