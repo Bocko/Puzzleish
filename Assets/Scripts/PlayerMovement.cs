@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool CheckAboveForUncrouch()
     {
-        return !Physics.CheckSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance, headMask);
+        return !Physics.CheckSphere(headChecker.position + verticalAdjusmentAmount * Vector3.up, headCheckerDistance, headMask);
     }
 
     IEnumerator AnimateCrouch(int dir)
@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundChecker.position, groundDistance);//groundchecker
-        Gizmos.DrawSphere(headChecker.position + 2 * verticalAdjusmentAmount * Vector3.up, headCheckerDistance);//headchecker
+        Gizmos.DrawSphere(headChecker.position + verticalAdjusmentAmount * Vector3.up, headCheckerDistance);//headchecker
     }
 
     private void OnDisable()
