@@ -7,6 +7,7 @@ public class OnLadderMovement : MonoBehaviour
     public Transform headPivotPoint;
     public float onLadderSpeed = 7f;
     public float onLadderJumpForce = 100f;
+    public string ladderTag = "Ladder";
 
     bool onLadder = false;
     PlayerMovement playerMovement;
@@ -22,7 +23,7 @@ public class OnLadderMovement : MonoBehaviour
 
     void Update()
     {
-        //on ladder i strigger when the player is in a trigger marked with "Ladder tag"
+        //on ladder is triggered when the player is in a trigger marked with "Ladder" tag
         //when on ladder the default player movement is disabled and this script moves the player
         if (onLadder)
         {
@@ -47,7 +48,7 @@ public class OnLadderMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ladder"))
+        if (other.CompareTag(ladderTag))
         {
             PlayerMovementEnabled(false);
         }
@@ -55,7 +56,7 @@ public class OnLadderMovement : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ladder"))
+        if (other.CompareTag(ladderTag))
         {
             PlayerMovementEnabled(true);
         }

@@ -12,14 +12,6 @@ public class PlayerAnimator : MonoBehaviour
         PlayerItemPickUper.HandReleased += OpenHand;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            FUHand();
-        }
-    }
-
     void CloseHand()
     {
         handAnimator.SetTrigger("TriggerClose");
@@ -29,10 +21,4 @@ public class PlayerAnimator : MonoBehaviour
     {
         handAnimator.SetTrigger("TriggerOpen");
     }
-
-    void FUHand()
-    {
-        handAnimator.SetTrigger("TriggerFUClose");
-    }
-
 }
