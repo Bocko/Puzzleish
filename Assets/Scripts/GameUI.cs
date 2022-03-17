@@ -20,7 +20,7 @@ public class GameUI : MonoBehaviour
     [Header("Jetpack")]
     public RectTransform jetpackFuelBarRect;
     public Image jetpackFuelBarImage;
-    public GameObject jetpackDisabledIndicator;
+    public GameObject jetpackUIHolder;
     public Gradient fuelGradient;
     bool isOn;
 
@@ -35,10 +35,14 @@ public class GameUI : MonoBehaviour
         playerItemPickUper = FindObjectOfType<PlayerItemPickUper>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         playerJetpack = FindObjectOfType<PlayerJetpack>();
+
         itemName.text = "";
         defaultPointerColor = pointer.color;
+
         crouched = playerMovement.isCrouched;
+
         isOn = playerJetpack.isOn;
+        jetpackUIHolder.SetActive(isOn);
     }
 
     void Update()
@@ -82,7 +86,7 @@ public class GameUI : MonoBehaviour
         if(isOn != playerJetpack.isOn)
         {
             isOn = playerJetpack.isOn;
-            jetpackDisabledIndicator.SetActive(!isOn);
+            jetpackUIHolder.SetActive(isOn);
         }
         float fuelPercent = playerJetpack.fuel / playerJetpack.maxFuel;
         jetpackFuelBarRect.localScale = new Vector3(fuelPercent, 1, 1);

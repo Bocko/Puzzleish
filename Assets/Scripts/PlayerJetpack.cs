@@ -19,7 +19,6 @@ public class PlayerJetpack : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         fuel = maxFuel;
-        isOn = true;
     }
 
     // Update is called once per frame

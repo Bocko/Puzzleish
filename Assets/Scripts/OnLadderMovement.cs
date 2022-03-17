@@ -10,6 +10,7 @@ public class OnLadderMovement : MonoBehaviour
     public string ladderTag = "Ladder";
 
     bool onLadder = false;
+    bool savedJetPackSetting;
     PlayerMovement playerMovement;
     PlayerJetpack playerJetpack;
     CharacterController controller;
@@ -65,7 +66,15 @@ public class OnLadderMovement : MonoBehaviour
     void PlayerMovementEnabled(bool enabled)
     {
         playerMovement.enabled = enabled;
-        playerJetpack.isOn = enabled;
         onLadder = !enabled;
+        if (enabled)
+        {
+            playerJetpack.isOn = savedJetPackSetting;
+        }
+        else
+        {
+            savedJetPackSetting = playerJetpack.isOn;
+            playerJetpack.isOn = enabled;
+        }
     }
 }
