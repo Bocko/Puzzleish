@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform testSphere;
-
     [Header("Ground Check")]
     public Transform groundChecker;
     public float groundDistance = 0.4f;
@@ -137,7 +135,6 @@ public class PlayerMovement : MonoBehaviour
         //adding fake force downwards on obejct that is below the player
         if (Physics.Raycast(groundChecker.position, Vector3.down, out RaycastHit hitInfo, groundDistance, groundMask))
         {
-            testSphere.position = hitInfo.point;
             if (hitInfo.collider.attachedRigidbody != null)
             {
                 hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);

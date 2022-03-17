@@ -151,7 +151,7 @@ public class PlayerItemPickUper : MonoBehaviour
         return mouse * Time.deltaTime * playerLook.mouseSens;
     }
 
-    void EnablePickedupObject(bool enable)
+    void EnablePickedupObject(bool enable)//now objectives needs to have 2 colliders :)))) one for collision and it gets disabled when picked up the other is just a trigger to still get the event when the it enters the objective target trigger :)
     {
         if (enable)
         {

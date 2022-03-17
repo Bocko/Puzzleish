@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1206693857401143129}
   - component: {fileID: 1206693857401143131}
   - component: {fileID: 1206693857401143128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Viewmodel Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206693857493377085}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Holding Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206693858224310646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206693858402828723}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Checker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206693858656593296}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head Checker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1206693858786013973}
   - component: {fileID: 1206693858786013979}
   - component: {fileID: 1206693858786013975}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 1206693859040432568}
   - component: {fileID: 1206693859040432546}
   - component: {fileID: 1206693859040432575}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: First Person Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,9 +483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf52a434643f48b45b39ccf3550a9ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testSphere: {fileID: 0}
   groundChecker: {fileID: 1206693858402828723}
-  groundDistance: 0.4
+  groundDistance: 0.52
   groundMask:
     serializedVersion: 2
     m_Bits: 320
@@ -639,7 +638,7 @@ GameObject:
   - component: {fileID: 1206693859059586211}
   - component: {fileID: 1206693859059586237}
   - component: {fileID: 1206693859059586210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
