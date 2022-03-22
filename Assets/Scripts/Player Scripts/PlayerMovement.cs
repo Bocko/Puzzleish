@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isCrouched)
         {
             StopCoroutine(AnimateCrouch(1));
-            StartCoroutine(AnimateCrouch(-1));
+            StartCoroutine(AnimateCrouch(0));
             //controller.height = crouchedHeight;
             //transform.Translate(0, -verticalAdjusmentAmount, 0);
             //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer - verticalAdjusmentAmount);
@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (CheckAboveForUncrouch())
             {
-                StopCoroutine(AnimateCrouch(-1));
+                StopCoroutine(AnimateCrouch(0));
                 StartCoroutine(AnimateCrouch(1));
                 //controller.height = defaultHeight;
                 //transform.Translate(0, verticalAdjusmentAmount, 0);
@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         return !Physics.CheckSphere(headChecker.position + verticalAdjusmentAmount * Vector3.up, headCheckerDistance, headMask);
     }
 
-    IEnumerator AnimateCrouch(int dir)
+    IEnumerator AnimateCrouch(int dir)//0 down, 1 up
     {
         float percent = 0;
         float crouchSpeed = 1f / crouchTime;
@@ -188,18 +188,13 @@ public class PlayerMovement : MonoBehaviour
         {
             percent += Time.deltaTime * crouchSpeed;
 
-            if (dir == 1)
-            {
-                controller.height = Mathf.Lerp(crouchedHeight, defaultHeight, percent);
-                playerBody.localScale = new Vector3(1, Mathf.Lerp(crouchedHeight / defaultHeight, 1, percent), 1);
-                playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer - verticalAdjusmentAmount, playerLook.camHeightInPlayer, percent));
-            }
-            else
-            {
-                controller.height = Mathf.Lerp(defaultHeight, crouchedHeight, percent);
-                playerBody.localScale = new Vector3(1, Mathf.Lerp(1, crouchedHeight / defaultHeight, percent), 1);
-                playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer, playerLook.camHeightInPlayer - verticalAdjusmentAmount, percent));
-            }
+            //if dir is 1 the percent will go bakcwards so the animation will play is reverse
+            //if dir is 0 it will count like normal because it get its abs value so the anim will play like normal
+            float percent2 = Mathf.Abs(dir - percent);
+
+            controller.height = Mathf.Lerp(defaultHeight, crouchedHeight, percent2);
+            playerBody.localScale = new Vector3(1, Mathf.Lerp(1, crouchedHeight / defaultHeight, percent2), 1);
+            playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer, playerLook.camHeightInPlayer - verticalAdjusmentAmount, percent2));
 
             yield return null;
         }
