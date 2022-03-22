@@ -63,9 +63,6 @@ public class PlayerItemPickUper : MonoBehaviour
 
                     holdingPoint.SetPositionAndRotation(hitInfo.transform.position, hitInfo.transform.rotation);
 
-                    hitInfo.collider.attachedRigidbody.velocity = Vector3.zero;
-                    hitInfo.collider.attachedRigidbody.angularVelocity = Vector3.zero;
-
                     EnablePickedupObject(false);
                 }
             }
@@ -156,10 +153,12 @@ public class PlayerItemPickUper : MonoBehaviour
         if (enable)
         {
             hitInfo.collider.enabled = enable;
+            hitInfo.collider.attachedRigidbody.isKinematic = !enable;
             hitInfo.collider.attachedRigidbody.useGravity = enable;
         }
         else
         {
+            hitInfo.collider.attachedRigidbody.isKinematic = !enable;
             hitInfo.collider.attachedRigidbody.useGravity = enable;
             hitInfo.collider.enabled = enable;
         }
