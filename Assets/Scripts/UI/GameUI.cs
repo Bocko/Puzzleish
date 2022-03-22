@@ -41,7 +41,7 @@ public class GameUI : MonoBehaviour
 
         crouched = playerMovement.isCrouched;
 
-        isOn = playerJetpack.isOn;
+        isOn = playerJetpack.IsOn;
         jetpackUIHolder.SetActive(isOn);
     }
 
@@ -83,9 +83,9 @@ public class GameUI : MonoBehaviour
 
     void UpdateJetpackUI()
     {
-        if(isOn != playerJetpack.isOn)
+        if (isOn != playerJetpack.IsOn)
         {
-            isOn = playerJetpack.isOn;
+            isOn = playerJetpack.IsOn;
             jetpackUIHolder.SetActive(isOn);
         }
         float fuelPercent = playerJetpack.fuel / playerJetpack.maxFuel;

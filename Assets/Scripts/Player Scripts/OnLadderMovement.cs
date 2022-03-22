@@ -69,12 +69,12 @@ public class OnLadderMovement : MonoBehaviour
         onLadder = !enabled;
         if (enabled)
         {
-            playerJetpack.isOn = savedJetPackSetting;
+            playerJetpack.IsOn = savedJetPackSetting;
         }
         else
         {
-            savedJetPackSetting = playerJetpack.isOn;
-            playerJetpack.isOn = enabled;
+            savedJetPackSetting = playerJetpack.IsOn;
+            playerJetpack.IsOn = enabled;
         }
     }
 }

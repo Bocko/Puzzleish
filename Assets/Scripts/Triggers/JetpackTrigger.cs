@@ -13,7 +13,7 @@ public class JetpackTrigger : MonoBehaviour
         PlayerJetpack pjp = other.GetComponent<PlayerJetpack>();
         if (pjp != null)
         {
-            pjp.isOn = statusToSetJetpack == JetpackStatus.ON;
+            pjp.IsOn = statusToSetJetpack == JetpackStatus.ON;
         }
     }
 

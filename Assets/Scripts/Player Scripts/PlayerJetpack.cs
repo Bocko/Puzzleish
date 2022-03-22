@@ -12,7 +12,19 @@ public class PlayerJetpack : MonoBehaviour
     public float jetpackForce = 40;
     float timeWaited = 0;
 
-    public bool isOn;
+    bool isOn;
+    public bool IsOn
+    {
+        get { return isOn; }
+        set
+        {
+            isOn = value;
+            if (playerMovement != null)
+            {
+                playerMovement.SetJetpackVelocity(Vector3.zero);
+            }
+        }
+    }
 
     PlayerMovement playerMovement;
     void Start()
@@ -31,7 +43,7 @@ public class PlayerJetpack : MonoBehaviour
 
             if (playerMovement.onGround)
             {
-                if(fuel < maxFuel)
+                if (fuel < maxFuel)
                 {
                     timeWaited += Time.deltaTime;
                     if (timeWaited > refillDelay)
