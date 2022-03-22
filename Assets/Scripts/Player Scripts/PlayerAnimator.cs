@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    public Animator handAnimator;
+    Animator handAnimator;
+    PlayerItemPickUper pickuper;
 
-    private void Start()
+    void Start()
     {
-        PlayerItemPickUper.HandGrabbed += CloseHand;
-        PlayerItemPickUper.HandReleased += OpenHand;
+        handAnimator = GetComponentInChildren<Animator>();
+        pickuper = GetComponent<PlayerItemPickUper>();
+
+        pickuper.HandGrabbed += CloseHand;
+        pickuper.HandReleased += OpenHand;
     }
 
     void CloseHand()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerItemPickUper : MonoBehaviour
 {
-    public static event System.Action HandGrabbed;
-    public static event System.Action HandReleased;
+    public event System.Action HandGrabbed;
+    public event System.Action HandReleased;
 
     public Transform headPivotPoint;
     public Transform holdingPoint;

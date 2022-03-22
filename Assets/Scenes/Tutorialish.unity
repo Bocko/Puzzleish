@@ -9109,6 +9109,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1206693857755034719, guid: fc59dac483144444191655d728f8406f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1206693859040432544, guid: fc59dac483144444191655d728f8406f, type: 3}
       propertyPath: m_Name
       value: First Person Player
