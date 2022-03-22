@@ -39,25 +39,25 @@ public class DoorOpener : MonoBehaviour
         switch (direction)
         {
             case openingDirection.UP:
-                StopCoroutine(Vertical(stateToMove, 1));
-                StartCoroutine(Vertical(stateToMove, 1));
+                StopCoroutine(Vertical(1));
+                StartCoroutine(Vertical(1));
                 break;
             case openingDirection.DOWN:
-                StopCoroutine(Vertical(stateToMove, -1));
-                StartCoroutine(Vertical(stateToMove, -1));
+                StopCoroutine(Vertical(-1));
+                StartCoroutine(Vertical(-1));
                 break;
             case openingDirection.LEFT:
-                StopCoroutine(Horizontal(stateToMove, -1));
-                StartCoroutine(Horizontal(stateToMove, -1));
+                StopCoroutine(Horizontal(-1));
+                StartCoroutine(Horizontal(-1));
                 break;
             case openingDirection.RIGHT:
-                StopCoroutine(Horizontal(stateToMove, 1));
-                StartCoroutine(Horizontal(stateToMove, 1));
+                StopCoroutine(Horizontal(1));
+                StartCoroutine(Horizontal(1));
                 break;
         }
     }
 
-    IEnumerator Vertical(state stateToMove, int openingDir)//1 UP, -1 DOWN
+    IEnumerator Vertical(int openingDir)//1 UP, -1 DOWN
     {
         float percent = 0;
         float openingSpeed = 1 / openingTime;
@@ -65,7 +65,7 @@ public class DoorOpener : MonoBehaviour
         while (percent < 1)
         {
             percent += Time.deltaTime * openingSpeed;
-            float percent2 = Mathf.Abs((int)stateToMove - percent);
+            float percent2 = Mathf.Abs((int)currentState - percent);
 
             transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(dirScale, 0, percent2), transform.localScale.z);
             transform.position = new Vector3(transform.position.x, Mathf.Lerp(originalPos.y, originalPos.y + dirSide * openingDir, percent2), transform.position.z);
@@ -73,7 +73,7 @@ public class DoorOpener : MonoBehaviour
         }
     }
 
-    IEnumerator Horizontal(state stateToMove, int openingDir)//1 RIGHT, -1 LEFT 
+    IEnumerator Horizontal(int openingDir)//1 RIGHT, -1 LEFT
     {
         float percent = 0;
         float openingSpeed = 1 / openingTime;
