@@ -150,19 +150,12 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void EnablePickedupObject(bool enable)//now objectives needs to have 2 colliders :)))) one for collision and it gets disabled when picked up the other is just a trigger to still get the event when the it enters the objective target trigger :)
     {
-        if (enable)
-        {
-            hitInfo.collider.enabled = enable;
-            hitInfo.collider.attachedRigidbody.isKinematic = !enable;
-            hitInfo.collider.attachedRigidbody.useGravity = enable;
-        }
-        else
-        {
-            hitInfo.collider.attachedRigidbody.isKinematic = !enable;
-            hitInfo.collider.attachedRigidbody.useGravity = enable;
-            hitInfo.collider.enabled = enable;
-        }
+        hitInfo.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        hitInfo.transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        hitInfo.transform.GetComponent<Rigidbody>().useGravity = enable;
+        hitInfo.collider.enabled = enable;
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
