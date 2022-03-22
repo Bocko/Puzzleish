@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravityMultiplier = 1f;
     public float jumpHeight = 3f;
     public float maxOppositeAngleCutOff = 130;
+    public float sqrWallBlockingVelocityLimit = 5;
 
     [Header("Crouch Settings")]
     public Transform headChecker;
@@ -105,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
             //saving the horizontal velocity so the jump keeps the players "momentum"(?)
-            savedVelocity = moveVelocity;
+            savedVelocity = controller.velocity;
         }
     }
 
@@ -126,6 +127,17 @@ public class PlayerMovement : MonoBehaviour
 
         finalVelocity += verticalVelocity;
         finalVelocity += moveVelocity;
+
+        //setting player speed to actual speed by the character controller when the inputs magnitude is bigger than 0 and when the actual speed is lower then the set limit
+        if (moveVelocity.sqrMagnitude > 0 && new Vector3(controller.velocity.x, 0, controller.velocity.z).sqrMagnitude < sqrWallBlockingVelocityLimit)
+        {
+            savedVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
+        }
+        //setting vertical speed to 0 when the players vertical velocity is higher than 0 and when the the actual velocity is 0 and when the jetpack velocity is 0 and when the players not on the ground
+        if (verticalVelocity.y > 0 && controller.velocity.y == 0 && jetpackVelocity.y == 0 && !onGround)
+        {
+            verticalVelocity = Vector3.zero;
+        }
 
         controller.Move(finalVelocity * Time.deltaTime);
     }
