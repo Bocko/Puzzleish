@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerJetpack : MonoBehaviour
 {
+    public bool isOnAtStart = false;
     public float maxFuel = 100;
     public float fuel;
     public float fuelBurnRate = 20;
@@ -31,6 +32,7 @@ public class PlayerJetpack : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         fuel = maxFuel;
+        isOn = isOnAtStart;
     }
 
     // Update is called once per frame
