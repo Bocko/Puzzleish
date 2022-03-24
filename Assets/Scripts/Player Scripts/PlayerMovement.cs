@@ -128,16 +128,7 @@ public class PlayerMovement : MonoBehaviour
         finalVelocity += verticalVelocity;
         finalVelocity += moveVelocity;
 
-        //setting player speed to actual speed by the character controller when the inputs magnitude is bigger than 0 and when the actual speed is lower then the set limit
-        if (moveVelocity.sqrMagnitude > 0 && new Vector3(controller.velocity.x, 0, controller.velocity.z).sqrMagnitude < sqrWallBlockingVelocityLimit)
-        {
-            savedVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
-        }
-        //setting vertical speed to 0 when the players vertical velocity is higher than 0 and when the the actual velocity is 0 and when the jetpack velocity is 0 and when the players not on the ground
-        if (verticalVelocity.y > 0 && controller.velocity.y == 0 && jetpackVelocity.y == 0 && !onGround)
-        {
-            verticalVelocity = Vector3.zero;
-        }
+        VelocityLimitForStuckage();
 
         controller.Move(finalVelocity * Time.deltaTime);
     }
@@ -151,6 +142,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);
             }
+        }
+    }
+
+    void VelocityLimitForStuckage()
+    {
+        //setting player speed to actual speed by the character controller when the inputs magnitude is bigger than 0 and when the actual speed is lower then the set limit
+        if (moveVelocity.sqrMagnitude > 0 && new Vector3(controller.velocity.x, 0, controller.velocity.z).sqrMagnitude < sqrWallBlockingVelocityLimit)
+        {
+            savedVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
+        }
+        //setting vertical speed to 0 when the players vertical velocity is higher than 0 and when the the actual velocity is 0 and when the jetpack velocity is 0 and when the players not on the ground
+        if (verticalVelocity.y > 0 && controller.velocity.y == 0 && jetpackVelocity.y == 0 && !onGround)
+        {
+            verticalVelocity = Vector3.zero;
         }
     }
 
