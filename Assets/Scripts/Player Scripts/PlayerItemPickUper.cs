@@ -109,9 +109,14 @@ public class PlayerItemPickUper : MonoBehaviour
             if (fire2Down)
             {
                 playerLook.lockMouseMovement = true;
-                //add to the rotation
-                holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseX * rotateSens * Time.deltaTime * Vector3.up);
-                holdingPoint.rotation = Quaternion.Euler(holdingPoint.rotation.eulerAngles + mouseY * rotateSens * Time.deltaTime * Vector3.right);
+                //rotating holding point around it self on the Y axis and on a body rotation corrected X axis so the object always rotates the same way and the body's rotation does not matter
+                //or rotates around a point infront of the player at the same distance as the objects center from the players head
+                //its not yet decided to which one to use
+
+                holdingPoint.RotateAround(holdingPoint.position, Vector3.up, mouseX * rotateSens * Time.deltaTime);
+                holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);/*
+                holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Vector3.up, mouseX * rotateSens * Time.deltaTime);
+                holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);*/
             }
 
 
