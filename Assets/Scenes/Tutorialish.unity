@@ -9161,6 +9161,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1206693859040432569, guid: fc59dac483144444191655d728f8406f, type: 3}
+      propertyPath: isOnAtStart
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc59dac483144444191655d728f8406f, type: 3}
 --- !u!1 &2027624373
@@ -9679,7 +9683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e624a97110fed624eaa1a9f15e399c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: SampleScene
+  nextLevelName: Vertigoish
 --- !u!65 &2074968949
 BoxCollider:
   m_ObjectHideFlags: 0
