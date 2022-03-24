@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorOpener : MonoBehaviour
+public class DoorHandler : MonoBehaviour
 {
     public enum state { OPEN, CLOSED }
     public enum openingDirection { UP, DOWN, LEFT, RIGHT }
@@ -35,25 +35,28 @@ public class DoorOpener : MonoBehaviour
 
     public void SetState(state stateToMove)
     {
-        currentState = stateToMove;
-        switch (direction)
+        if(stateToMove != currentState)
         {
-            case openingDirection.UP:
-                StopCoroutine(Vertical(1));
-                StartCoroutine(Vertical(1));
-                break;
-            case openingDirection.DOWN:
-                StopCoroutine(Vertical(-1));
-                StartCoroutine(Vertical(-1));
-                break;
-            case openingDirection.LEFT:
-                StopCoroutine(Horizontal(-1));
-                StartCoroutine(Horizontal(-1));
-                break;
-            case openingDirection.RIGHT:
-                StopCoroutine(Horizontal(1));
-                StartCoroutine(Horizontal(1));
-                break;
+            currentState = stateToMove;
+            switch (direction)
+            {
+                case openingDirection.UP:
+                    StopCoroutine(Vertical(1));
+                    StartCoroutine(Vertical(1));
+                    break;
+                case openingDirection.DOWN:
+                    StopCoroutine(Vertical(-1));
+                    StartCoroutine(Vertical(-1));
+                    break;
+                case openingDirection.LEFT:
+                    StopCoroutine(Horizontal(-1));
+                    StartCoroutine(Horizontal(-1));
+                    break;
+                case openingDirection.RIGHT:
+                    StopCoroutine(Horizontal(1));
+                    StartCoroutine(Horizontal(1));
+                    break;
+            }
         }
     }
 

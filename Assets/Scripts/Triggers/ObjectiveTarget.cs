@@ -6,7 +6,7 @@ public class ObjectiveTarget : MonoBehaviour
 {
     public bool objectiveCompleted;
     public GameObject objectiveItem;
-    public DoorOpener doorOpener;
+    public DoorHandler doorHandler;
 
     void OnTriggerEnter(Collider other)
     {
@@ -14,7 +14,7 @@ public class ObjectiveTarget : MonoBehaviour
         {
             print("objetive complete");
             objectiveCompleted = true;
-            doorOpener.SetState(DoorOpener.state.OPEN);
+            doorHandler.SetState(DoorHandler.state.OPEN);
         }
     }
 
@@ -24,7 +24,7 @@ public class ObjectiveTarget : MonoBehaviour
         {
             print("objetive incomplete");
             objectiveCompleted = false;
-            doorOpener.SetState(DoorOpener.state.CLOSED);
+            doorHandler.SetState(DoorHandler.state.CLOSED);
         }
     }
 
