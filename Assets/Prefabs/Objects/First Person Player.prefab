@@ -582,6 +582,9 @@ MonoBehaviour:
   fuelRefillRate: 50
   refillDelay: 1
   jetpackForce: 40
+  leftExhaustPos: {fileID: 3221134863188458477}
+  rightExhaustPos: {fileID: 8817028358932632807}
+  ExhasutParticle: {fileID: 1727850354750416741, guid: 2e33018a924f19443894b81e2554971a, type: 3}
 --- !u!114 &1206693859040432568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,7 +722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8817028358932632807}
   m_Layer: 0
-  m_Name: Right engine exhause
+  m_Name: Right engine exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -801,7 +804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3221134863188458477}
   m_Layer: 0
-  m_Name: Left engine exhause
+  m_Name: Left engine exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

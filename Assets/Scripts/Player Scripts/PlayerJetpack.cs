@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerJetpack : MonoBehaviour
 {
+    [Header("Jetpacky Stuff")]
     public bool isOnAtStart = false;
     public float maxFuel = 100;
     public float fuel;
@@ -12,6 +13,18 @@ public class PlayerJetpack : MonoBehaviour
     public float refillDelay = 1;
     public float jetpackForce = 40;
     float timeWaited = 0;
+
+    [Header("Exhaust")]
+    public Transform leftExhaustPos;
+    public Transform rightExhaustPos;
+    public ParticleSystem ExhasutParticle;
+
+    ParticleSystem leftParticleSpawned;
+    ParticleSystem rightParticleSpawned;
+    //this is a shit workaround of getting the particle system to play before the previously emmited particles disapear
+    //basically the particle system plays non stop but theres no emmision because the module of it is disabled...
+    ParticleSystem.EmissionModule leftEM;
+    ParticleSystem.EmissionModule rightEM;
 
     bool isOn;
     public bool IsOn
@@ -33,6 +46,12 @@ public class PlayerJetpack : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         fuel = maxFuel;
         isOn = isOnAtStart;
+        leftParticleSpawned = Instantiate(ExhasutParticle, leftExhaustPos);
+        rightParticleSpawned = Instantiate(ExhasutParticle, rightExhaustPos);
+        leftEM = leftParticleSpawned.emission;
+        rightEM = rightParticleSpawned.emission;
+        leftEM.enabled = false;
+        rightEM.enabled = false;
     }
 
     // Update is called once per frame
@@ -59,8 +78,27 @@ public class PlayerJetpack : MonoBehaviour
                 timeWaited = 0;
                 if (jetpackDown && fuel > 0)
                 {
+                    /*
+                    if(!leftParticleSpawned.isPlaying && !rightParticleSpawned.isPlaying)
+                    {
+                        leftParticleSpawned.Play();
+                        rightParticleSpawned.Play();
+                    }*/
+                    leftEM.enabled = true;
+                    rightEM.enabled = true;
                     playerMovement.SetJetpackVelocity(jetpackForce * Time.deltaTime * Vector3.up);
                     fuel -= fuelBurnRate * Time.deltaTime;
+                }
+                else
+                {
+                    /*
+                    if (leftParticleSpawned.isPlaying && rightParticleSpawned.isPlaying)
+                    {
+                        leftParticleSpawned.Stop();
+                        rightParticleSpawned.Stop();
+                    }*/
+                    leftEM.enabled = false;
+                    rightEM.enabled = false;
                 }
             }
         }
