@@ -64,6 +64,11 @@ public class PlayerJetpack : MonoBehaviour
 
             if (playerMovement.onGround)
             {
+                if(leftEM.enabled && rightEM.enabled)
+                {
+                    leftEM.enabled = false;
+                    rightEM.enabled = false;
+                }
                 if (fuel < maxFuel)
                 {
                     timeWaited += Time.deltaTime;
