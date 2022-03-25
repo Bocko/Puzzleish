@@ -12,6 +12,9 @@ public class ScaleManager : MonoBehaviour
     public float weightLimitPerPlate = 20;
     public ScalePlateHandler leftPlateHandler;
     public ScalePlateHandler rightPlateHandler;
+    public Transform leftPlateHolder;
+    public Transform rightPlateHolder;
+    public Transform middleHandle;
 
     float leftPlateSum = 0;
     float rightPlateSum = 0;
