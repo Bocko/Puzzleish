@@ -37,11 +37,6 @@ public class WeightChecker : MonoBehaviour
         {
             weightReadout.text = "TOO MANY OBJECTS";
         }
-
-        foreach (var item in collidersInChecker)
-        {
-            print(item.name);
-        }
     }
 
     void OnTriggerExit(Collider other)
