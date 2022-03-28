@@ -46,6 +46,13 @@ public class PlayerItemPickUper : MonoBehaviour
             //print("hand empty");
             if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
+                if (!hitInfo.collider.CompareTag("Moveable")) 
+                {
+                    currentItemName = "";
+                    moveable = false;
+                    return;
+                }
+
                 print("hit something");
                 currentItemName = hitInfo.collider.name;
                 moveable = true;

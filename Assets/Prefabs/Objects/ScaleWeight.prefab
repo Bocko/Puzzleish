@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 3347495637785161030}
   m_Layer: 8
   m_Name: ScaleWeight
-  m_TagString: Ignore
+  m_TagString: Moveable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

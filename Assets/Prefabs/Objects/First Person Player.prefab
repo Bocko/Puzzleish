@@ -557,7 +557,7 @@ MonoBehaviour:
   maxPickupDistance: 3
   pickupMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 321
   rotateSens: 75
   throwForce: 2.5
   minHoldingDistance: 1

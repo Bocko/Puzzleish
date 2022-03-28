@@ -7,7 +7,6 @@ TagManager:
   - Ladder
   - Moveable
   - ScaleWeight
-  - Ignore
   layers:
   - Default
   - TransparentFX

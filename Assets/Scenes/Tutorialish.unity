@@ -9473,6 +9473,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 387761088}
     - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
+      propertyPath: doorHandler
+      value: 
+      objectReference: {fileID: 387761088}
+    - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
       propertyPath: objectiveItem
       value: 
       objectReference: {fileID: 745530011}
@@ -9549,6 +9553,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e6a8a966ccc66bb46b87ccdfde79c25d, type: 2}
     - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
       propertyPath: doorOpener
+      value: 
+      objectReference: {fileID: 641354450}
+    - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
+      propertyPath: doorHandler
       value: 
       objectReference: {fileID: 641354450}
     - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}

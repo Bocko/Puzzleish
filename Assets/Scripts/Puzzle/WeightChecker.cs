@@ -12,11 +12,12 @@ public class WeightChecker : MonoBehaviour
     void Start()
     {
         collidersInChecker = new List<Collider>();
+        weightReadout.text = "READY";
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ignore"))
+        if (!other.CompareTag("ScaleWeight"))
         {
             return;
         }
@@ -24,14 +25,7 @@ public class WeightChecker : MonoBehaviour
         collidersInChecker.Add(other);
         if (collidersInChecker.Count < 2)
         {
-            if (other.CompareTag("ScaleWeight"))
-            {
-                weightReadout.text = other.GetComponent<ScaleWeight>().weight.ToString();
-            }
-            else
-            {
-                weightReadout.text = "INVALID OBJECT";
-            }
+            weightReadout.text = other.GetComponent<ScaleWeight>().weight.ToString();
         }
         else
         {
@@ -41,27 +35,20 @@ public class WeightChecker : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ignore"))
+        if (!other.CompareTag("ScaleWeight"))
         {
             return;
         }
 
-        collidersInChecker.Remove(other); 
+        collidersInChecker.Remove(other);
         if (collidersInChecker.Count == 0)
         {
             weightReadout.text = "READY";
         }
         else if (collidersInChecker.Count < 2)
         {
-            if (collidersInChecker[0].CompareTag("ScaleWeight"))
-            {
-                weightReadout.text = collidersInChecker[0].GetComponent<ScaleWeight>().weight.ToString();
-            }
-            else
-            {
-                weightReadout.text = "INVALID OBJECT";
-            }
-        } 
+            weightReadout.text = collidersInChecker[0].GetComponent<ScaleWeight>().weight.ToString();
+        }
         else
         {
             weightReadout.text = "TOO MANY OBJECTS";
