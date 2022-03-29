@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class NextLevelLoader : MonoBehaviour
 {
-    public string nextLevelName;
+    public SceneIndexes nextLevel;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(nextLevelName);
+            GameManager.instance.LoadScene(nextLevel);
         }
     }
 
