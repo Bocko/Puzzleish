@@ -36,6 +36,8 @@ public class PlayerJetpack : MonoBehaviour
             if (playerMovement != null)
             {
                 playerMovement.SetJetpackVelocity(Vector3.zero);
+                leftEM.enabled = false;
+                rightEM.enabled = false;
             }
         }
     }
