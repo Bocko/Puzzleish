@@ -2456,6 +2456,10 @@ PrefabInstance:
       propertyPath: objectiveItem
       value: 
       objectReference: {fileID: 1829645364}
+    - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
+      propertyPath: objectiveName
+      value: SECOND OBJECTIVE
+      objectReference: {fileID: 0}
     - target: {fileID: 645450358695040588, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -11849,6 +11853,10 @@ PrefabInstance:
       propertyPath: objectiveItem
       value: 
       objectReference: {fileID: 213671135}
+    - target: {fileID: 645450358084609086, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
+      propertyPath: objectiveName
+      value: FIRST OBJECTIVE
+      objectReference: {fileID: 0}
     - target: {fileID: 645450358695040588, guid: 7ba6a0fac3861ee45979ff4d39d6bd8e, type: 3}
       propertyPath: m_RootOrder
       value: 3

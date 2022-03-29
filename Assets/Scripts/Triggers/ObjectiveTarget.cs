@@ -7,6 +7,7 @@ public class ObjectiveTarget : MonoBehaviour
     public bool objectiveCompleted;
     public GameObject objectiveItem;
     public DoorHandler doorHandler;
+    public string objectiveName;
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +16,7 @@ public class ObjectiveTarget : MonoBehaviour
             print("objetive complete");
             objectiveCompleted = true;
             doorHandler.SetState(DoorHandler.state.OPEN);
+            NotificationManager.instance.ShowNotification($"{objectiveName} COMPLETED!", 1);
         }
     }
 
@@ -25,6 +27,7 @@ public class ObjectiveTarget : MonoBehaviour
             print("objetive incomplete");
             objectiveCompleted = false;
             doorHandler.SetState(DoorHandler.state.CLOSED);
+            NotificationManager.instance.ShowNotification($"{objectiveName} UNCOMPLETED!", 1);
         }
     }
 
