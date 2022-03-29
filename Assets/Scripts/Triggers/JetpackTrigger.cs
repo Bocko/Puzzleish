@@ -13,7 +13,10 @@ public class JetpackTrigger : MonoBehaviour
         PlayerJetpack pjp = other.GetComponent<PlayerJetpack>();
         if (pjp != null)
         {
+            if (pjp.IsOn == (statusToSetJetpack == JetpackStatus.ON)) return;
+
             pjp.IsOn = statusToSetJetpack == JetpackStatus.ON;
+            NotificationManager.instance.ShowNotification(pjp.IsOn ? "JETPACK ENABLED!" : "JETPACK DISABLED!", 1);
         }
     }
 

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public ProgressBar progressBar;
 
     SceneIndexes currentScene;
-    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+    readonly List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
     float totalSceneProgress;
 
     void Awake()
