@@ -8,5 +8,6 @@ public enum SceneIndexes
     MENU_SCREEN,
     TUTORIALISH,
     VERTIGOISH,
+    CAUSEANDEFFECTISH,
     SAMPLESCENE
 }
