@@ -11,7 +11,7 @@ public class PlayerItemPickUper : MonoBehaviour
     public Transform holdingPoint;
     public float maxPickupDistance = 3;
     public LayerMask pickupMask;
-    public float rotateSens = 75;
+    public float rotateSens = 1;
     public float throwForce = 10;
     public float minHoldingDistance = 1;
     public float maxHoldingDistance = 3;
@@ -120,8 +120,8 @@ public class PlayerItemPickUper : MonoBehaviour
                 //or rotates around a point infront of the player at the same distance as the objects center from the players head
                 //its not yet decided to which one to use
 
-                holdingPoint.RotateAround(holdingPoint.position, Vector3.up, mouseX * rotateSens * Time.deltaTime);
-                holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);/*
+                holdingPoint.RotateAround(holdingPoint.position, Vector3.up, mouseX * rotateSens);
+                holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens);/*
                 holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Vector3.up, mouseX * rotateSens * Time.deltaTime);
                 holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);*/
             }
@@ -157,7 +157,7 @@ public class PlayerItemPickUper : MonoBehaviour
 
     float GetPlayerSensMouse(float mouse)
     {
-        return mouse * Time.deltaTime * playerLook.mouseSens;
+        return mouse * playerLook.mouseSens;
     }
 
     void EnablePickedupObject(bool enable)//now objectives needs to have 2 colliders :)))) one for collision and it gets disabled when picked up the other is just a trigger to still get the event when the it enters the objective target trigger :)

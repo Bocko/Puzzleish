@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    public float mouseSens = 100;
+    public float mouseSens = 1;
     public bool mouseInverted = false;
     public float upperLookAngleLimit = -90;
     public float lowerLookAngleLimit = 90;
@@ -25,8 +25,9 @@ public class PlayerLook : MonoBehaviour
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
+        //removed Time.deltaTime because the input is already fps independent(or atleast i hope so)
+        float mouseX = Input.GetAxis("Mouse X") * mouseSens;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSens;
 
         if (!lockMouseMovement)
         {

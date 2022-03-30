@@ -59,54 +59,54 @@ public class PlayerJetpack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOn)
-        {
-            bool jetpackDown = Input.GetAxis("Jetpack") == 1;
-            playerMovement.SetJetpackVelocity(Vector3.zero);
+        if (!isOn) return;
 
-            if (playerMovement.onGround)
+        bool jetpackDown = Input.GetAxis("Jetpack") == 1;
+        playerMovement.SetJetpackVelocity(Vector3.zero);
+
+        if (playerMovement.onGround)
+        {
+            //if the player is on the ground and the particles are playing stop them
+            if (leftEM.enabled && rightEM.enabled)
             {
-                if(leftEM.enabled && rightEM.enabled)
+                leftEM.enabled = false;
+                rightEM.enabled = false;
+            }
+            if (fuel < maxFuel) //if the player is on the ground and current fuel is less than the max wait until the refilldelay is up and than start refilling
+            {
+                timeWaited += Time.deltaTime;
+                if (timeWaited > refillDelay)
                 {
-                    leftEM.enabled = false;
-                    rightEM.enabled = false;
+                    fuel += fuelRefillRate * Time.deltaTime;
                 }
-                if (fuel < maxFuel)
+            }
+        }
+        else //if the player is NOT on the ground and the button for the jetpack is pressed and theres fuel start adding upwards force and start reducing the fuel
+        {
+            timeWaited = 0;
+            if (jetpackDown && fuel > 0)
+            {
+                /*
+                if(!leftParticleSpawned.isPlaying && !rightParticleSpawned.isPlaying)
                 {
-                    timeWaited += Time.deltaTime;
-                    if (timeWaited > refillDelay)
-                    {
-                        fuel += fuelRefillRate * Time.deltaTime;
-                    }
-                }
+                    leftParticleSpawned.Play();
+                    rightParticleSpawned.Play();
+                }*/
+                leftEM.enabled = true;
+                rightEM.enabled = true;
+                playerMovement.SetJetpackVelocity(jetpackForce * Vector3.up);
+                fuel -= fuelBurnRate * Time.deltaTime;
             }
             else
             {
-                timeWaited = 0;
-                if (jetpackDown && fuel > 0)
+                /*
+                if (leftParticleSpawned.isPlaying && rightParticleSpawned.isPlaying)
                 {
-                    /*
-                    if(!leftParticleSpawned.isPlaying && !rightParticleSpawned.isPlaying)
-                    {
-                        leftParticleSpawned.Play();
-                        rightParticleSpawned.Play();
-                    }*/
-                    leftEM.enabled = true;
-                    rightEM.enabled = true;
-                    playerMovement.SetJetpackVelocity(jetpackForce * Time.deltaTime * Vector3.up);
-                    fuel -= fuelBurnRate * Time.deltaTime;
-                }
-                else
-                {
-                    /*
-                    if (leftParticleSpawned.isPlaying && rightParticleSpawned.isPlaying)
-                    {
-                        leftParticleSpawned.Stop();
-                        rightParticleSpawned.Stop();
-                    }*/
-                    leftEM.enabled = false;
-                    rightEM.enabled = false;
-                }
+                    leftParticleSpawned.Stop();
+                    rightParticleSpawned.Stop();
+                }*/
+                leftEM.enabled = false;
+                rightEM.enabled = false;
             }
         }
     }
