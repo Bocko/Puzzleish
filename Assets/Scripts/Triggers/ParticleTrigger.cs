@@ -17,7 +17,7 @@ public class ParticleTrigger : MonoBehaviour
             {
                 spawnedParticle = Instantiate(particle, particlePos);
             }
-            if (!particle.isEmitting)
+            if (!particle.isPlaying)
             {
                 spawnedParticle.Play();
             }

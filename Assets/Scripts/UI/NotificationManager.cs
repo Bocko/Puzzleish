@@ -24,6 +24,7 @@ public class NotificationManager : MonoBehaviour
         StartCoroutine(AnimateNotification(textToShow, delayTime));
     }
 
+    //spawning a new noti every time its called
     IEnumerator AnimateNotification(string textToShow, float delayTime)
     {
         RectTransform noti = Instantiate(notification, notificationCanvas);
@@ -40,7 +41,7 @@ public class NotificationManager : MonoBehaviour
         {
             percent += Time.deltaTime * moveSpeed * dir;
 
-            if (percent >= 1)
+            if (percent >= 1)//moves downwards till it reaches the its final spot where it waits the delaytime and than the dir changes to -1 and it goes back up
             {
                 percent = 1;
                 if (Time.time > endDelayTime)
@@ -53,6 +54,6 @@ public class NotificationManager : MonoBehaviour
             yield return null;
         }
 
-        Destroy(noti.gameObject);
+        Destroy(noti.gameObject);//when its done destory
     }
 }

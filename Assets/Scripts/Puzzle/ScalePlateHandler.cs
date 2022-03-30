@@ -7,7 +7,7 @@ public class ScalePlateHandler : MonoBehaviour
     public event System.Action<float> WeightChange;
     List<Collider> weights = new List<Collider>();
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)//sending event when a new cube is inside the plate trigger and adding it to a list
     {
         if (other.CompareTag("ScaleWeight"))
         {
@@ -16,7 +16,7 @@ public class ScalePlateHandler : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)//sending event when a new cube is inside the plate trigger and removing it form the list
     {
         if (other.CompareTag("ScaleWeight"))
         {

@@ -11,7 +11,7 @@ public class PlayerJetpack : MonoBehaviour
     public float fuelBurnRate = 20;
     public float fuelRefillRate = 10;
     public float refillDelay = 1;
-    public float jetpackForce = 40;
+    public float jetpackForce = .65f;
     float timeWaited = 0;
 
     [Header("Exhaust")]
@@ -33,7 +33,7 @@ public class PlayerJetpack : MonoBehaviour
         set
         {
             isOn = value;
-            if (playerMovement != null)
+            if (playerMovement != null)// when the state changes set the jetpack velocity to 0 and disables the particles
             {
                 playerMovement.SetJetpackVelocity(Vector3.zero);
                 leftEM.enabled = false;

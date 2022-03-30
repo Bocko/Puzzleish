@@ -90,7 +90,7 @@ public class ScaleManager : MonoBehaviour
 
         float percent = 0;
         float moveSpeed = 1 / moveTime;
-
+        //moving all the cubes the same amount as the plates
         if (dif == 0)// move the scales hands to the middle
         {
             while (percent < 1)

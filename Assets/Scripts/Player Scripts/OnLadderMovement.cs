@@ -74,7 +74,7 @@ public class OnLadderMovement : MonoBehaviour
         else
         {
             savedJetPackSetting = playerJetpack.IsOn;
-            playerJetpack.IsOn = enabled;
+            playerJetpack.IsOn = enabled;//it looks like it enables it but no it isnt
         }
     }
 }

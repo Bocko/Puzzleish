@@ -11,7 +11,7 @@ public class PlayerItemPickUper : MonoBehaviour
     public Transform holdingPoint;
     public float maxPickupDistance = 3;
     public LayerMask pickupMask;
-    public float rotateSens = 1;
+    public float rotateSens = .75f;
     public float throwForce = 10;
     public float minHoldingDistance = 1;
     public float maxHoldingDistance = 3;

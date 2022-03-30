@@ -17,12 +17,11 @@ public class DoorHandler : MonoBehaviour
     float dirScale;
     Vector3 originalPos;
 
-    // Start is called before the first frame update
     void Start()
     {
         currentState = state.CLOSED;
         originalPos = transform.position;
-        if (direction == openingDirection.UP || direction == openingDirection.DOWN)
+        if (direction == openingDirection.UP || direction == openingDirection.DOWN)//getting the scale of which will be used to open and close the door
         {
             dirScale = transform.localScale.y;
         }
@@ -33,12 +32,12 @@ public class DoorHandler : MonoBehaviour
         dirSide = dirScale / 2;
     }
 
-    public void SetState(state stateToMove)
+    public void SetState(state stateToMove)//public method to open and close the door
     {
         if (stateToMove != currentState)
         {
             currentState = stateToMove;
-            switch (direction)
+            switch (direction)//calling the correct method to get the proper opening direction
             {
                 case openingDirection.UP:
                     StopCoroutine(Vertical(-1));
@@ -68,10 +67,10 @@ public class DoorHandler : MonoBehaviour
         while (percent < 1)
         {
             percent += Time.deltaTime * openingSpeed;
-            float percent2 = Mathf.Abs((int)currentState - percent);
+            float dirCorrectedPercent = Mathf.Abs((int)currentState - percent);
 
-            transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(dirScale, 0, percent2), transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(originalPos.y, originalPos.y + dirSide * openingDir, percent2), transform.position.z);
+            transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(dirScale, 0, dirCorrectedPercent), transform.localScale.z);
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(originalPos.y, originalPos.y + dirSide * openingDir, dirCorrectedPercent), transform.position.z);
             yield return null;
         }
     }
@@ -84,17 +83,17 @@ public class DoorHandler : MonoBehaviour
         while (percent < 1)
         {
             percent += Time.deltaTime * openingSpeed;
-            float percent2 = Mathf.Abs((int)currentState - percent);
+            float dirCorrectedPercent = Mathf.Abs((int)currentState - percent);
 
             if (facing == facingDirection.X)
             {
-                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, Mathf.Lerp(dirScale, 0, percent2));
-                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(originalPos.z, originalPos.z + dirSide * openingDir * -1, percent2));
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, Mathf.Lerp(dirScale, 0, dirCorrectedPercent));
+                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(originalPos.z, originalPos.z + dirSide * openingDir * -1, dirCorrectedPercent));
             }
             else
             {
-                transform.localScale = new Vector3(Mathf.Lerp(dirScale, 0, percent2), transform.localScale.y, transform.localScale.z);
-                transform.position = new Vector3(Mathf.Lerp(originalPos.x, originalPos.x + dirSide * openingDir, percent2), transform.position.y, transform.position.z);
+                transform.localScale = new Vector3(Mathf.Lerp(dirScale, 0, dirCorrectedPercent), transform.localScale.y, transform.localScale.z);
+                transform.position = new Vector3(Mathf.Lerp(originalPos.x, originalPos.x + dirSide * openingDir, dirCorrectedPercent), transform.position.y, transform.position.z);
             }
             yield return null;
         }

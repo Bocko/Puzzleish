@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 jetpackVelocity; // velocity for the jetpack
     Vector3 verticalVelocity; // vertical velocity for appling gravity and to add force for jump
-    Vector3 savedVelocity; // saved velocity to saved the horizontal velocity before jump to the "momentum" in the air
+    Vector3 savedVelocity; // saved velocity to saved the horizontal velocity before jump to keep the "momentum" in the air
     Vector3 moveVelocity; // move velocity is to move around with the controls
     Vector3 finalVelocity; // final velocity is to add all the above velocities together
 
@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         private set { }
     }
     public bool isCrouched { get; private set; }
-    bool walking = false;
 
     void Start()
     {
@@ -87,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         if (onGround)
         {
             //if on the ground and the walk key is held down or the player is crouched reduce movement speed
-            moveVelocity = inputDir * ((walking || walkDown) ? walkSpeed : speed);
+            moveVelocity = inputDir * ((isCrouched || walkDown) ? walkSpeed : speed);
         }
         else
         {
@@ -174,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
             //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer - verticalAdjusmentAmount);
             //playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
             isCrouched = true;
-            walking = true;
         }
         else
         {
@@ -187,12 +185,11 @@ public class PlayerMovement : MonoBehaviour
                 //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer);
                 //playerBody.localScale = Vector3.one;
                 isCrouched = false;
-                walking = false;
             }
         }
     }
 
-    bool CheckAboveForUncrouch()
+    bool CheckAboveForUncrouch()// check if theres something above the palyers head when crouched
     {
         return !Physics.CheckSphere(headChecker.position + verticalAdjusmentAmount * Vector3.up, headCheckerDistance, headMask);
     }
@@ -207,11 +204,11 @@ public class PlayerMovement : MonoBehaviour
 
             //if dir is 1 the percent will go bakcwards so the animation will play is reverse
             //if dir is 0 it will count like normal because it get its abs value so the anim will play like normal
-            float percent2 = Mathf.Abs(dir - percent);
+            float dirCorrectedPercent = Mathf.Abs(dir - percent);
 
-            controller.height = Mathf.Lerp(defaultHeight, crouchedHeight, percent2);
-            playerBody.localScale = new Vector3(1, Mathf.Lerp(1, crouchedHeight / defaultHeight, percent2), 1);
-            playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer, playerLook.camHeightInPlayer - verticalAdjusmentAmount, percent2));
+            controller.height = Mathf.Lerp(defaultHeight, crouchedHeight, dirCorrectedPercent);
+            playerBody.localScale = new Vector3(1, Mathf.Lerp(1, crouchedHeight / defaultHeight, dirCorrectedPercent), 1);
+            playerLook.SetCamAndHeadPivotLocalYPos(Mathf.Lerp(playerLook.camHeightInPlayer, playerLook.camHeightInPlayer - verticalAdjusmentAmount, dirCorrectedPercent));
 
             yield return null;
         }
