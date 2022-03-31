@@ -8,7 +8,6 @@ public class SpinnerPlate : MonoBehaviour
 
     public float degreePerSec = 90;
     public RotateDirection dir = RotateDirection.CW;
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spin());
