@@ -126,8 +126,10 @@ public class PlayerItemPickUper : MonoBehaviour
                 holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);*/
             }
 
-
             hitInfo.transform.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);
+            /*
+            hitInfo.transform.GetComponent<Rigidbody>().MovePosition(holdingPoint.position);
+            hitInfo.transform.GetComponent<Rigidbody>().MoveRotation(holdingPoint.rotation);*/
 
             Debug.DrawRay(headPivotPoint.position, dirToCurrentObjectCenter * distance);
         }

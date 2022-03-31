@@ -16,7 +16,10 @@ public class JetpackTrigger : MonoBehaviour
             if (pjp.IsOn == (statusToSetJetpack == JetpackStatus.ON)) return;
 
             pjp.IsOn = statusToSetJetpack == JetpackStatus.ON;
-            NotificationManager.instance.ShowNotification(pjp.IsOn ? "JETPACK ENABLED!" : "JETPACK DISABLED!", 1);
+            if(NotificationManager.instance != null)
+            {
+                NotificationManager.instance.ShowNotification(pjp.IsOn ? "JETPACK ENABLED!" : "JETPACK DISABLED!", 1);
+            }
         }
     }
 

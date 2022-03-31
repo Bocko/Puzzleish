@@ -16,7 +16,11 @@ public class ObjectiveTarget : MonoBehaviour
             print("objetive complete");
             objectiveCompleted = true;
             doorHandler.SetState(DoorHandler.state.OPEN);
-            NotificationManager.instance.ShowNotification($"{objectiveName} COMPLETED!", 1);
+
+            if(NotificationManager.instance != null)
+            {
+                NotificationManager.instance.ShowNotification($"{objectiveName} COMPLETED!", 1);
+            }
         }
     }
 
@@ -27,7 +31,11 @@ public class ObjectiveTarget : MonoBehaviour
             print("objetive incomplete");
             objectiveCompleted = false;
             doorHandler.SetState(DoorHandler.state.CLOSED);
-            NotificationManager.instance.ShowNotification($"{objectiveName} UNCOMPLETED!", 1);
+
+            if (NotificationManager.instance != null)
+            {
+                NotificationManager.instance.ShowNotification($"{objectiveName} UNCOMPLETED!", 1);
+            }
         }
     }
 
