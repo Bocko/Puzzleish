@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCauseAndEffect : MonoBehaviour
 {
-    public float offset = 20;
+    public float offset = 45;
     public Vector3 direction = Vector3.right;
     public float effectTime = 0.05f;
     bool onLeft = true;
