@@ -11,6 +11,7 @@ public class DoorHandler : MonoBehaviour
     public openingDirection direction;
     public facingDirection facing;
     public float openingTime = 0.5f;
+    public state startingState;
 
     state currentState;
     float dirSide;
@@ -30,6 +31,7 @@ public class DoorHandler : MonoBehaviour
             dirScale = facing == facingDirection.X ? transform.localScale.z : transform.localScale.x;
         }
         dirSide = dirScale / 2;
+        SetState(startingState);
     }
 
     public void SetState(state stateToMove)//public method to open and close the door
