@@ -11,7 +11,10 @@ public class NextLevelLoader : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.LoadScene(nextLevel);
+            if(GameManager.instance != null)
+            {
+                GameManager.instance.LoadScene(nextLevel);
+            }
         }
     }
 
