@@ -26,7 +26,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
 
         if (timeTravelDown)
         {
-            StartCoroutine(Fade());
+            StartCoroutine(Fade(effectTime));
         }
     }
 
@@ -43,7 +43,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
         onLeft = !onLeft;
     }
 
-    IEnumerator Fade()
+    IEnumerator Fade(float effectTime)
     {
         float percent = 0;
         float effectSpeed = 1 / effectTime;
@@ -64,5 +64,10 @@ public class PlayerCauseAndEffect : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public IEnumerator ExternalTeleport(float effectTime)
+    {
+        yield return StartCoroutine(Fade(effectTime));
     }
 }

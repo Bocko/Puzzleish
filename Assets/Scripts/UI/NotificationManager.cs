@@ -24,6 +24,11 @@ public class NotificationManager : MonoBehaviour
         StartCoroutine(AnimateNotification(textToShow, delayTime));
     }
 
+    public IEnumerator ShowNotificationSync(string textToShow, float delayTime)
+    {
+        yield return StartCoroutine(AnimateNotification(textToShow, delayTime));
+    }
+
     //spawning a new noti every time its called
     IEnumerator AnimateNotification(string textToShow, float delayTime)
     {
