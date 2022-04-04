@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class CauseAndEffectTrigger : MonoBehaviour
 {
+    bool played;
+
+    void Start()
+    {
+        played = false;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Teleporting(other.GetComponent<PlayerCauseAndEffect>()));
+            if (!played)
+            {
+                StartCoroutine(Teleporting(other.GetComponent<PlayerCauseAndEffect>()));
+            }
         }
     }
 
     IEnumerator Teleporting(PlayerCauseAndEffect playerCnE)
     {
+        played = true;
+
         yield return playerCnE.ExternalTeleport(.1f);
 
         yield return new WaitForSeconds(1);
