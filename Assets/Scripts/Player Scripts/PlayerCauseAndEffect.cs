@@ -7,6 +7,8 @@ public class PlayerCauseAndEffect : MonoBehaviour
     public float offset = 45;
     public Vector3 direction = Vector3.right;
     public float effectTime = 0.05f;
+    public bool isOn = false;
+
     bool onLeft = true;
     CanvasGroup effect;
 
@@ -18,15 +20,18 @@ public class PlayerCauseAndEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool timeTravelDown = false;
-        if (Input.anyKeyDown)
+        if (isOn)
         {
-            timeTravelDown = Input.GetAxisRaw("TimeTravel") == 1;
-        }
+            bool timeTravelDown = false;
+            if (Input.anyKeyDown)
+            {
+                timeTravelDown = Input.GetAxisRaw("TimeTravel") == 1;
+            }
 
-        if (timeTravelDown)
-        {
-            StartCoroutine(Fade(effectTime));
+            if (timeTravelDown)
+            {
+                StartCoroutine(Fade(effectTime));
+            }
         }
     }
 
