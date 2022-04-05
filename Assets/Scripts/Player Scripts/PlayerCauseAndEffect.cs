@@ -10,7 +10,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
     public float effectTime = 0.05f;
     public bool isOn;
 
-    bool onLeft = true;
+    public bool inPresent { get; private set; } = true;
     CanvasGroup effect;
 
     void Start()
@@ -33,7 +33,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
 
     void Teleport()
     {
-        if (onLeft)
+        if (inPresent)
         {
             transform.Translate(offset * 2 * direction, Space.World);
         }
@@ -41,7 +41,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
         {
             transform.Translate(offset * 2 * -direction, Space.World);
         }
-        onLeft = !onLeft;
+        inPresent = !inPresent;
     }
 
     IEnumerator Fade(float effectTime)

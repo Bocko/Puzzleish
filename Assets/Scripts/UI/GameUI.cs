@@ -22,11 +22,20 @@ public class GameUI : MonoBehaviour
     public Image jetpackFuelBarImage;
     public GameObject jetpackUIHolder;
     public Gradient fuelGradient;
-    bool isOn;
+    bool jetpackIsOn;
+
+    [Header("Time Travel Device")]
+    public GameObject TimeDeviceHolder;
+    public Image timeDeviceImage;
+    public Sprite forward;
+    public Sprite backward;
+    bool ttdIsOn;
+    bool inPresent;
 
     PlayerItemPickUper playerItemPickUper;
     PlayerMovement playerMovement;
     PlayerJetpack playerJetpack;
+    PlayerCauseAndEffect playerCnE;
 
     Color defaultPointerColor;
 
@@ -35,14 +44,19 @@ public class GameUI : MonoBehaviour
         playerItemPickUper = FindObjectOfType<PlayerItemPickUper>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         playerJetpack = FindObjectOfType<PlayerJetpack>();
+        playerCnE = FindObjectOfType<PlayerCauseAndEffect>();
 
         itemName.text = "";
         defaultPointerColor = pointer.color;
 
         crouched = playerMovement.isCrouched;
 
-        isOn = playerJetpack.IsOn;
-        jetpackUIHolder.SetActive(isOn);
+        jetpackIsOn = playerJetpack.isOnAtStart;
+        jetpackUIHolder.SetActive(jetpackIsOn);
+
+        ttdIsOn = playerCnE.isOnAtStart;
+        inPresent = playerCnE.inPresent;
+        TimeDeviceHolder.SetActive(ttdIsOn);
     }
 
     void Update()
@@ -50,6 +64,7 @@ public class GameUI : MonoBehaviour
         UpdatePointer();
         UpdateStanceUI();
         UpdateJetpackUI();
+        UpdateTimeTravelDeviceUI();
     }
 
     void UpdatePointer()
@@ -83,14 +98,41 @@ public class GameUI : MonoBehaviour
 
     void UpdateJetpackUI()
     {
-        if (isOn != playerJetpack.IsOn)
+        if (jetpackIsOn != playerJetpack.IsOn)
         {
-            isOn = playerJetpack.IsOn;
-            jetpackUIHolder.SetActive(isOn);
+            jetpackIsOn = playerJetpack.IsOn;
+            jetpackUIHolder.SetActive(jetpackIsOn);
         }
-        float fuelPercent = playerJetpack.fuel / playerJetpack.maxFuel;
+
+        if (!jetpackIsOn) return;
+
+        float fuelPercent = Mathf.Clamp01(playerJetpack.fuel / playerJetpack.maxFuel);
         jetpackFuelBarRect.localScale = new Vector3(fuelPercent, 1, 1);
         jetpackFuelBarImage.color = GetColorFromGradient(fuelPercent);
+    }
+
+    void UpdateTimeTravelDeviceUI()
+    {
+        if(ttdIsOn != playerCnE.isOn)
+        {
+            ttdIsOn = playerCnE.isOn;
+            TimeDeviceHolder.SetActive(ttdIsOn);
+        }
+
+        if (!ttdIsOn) return;
+
+        if(inPresent != playerCnE.inPresent)
+        {
+            inPresent = playerCnE.inPresent;
+            if (inPresent)
+            {
+                timeDeviceImage.sprite = forward;
+            }
+            else
+            {
+                timeDeviceImage.sprite = backward;
+            }
+        }
     }
 
     Color GetColorFromGradient(float value)
