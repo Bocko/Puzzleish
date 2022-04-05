@@ -24,13 +24,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
     {
         if (isOn)
         {
-            bool timeTravelDown = false;
-            if (Input.anyKeyDown)
-            {
-                timeTravelDown = Input.GetAxisRaw("TimeTravel") == 1;
-            }
-
-            if (timeTravelDown)
+            if (Input.GetButtonDown("TimeTravel"))
             {
                 StartCoroutine(Fade(effectTime));
             }
