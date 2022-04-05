@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8337894815843754624}
   - component: {fileID: 8337894815843754625}
   m_Layer: 0
-  m_Name: Jetpack Trig
+  m_Name: Item Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,4 +66,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca660db1a7615894d85663f63884b7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusToSetJetpack: 0
+  itemToSwitch: 0
+  statusToSetItem: 0

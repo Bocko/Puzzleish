@@ -11723,6 +11723,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1493760467}
     m_Modifications:
     - target: {fileID: 8337894815843754625, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
+      propertyPath: statusToSetItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337894815843754625, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
       propertyPath: statusToSetJetpack
       value: 1
       objectReference: {fileID: 0}
@@ -16135,7 +16139,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -30785,7 +30789,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1617254368}
   - component: {fileID: 1617254369}
-  - component: {fileID: 1617254370}
   m_Layer: 5
   m_Name: teleportEffect
   m_TagString: Untagged
@@ -30825,18 +30828,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1617254370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617254367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f957a89881784854d845a439a37981af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1619163616
 GameObject:
   m_ObjectHideFlags: 0
@@ -36059,6 +36050,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a634aa7d69fbf4bb240a62db4b8693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportFadeTime: 0.1
+  waitTimeAfterTeleport: 1
+  firstMessageWaitTime: 2
+  waitTimeAfterFirstMessage: 2
+  secondMessageWaitTime: 3
 --- !u!65 &1887094012
 BoxCollider:
   m_ObjectHideFlags: 0

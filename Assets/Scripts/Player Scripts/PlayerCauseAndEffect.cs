@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerCauseAndEffect : MonoBehaviour
 {
+    public bool isOnAtStart;
     public float offset = 45;
     public Vector3 direction = Vector3.right;
     public float effectTime = 0.05f;
-    public bool isOn = false;
+    public bool isOn;
 
     bool onLeft = true;
     CanvasGroup effect;
@@ -15,6 +16,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
     void Start()
     {
         effect = GameObject.Find("teleportEffect").GetComponent<CanvasGroup>();
+        isOn = isOnAtStart;
     }
 
     // Update is called once per frame

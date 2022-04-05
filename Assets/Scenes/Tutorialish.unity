@@ -912,6 +912,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 172472844}
     m_Modifications:
     - target: {fileID: 8337894815843754625, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
+      propertyPath: statusToSetItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337894815843754625, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
       propertyPath: statusToSetJetpack
       value: 1
       objectReference: {fileID: 0}
@@ -10067,6 +10071,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172472844}
     m_Modifications:
+    - target: {fileID: 8337894815843754625, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
+      propertyPath: itemToSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8337894815843754626, guid: a64a49464698b124692243fe00eb0fdc, type: 3}
       propertyPath: m_RootOrder
       value: 0
