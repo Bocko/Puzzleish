@@ -5,6 +5,11 @@ using UnityEngine;
 public class CauseAndEffectTrigger : MonoBehaviour
 {
     bool played;
+    public float teleportFadeTime = 0.1f;
+    public float waitTimeAfterTeleport = 1f;
+    public float firstMessageWaitTime = 2f;
+    public float waitTimeAfterFirstMessage = 2f;
+    public float secondMessageWaitTime = 3f;
 
     void Start()
     {
@@ -26,24 +31,24 @@ public class CauseAndEffectTrigger : MonoBehaviour
     {
         played = true;
 
-        yield return playerCnE.ExternalTeleport(.1f);
+        yield return playerCnE.ExternalTeleport(teleportFadeTime);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitTimeAfterTeleport);
 
         if (NotificationManager.instance != null)
         {
-            yield return NotificationManager.instance.ShowNotificationSync("What the hell?!..", 1.5f);
+            yield return NotificationManager.instance.ShowNotificationSync("What the hell?!..", firstMessageWaitTime);
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitTimeAfterFirstMessage);
 
-        yield return playerCnE.ExternalTeleport(.1f);
+        yield return playerCnE.ExternalTeleport(teleportFadeTime);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitTimeAfterTeleport);
 
         if (NotificationManager.instance != null)
         {
-            yield return NotificationManager.instance.ShowNotificationSync("Its like i have traveled forward in time.", 2);
+            yield return NotificationManager.instance.ShowNotificationSync("Its like i have traveled forward in time.", secondMessageWaitTime);
         }
     }
 
