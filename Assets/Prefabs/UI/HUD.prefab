@@ -329,7 +329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6590016805200672595}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8188218698905555738}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: HideHelp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &439304722728585185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1284,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4609105886703904823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8188218698905555738}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2768729799999378940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2031,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8215399964574054374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8188218698905555738}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: ShowHelp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4916138793964951361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,7 +2164,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3582728019302441419}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8188218698905555738}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: ExitToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4928165585836064515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,7 +2640,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9207349234517957114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8188218698905555738}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5666575090890577391
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,6 +3126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6941401888877379047}
   - component: {fileID: 3956916373072360048}
+  - component: {fileID: 8188218698905555738}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -3153,6 +3214,21 @@ MonoBehaviour:
   timeDeviceImage: {fileID: 3847651678029144997}
   forward: {fileID: 21300000, guid: bc938f09f3a91bc4494870849c032b9e, type: 3}
   backward: {fileID: 21300000, guid: 327debf245896d949b20d2dfebaacaed, type: 3}
+--- !u!114 &8188218698905555738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941401888877379046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52723648f89f37b43b571a1a1464fd51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseScreen: {fileID: 4080805917040705295}
+  buttonHolder: {fileID: 3556515542993308191}
+  helpScreen: {fileID: 4630966251496397321}
 --- !u!1 &6941401888900784247
 GameObject:
   m_ObjectHideFlags: 0

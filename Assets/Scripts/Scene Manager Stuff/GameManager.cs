@@ -31,6 +31,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GetSceneLoadProgress());
     }
 
+    public void ReloadCurrentScene()
+    {
+        loadingScreen.SetActive(true);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)currentScene));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)currentScene, LoadSceneMode.Additive));
+
+        StartCoroutine(GetSceneLoadProgress());
+    }
+
     public IEnumerator GetSceneLoadProgress()
     {
         foreach (AsyncOperation scene in scenesLoading)
