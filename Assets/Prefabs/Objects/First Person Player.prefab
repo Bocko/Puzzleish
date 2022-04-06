@@ -586,6 +586,7 @@ MonoBehaviour:
   leftExhaustPos: {fileID: 3221134863188458477}
   rightExhaustPos: {fileID: 8817028358932632807}
   ExhasutParticle: {fileID: 1727850354750416741, guid: 2e33018a924f19443894b81e2554971a, type: 3}
+  jetpackHolder: {fileID: 3284058124098588974}
 --- !u!114 &1206693859040432568
 MonoBehaviour:
   m_ObjectHideFlags: 0

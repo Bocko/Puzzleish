@@ -19,6 +19,9 @@ public class PlayerJetpack : MonoBehaviour
     public Transform rightExhaustPos;
     public ParticleSystem ExhasutParticle;
 
+    [Header("Model")]
+    public GameObject jetpackHolder;
+
     ParticleSystem leftParticleSpawned;
     ParticleSystem rightParticleSpawned;
     //this is a shit workaround of getting the particle system to play before the previously emmited particles disapear
@@ -33,6 +36,7 @@ public class PlayerJetpack : MonoBehaviour
         set
         {
             isOn = value;
+            jetpackHolder.SetActive(isOn);
             if (playerMovement != null)// when the state changes set the jetpack velocity to 0 and disables the particles
             {
                 playerMovement.SetJetpackVelocity(Vector3.zero);
@@ -48,6 +52,7 @@ public class PlayerJetpack : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         fuel = maxFuel;
         isOn = isOnAtStart;
+        jetpackHolder.SetActive(isOn);
         leftParticleSpawned = Instantiate(ExhasutParticle, leftExhaustPos);
         rightParticleSpawned = Instantiate(ExhasutParticle, rightExhaustPos);
         leftEM = leftParticleSpawned.emission;
