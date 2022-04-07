@@ -30701,6 +30701,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3465862820977774598, guid: 77af45f6dfca59b459b2c0700c61f064, type: 3}
+      propertyPath: closePercent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465862820977774598, guid: 77af45f6dfca59b459b2c0700c61f064, type: 3}
       propertyPath: startingState
       value: 1
       objectReference: {fileID: 0}
@@ -39627,15 +39631,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4776801209283507869, guid: b8665268721dc4141a6cbc3a574b96d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776801209283507869, guid: b8665268721dc4141a6cbc3a574b96d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4776801209283507869, guid: b8665268721dc4141a6cbc3a574b96d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776801210570248504, guid: b8665268721dc4141a6cbc3a574b96d6, type: 3}
       propertyPath: particle
