@@ -33,9 +33,14 @@ public class PlayerItemPickUper : MonoBehaviour
         HandEmpty = true;
     }
 
+    bool fire1Down = false;
     void Update()
     {
-        bool fire1Down = Input.GetAxisRaw("Fire1") == 1;
+        fire1Down = Input.GetButtonDown("Fire1") || fire1Down; //fire1Down is true if the fire1 button was pressed down or if it was previously pressed
+        fire1Down = (fire1Down && Input.GetButtonUp("Fire1")) ? false : fire1Down; //reseting fireiDown if its true the button was released
+
+        fire1Down = (!HandEmpty && Input.GetButtonDown("Fire3")) ? false : fire1Down; //reseting if fire3 down and theres something in the hand
+
         bool fire2Down = Input.GetAxisRaw("Fire2") == 1;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
@@ -46,7 +51,7 @@ public class PlayerItemPickUper : MonoBehaviour
             //print("hand empty");
             if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
-                if (!hitInfo.collider.CompareTag("Moveable")) 
+                if (!hitInfo.collider.CompareTag("Moveable"))
                 {
                     currentItemName = "";
                     moveable = false;
