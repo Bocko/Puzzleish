@@ -583,6 +583,10 @@ MonoBehaviour:
   minHoldingDistance: 1
   maxHoldingDistance: 3
   minMaxMouseThrowInput: 5
+  maxCharge: 1
+  currentCharge: 0
+  chargeRate: 0.5
+  maxForce: 20
 --- !u!114 &1206693859040432569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +640,6 @@ MonoBehaviour:
   offset: 45
   direction: {x: 1, y: 0, z: 0}
   effectTime: 0.05
-  isOn: 0
 --- !u!143 &1206693859040432546
 CharacterController:
   m_ObjectHideFlags: 0
