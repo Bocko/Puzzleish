@@ -4,19 +4,39 @@ using UnityEngine;
 
 public class PlayerCauseAndEffect : MonoBehaviour
 {
+    public event System.Action onTeleport;
+
+    [Header("TTD objects")]
+    public GameObject handWrap;
+    public GameObject ttd;
+
+    [Header("Settings")]
     public bool isOnAtStart;
     public float offset = 45;
     public Vector3 direction = Vector3.right;
     public float effectTime = 0.05f;
-    public bool isOn;
 
     public bool inPresent { get; private set; } = true;
     CanvasGroup effect;
+
+    bool isOn;
+    public bool IsOn
+    {
+        get { return isOn; }
+        set
+        {
+            isOn = value;
+            handWrap.SetActive(isOn);
+            ttd.SetActive(isOn);
+        }
+    }
 
     void Start()
     {
         effect = GameObject.Find("teleportEffect").GetComponent<CanvasGroup>();
         isOn = isOnAtStart;
+        handWrap.SetActive(isOn);
+        ttd.SetActive(isOn);
     }
 
     // Update is called once per frame
@@ -26,6 +46,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
         {
             if (Input.GetButtonDown("TimeTravel"))
             {
+                onTeleport?.Invoke();
                 StartCoroutine(Fade(effectTime));
             }
         }

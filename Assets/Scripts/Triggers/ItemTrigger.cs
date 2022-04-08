@@ -18,31 +18,38 @@ public class ItemTrigger : MonoBehaviour
             {
                 case item.JETPACK:
                 {
-                    PlayerJetpack pjp = other.GetComponent<PlayerJetpack>();
-                    if (pjp.IsOn == (statusToSetItem == itemStatus.ON)) return;
-
-                    pjp.IsOn = statusToSetItem == itemStatus.ON;
-                    if (NotificationManager.instance != null)
-                    {
-                        NotificationManager.instance.ShowNotification(pjp.IsOn ? "JETPACK ENABLED!" : "JETPACK DISABLED!", 1);
-                    }
+                    SwitchJetpack(other.GetComponent<PlayerJetpack>());
                     break;
                 }
                 case item.TTDEVICE:
                 {
-                    PlayerCauseAndEffect playerCnE = other.GetComponent<PlayerCauseAndEffect>();
-                    if (playerCnE.isOn == (statusToSetItem == itemStatus.ON)) return;
-
-                    playerCnE.isOn = statusToSetItem == itemStatus.ON;
-                    if (NotificationManager.instance != null)
-                    {
-                        NotificationManager.instance.ShowNotification(playerCnE.isOn ? "TIME DEVICE ENABLED!" : "TIME DEVICE DISABLED!", 1);
-                    }
+                    SwitchTTD(other.GetComponent<PlayerCauseAndEffect>());
                     break;
                 }
             }
         }
+    }
 
+    void SwitchJetpack(PlayerJetpack pjp)
+    {
+        if (pjp.IsOn == (statusToSetItem == itemStatus.ON)) return;
+
+        pjp.IsOn = statusToSetItem == itemStatus.ON;
+        if (NotificationManager.instance != null)
+        {
+            NotificationManager.instance.ShowNotification(pjp.IsOn ? "JETPACK ENABLED!" : "JETPACK DISABLED!", 1);
+        }
+    }
+
+    void SwitchTTD(PlayerCauseAndEffect playerCnE)
+    {
+        if (playerCnE.IsOn == (statusToSetItem == itemStatus.ON)) return;
+
+        playerCnE.IsOn = statusToSetItem == itemStatus.ON;
+        if (NotificationManager.instance != null)
+        {
+            NotificationManager.instance.ShowNotification(playerCnE.IsOn ? "TIME DEVICE ENABLED!" : "TIME DEVICE DISABLED!", 1);
+        }
     }
 
     void OnDrawGizmos()

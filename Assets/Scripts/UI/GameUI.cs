@@ -113,9 +113,9 @@ public class GameUI : MonoBehaviour
 
     void UpdateTimeTravelDeviceUI()
     {
-        if(ttdIsOn != playerCnE.isOn)
+        if(ttdIsOn != playerCnE.IsOn)
         {
-            ttdIsOn = playerCnE.isOn;
+            ttdIsOn = playerCnE.IsOn;
             TimeDeviceHolder.SetActive(ttdIsOn);
         }
 
