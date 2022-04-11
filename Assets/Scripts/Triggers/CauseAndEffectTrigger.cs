@@ -48,7 +48,7 @@ public class CauseAndEffectTrigger : MonoBehaviour
 
         if (NotificationManager.instance != null)
         {
-            yield return NotificationManager.instance.ShowNotificationSync("Its like i have traveled forward in time.", secondMessageWaitTime);
+            yield return NotificationManager.instance.ShowNotificationSync("Its like I have traveled forward in time.", secondMessageWaitTime);
         }
     }
 
