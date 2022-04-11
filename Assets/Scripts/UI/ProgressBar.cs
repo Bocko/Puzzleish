@@ -6,18 +6,18 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class ProgressBar : MonoBehaviour
 {
-    public int minimum;
-    public int maximum;
-    public int current;
+    public float minimum;
+    public float maximum;
+    public float current;
     public Image mask;
-
+    public Color barColor;
     /*
     void Update()
     {
         GetCurrentFill();
     }*/
 
-    public void ChangeCurrent(int newCurrent)
+    public void ChangeCurrent(float newCurrent)
     {
         current = newCurrent;
         GetCurrentFill();
@@ -29,5 +29,6 @@ public class ProgressBar : MonoBehaviour
         float maximumOffset = maximum - minimum;
         float fillAmount = currentOffset / maximumOffset;
         mask.fillAmount = fillAmount;
+        mask.color = barColor;
     }
 }
