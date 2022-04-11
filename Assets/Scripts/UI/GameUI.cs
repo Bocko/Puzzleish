@@ -143,13 +143,11 @@ public class GameUI : MonoBehaviour
     {
         if(playerItemPickUper.currentCharge > 0)
         {
-            print("charging");
             throwBar.barColor = GetColorFromGradient(playerItemPickUper.currentCharge);
             throwBar.ChangeCurrent(playerItemPickUper.currentCharge);
         }
         else if(throwBar.current != 0)
         {
-            print("reset");
             throwBar.ChangeCurrent(playerItemPickUper.currentCharge);
         }
     }
