@@ -89,7 +89,7 @@ public class PlayerItemPickUper : MonoBehaviour
         }// if the player lets go of the mouse button the object falls?
         else if (!fire1Down) //something in hand and left mouse is up
         {
-            Releaseitem(mouseX, mouseY);
+            Releaseitem(mouseX, mouseY);//item get released and if the mouse wheel was also let go the item will get some forward force 
             if (fire3Up)
             {
                 ThrowHeldItem();
@@ -118,6 +118,11 @@ public class PlayerItemPickUper : MonoBehaviour
         if (playerLook.lockMouseMovement && !fire2Down)
         {
             playerLook.lockMouseMovement = false;
+        }
+
+        if(currentCharge > 0 && HandEmpty)
+        {
+            currentCharge = 0;
         }
 
         //debug ray for the throwforce
