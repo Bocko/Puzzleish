@@ -89,10 +89,14 @@ public class PlayerItemPickUper : MonoBehaviour
         }// if the player lets go of the mouse button the object falls?
         else if (!fire1Down) //something in hand and left mouse is up
         {
-            Releaseitem(mouseX, mouseY);//item get released and if the mouse wheel was also let go the item will get some forward force 
+            Releaseitem();//item get released and if the mouse wheel was also let go the item will get some forward force 
             if (fire3Up)
             {
                 ThrowHeldItem();
+            }
+            else
+            {
+                AddTossForce(mouseX, mouseY);
             }
 
         }// move the selected object to the offset point relative to the player
@@ -178,7 +182,7 @@ public class PlayerItemPickUper : MonoBehaviour
         }
     }
 
-    void Releaseitem(float mouseX, float mouseY)
+    void Releaseitem()
     {
         print("hand let go");
 
@@ -187,7 +191,11 @@ public class PlayerItemPickUper : MonoBehaviour
         HandEmpty = true;
         holdingPoint.position = headPivotPoint.position;
         EnablePickedupObject(true);
+    }
 
+    void AddTossForce(float mouseX, float mouseY)
+    {
+        print("toss");
         hitInfo.collider.attachedRigidbody.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
     }
 
