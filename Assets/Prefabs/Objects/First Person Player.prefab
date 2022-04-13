@@ -586,7 +586,7 @@ MonoBehaviour:
   maxCharge: 1
   currentCharge: 0
   chargeRate: 0.5
-  maxForce: 20
+  maxForce: 10
 --- !u!114 &1206693859040432569
 MonoBehaviour:
   m_ObjectHideFlags: 0
