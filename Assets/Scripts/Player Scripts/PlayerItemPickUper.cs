@@ -102,7 +102,8 @@ public class PlayerItemPickUper : MonoBehaviour
         }// move the selected object to the offset point relative to the player
         else if (fire1Down) //somehting in hand and left mouse is down
         {
-            HoldItem();
+            print("hand holding something");
+            MoveItemWithWheel();
             if (fire3Down)
             {
                 ChargeThrow();
@@ -124,7 +125,7 @@ public class PlayerItemPickUper : MonoBehaviour
             playerLook.lockMouseMovement = false;
         }
 
-        if(currentCharge > 0 && HandEmpty)
+        if (currentCharge > 0 && HandEmpty)
         {
             currentCharge = 0;
         }
@@ -162,10 +163,8 @@ public class PlayerItemPickUper : MonoBehaviour
         EnablePickedupObject(false);
     }
 
-    void HoldItem()
+    void MoveItemWithWheel()
     {
-        print("hand holding something");
-
         float moveGrabedItem = Input.GetAxisRaw("Mouse ScrollWheel");
 
         //if theres something in the hand and there was scrolling adjust the distance accordingly
