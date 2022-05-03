@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (hitInfo.collider.attachedRigidbody != null)
             {
-                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);
+                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point,ForceMode.Impulse);
             }
         }
     }
