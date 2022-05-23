@@ -13,7 +13,7 @@ public class Respawner : MonoBehaviour
     //and if it has one disable it set the pos and then reenable it
     void OnTriggerEnter(Collider other)
     {
-        if(spawnedEffect == null)
+        if (spawnedEffect == null)
         {
             spawnedEffect = Instantiate(respawnEffect, respawnPos);
         }

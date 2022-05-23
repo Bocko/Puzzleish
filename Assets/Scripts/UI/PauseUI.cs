@@ -59,7 +59,7 @@ public class PauseUI : MonoBehaviour
 
     public void RestartLevel()
     {
-        if(GameManager.instance != null)
+        if (GameManager.instance != null)
         {
             ResumeGame();
             GameManager.instance.ReloadCurrentScene();

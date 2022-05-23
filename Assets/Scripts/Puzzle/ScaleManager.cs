@@ -54,7 +54,7 @@ public class ScaleManager : MonoBehaviour
         if (leftPlateSum == weightLimitPerPlate && rightPlateSum == weightLimitPerPlate)
         {
             doorHandler.SetState(DoorHandler.state.OPEN);
-            if(NotificationManager.instance != null)
+            if (NotificationManager.instance != null)
             {
                 NotificationManager.instance.ShowNotification("SCALE COMPLETED!", 1);
             }

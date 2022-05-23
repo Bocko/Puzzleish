@@ -21,9 +21,4 @@ public class SpinnerPlate : MonoBehaviour
             yield return null;
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        print(other.name);
-    }
 }

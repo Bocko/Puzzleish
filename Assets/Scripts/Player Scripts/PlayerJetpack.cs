@@ -89,12 +89,6 @@ public class PlayerJetpack : MonoBehaviour
             timeWaited = 0;
             if (jetpackDown && fuel > 0)
             {
-                /*
-                if(!leftParticleSpawned.isPlaying && !rightParticleSpawned.isPlaying)
-                {
-                    leftParticleSpawned.Play();
-                    rightParticleSpawned.Play();
-                }*/
                 leftEM.enabled = true;
                 rightEM.enabled = true;
                 playerMovement.SetJetpackVelocity(jetpackForce * Vector3.up);
@@ -102,12 +96,6 @@ public class PlayerJetpack : MonoBehaviour
             }
             else
             {
-                /*
-                if (leftParticleSpawned.isPlaying && rightParticleSpawned.isPlaying)
-                {
-                    leftParticleSpawned.Stop();
-                    rightParticleSpawned.Stop();
-                }*/
                 leftEM.enabled = false;
                 rightEM.enabled = false;
             }

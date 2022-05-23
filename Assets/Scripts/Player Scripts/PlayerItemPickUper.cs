@@ -58,7 +58,6 @@ public class PlayerItemPickUper : MonoBehaviour
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
         {
-            //print("hand empty");
             if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
                 if (!hitInfo.collider.CompareTag("Moveable"))//check if the object is moveable
@@ -68,7 +67,6 @@ public class PlayerItemPickUper : MonoBehaviour
                     return;
                 }
 
-                print("hit something");
                 currentItemName = hitInfo.collider.name;
                 moveable = true;
 
@@ -100,7 +98,6 @@ public class PlayerItemPickUper : MonoBehaviour
         }// move the selected object to the offset point relative to the player
         else if (fire1Down) //somehting in hand and left mouse is down
         {
-            print("hand holding something");
             MoveItemWithWheel();
             if (fire3Down)
             {
@@ -140,15 +137,11 @@ public class PlayerItemPickUper : MonoBehaviour
         //its not yet decided to which one to use
 
         holdingPoint.RotateAround(holdingPoint.position, Vector3.up, mouseX * rotateSens);
-        holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens);/*
-        holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Vector3.up, mouseX * rotateSens * Time.deltaTime);
-        holdingPoint.RotateAround(headPivotPoint.position + headPivotPoint.forward * distance, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens * Time.deltaTime);*/
+        holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens);
     }
 
     void GrabItem()
     {
-        print("grabbed something");
-
         HandGrabbed?.Invoke();
 
         HandEmpty = false;
@@ -181,8 +174,6 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void Releaseitem()
     {
-        print("hand let go");
-
         HandReleased?.Invoke();
 
         HandEmpty = true;
@@ -192,7 +183,6 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void AddTossForce(float mouseX, float mouseY)
     {
-        print("toss");
         hitInfo.collider.attachedRigidbody.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
     }
 
@@ -206,7 +196,6 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void ThrowHeldItem()
     {
-        print("throwing");
         float finalForce = maxForce * Mathf.Clamp01(currentCharge);
         currentCharge = 0;
         hitInfo.collider.attachedRigidbody.AddForce(headPivotPoint.forward * finalForce, ForceMode.Impulse);

@@ -115,7 +115,7 @@ public class GameUI : MonoBehaviour
 
     void UpdateTimeTravelDeviceUI()
     {
-        if(ttdIsOn != playerCnE.IsOn)
+        if (ttdIsOn != playerCnE.IsOn)
         {
             ttdIsOn = playerCnE.IsOn;
             TimeDeviceHolder.SetActive(ttdIsOn);
@@ -123,7 +123,7 @@ public class GameUI : MonoBehaviour
 
         if (!ttdIsOn) return;
 
-        if(inPresent != playerCnE.inPresent)
+        if (inPresent != playerCnE.inPresent)
         {
             inPresent = playerCnE.inPresent;
             if (inPresent)
@@ -139,12 +139,12 @@ public class GameUI : MonoBehaviour
 
     void UpdateThrowRadialBar()
     {
-        if(playerItemPickUper.currentCharge > 0)
+        if (playerItemPickUper.currentCharge > 0)
         {
             throwBar.barColor = GetColorFromGradient(playerItemPickUper.currentCharge);
             throwBar.ChangeCurrent(playerItemPickUper.currentCharge);
         }
-        else if(throwBar.current != 0)
+        else if (throwBar.current != 0)
         {
             throwBar.ChangeCurrent(playerItemPickUper.currentCharge);
         }

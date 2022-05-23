@@ -38,7 +38,6 @@ public class PlayerCauseAndEffect : MonoBehaviour
         ttd.SetActive(isOn);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isOn)
@@ -74,7 +73,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
         {
             percent += Time.deltaTime * effectSpeed * dir;
 
-            if(percent >= 1)
+            if (percent >= 1)
             {
                 percent = 1;
                 dir = -1;

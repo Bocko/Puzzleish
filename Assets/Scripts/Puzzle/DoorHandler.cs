@@ -73,28 +73,6 @@ public class DoorHandler : MonoBehaviour
                     }
                     break;
             }
-
-            /*
-            switch (direction)//calling the correct method to get the proper opening direction
-            {
-                case openingDirection.UP:
-                    StopCoroutine(Vertical(-1));
-                    StartCoroutine(Vertical(1));
-                    break;
-                case openingDirection.DOWN:
-                    StopCoroutine(Vertical(1));
-                    StartCoroutine(Vertical(-1));
-                    break;
-                case openingDirection.LEFT:
-                    StopCoroutine(Horizontal(1));
-                    StartCoroutine(Horizontal(-1));
-                    break;
-                case openingDirection.RIGHT:
-                    StopCoroutine(Horizontal(-1));
-                    StartCoroutine(Horizontal(1));
-                    break;
-            }
-            */
         }
     }
 
@@ -149,45 +127,4 @@ public class DoorHandler : MonoBehaviour
         }
         isSomethingRunning = false;
     }
-    /*
-    IEnumerator Vertical(int openingDir)//1 UP, -1 DOWN
-    {
-        float percent = 0;
-        float openingSpeed = 1 / openingTime;
-
-        while (percent < 1)
-        {
-            percent += Time.deltaTime * openingSpeed;
-            float dirCorrectedPercent = Mathf.Abs((int)currentState - percent);
-
-            transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(dirScale, 0, dirCorrectedPercent), transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(originalPos.y, originalPos.y + dirSide * openingDir, dirCorrectedPercent), transform.position.z);
-            yield return null;
-        }
-    }
-
-    IEnumerator Horizontal(int openingDir)//1 RIGHT, -1 LEFT
-    {
-        float percent = 0;
-        float openingSpeed = 1 / openingTime;
-
-        while (percent < 1)
-        {
-            percent += Time.deltaTime * openingSpeed;
-            float dirCorrectedPercent = Mathf.Abs((int)currentState - percent);
-
-            if (facing == facingDirection.X)
-            {
-                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, Mathf.Lerp(dirScale, 0, dirCorrectedPercent));
-                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(originalPos.z, originalPos.z + dirSide * openingDir * -1, dirCorrectedPercent));
-            }
-            else
-            {
-                transform.localScale = new Vector3(Mathf.Lerp(dirScale, 0, dirCorrectedPercent), transform.localScale.y, transform.localScale.z);
-                transform.position = new Vector3(Mathf.Lerp(originalPos.x, originalPos.x + dirSide * openingDir, dirCorrectedPercent), transform.position.y, transform.position.z);
-            }
-            yield return null;
-        }
-    }
-    */
 }

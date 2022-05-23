@@ -167,10 +167,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StopCoroutine(AnimateCrouch(1));
             StartCoroutine(AnimateCrouch(0));
-            //controller.height = crouchedHeight;
-            //transform.Translate(0, -verticalAdjusmentAmount, 0);
-            //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer - verticalAdjusmentAmount);
-            //playerBody.localScale = new Vector3(1, crouchedHeight / defaultHeight, 1);
             isCrouched = true;
         }
         else
@@ -179,10 +175,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine(AnimateCrouch(0));
                 StartCoroutine(AnimateCrouch(1));
-                //controller.height = defaultHeight;
-                //transform.Translate(0, verticalAdjusmentAmount, 0);
-                //playerLook.SetCamAndHeadPivotLocalYPos(playerLook.camHeightInPlayer);
-                //playerBody.localScale = Vector3.one;
                 isCrouched = false;
             }
         }

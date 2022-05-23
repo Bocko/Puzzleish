@@ -11,7 +11,7 @@ public class ParticleTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(spawnedParticle == null)
+            if (spawnedParticle == null)
             {
                 spawnedParticle = Instantiate(particle, particlePos);
             }

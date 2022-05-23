@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode]
 public class ProgressBar : MonoBehaviour
 {
     public float minimum;
@@ -9,11 +8,6 @@ public class ProgressBar : MonoBehaviour
     public float current;
     public Image mask;
     public Color barColor;
-    /*
-    void Update()
-    {
-        GetCurrentFill();
-    }*/
 
     public void ChangeCurrent(float newCurrent)
     {

@@ -34,13 +34,6 @@ public class OnLadderMovement : MonoBehaviour
             Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * headPivotPoint.forward).normalized;
             Vector3 upDownVelocity = inputDir * onLadderSpeed;
 
-            /*
-            if (Input.GetButtonDown("Jump"))
-            {
-                upDownVelocity += -headPivotPoint.forward.normalized * onLadderJumpForce;
-                PlayerMovementEnabled(true);
-            }*/
-
             controller.Move(upDownVelocity * Time.deltaTime);
         }
     }

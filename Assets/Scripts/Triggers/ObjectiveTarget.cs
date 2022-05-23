@@ -11,11 +11,10 @@ public class ObjectiveTarget : MonoBehaviour
     {
         if (CheckObjective(other.gameObject))
         {
-            print("objetive complete");
             objectiveCompleted = true;
             doorHandler.SetState(DoorHandler.state.OPEN);
 
-            if(NotificationManager.instance != null)
+            if (NotificationManager.instance != null)
             {
                 NotificationManager.instance.ShowNotification($"{objectiveName} COMPLETED!", 1);
             }
@@ -26,7 +25,6 @@ public class ObjectiveTarget : MonoBehaviour
     {
         if (CheckObjective(other.gameObject))
         {
-            print("objetive incomplete");
             objectiveCompleted = false;
             doorHandler.SetState(DoorHandler.state.CLOSED);
 

@@ -33,9 +33,9 @@ public class LaserMover : MonoBehaviour
 
     void CheckLaserCollision()
     {
-        if(Physics.Raycast(rayOriginAndDirection.position,rayOriginAndDirection.forward,out RaycastHit hitinfo, laserDistance, laserMask))
+        if (Physics.Raycast(rayOriginAndDirection.position, rayOriginAndDirection.forward, out RaycastHit hitinfo, laserDistance, laserMask))
         {
-            Instantiate(redJuice, hitinfo.point,Quaternion.identity);
+            Instantiate(redJuice, hitinfo.point, Quaternion.identity);
             hitinfo.transform.position = respawnPoint.position;
         }
     }

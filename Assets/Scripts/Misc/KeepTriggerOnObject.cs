@@ -8,12 +8,10 @@ public class KeepTriggerOnObject : MonoBehaviour
         trigger = transform.GetChild(0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(trigger.localPosition != Vector3.zero)
+        if (trigger.localPosition != Vector3.zero)
         {
-            print("corrected");
             trigger.localPosition = Vector3.zero;
         }
     }
