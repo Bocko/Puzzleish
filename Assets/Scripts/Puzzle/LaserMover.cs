@@ -11,16 +11,24 @@ public class LaserMover : MonoBehaviour
     public float laserDistance;
     public ParticleSystem redJuice;
 
-    void Start()
+    private bool laserEnabled;
+
+    void OnEnable()
     {
+        laserEnabled = true;
         StartCoroutine(LaserMoving());
+    }
+
+    private void OnDisable()
+    {
+        laserEnabled = false;
     }
 
     IEnumerator LaserMoving()//add raycast for collision check
     {
         float percent = 0;
         float laserSpeed = 1 / laserTime;
-        while (true)
+        while (laserEnabled)
         {
             percent += Time.deltaTime * laserSpeed;
             float z = Mathf.PingPong(percent, offset * 2) - offset;
