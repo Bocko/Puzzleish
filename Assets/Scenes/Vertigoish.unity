@@ -7741,6 +7741,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+--- !u!225 &1005711085 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8257163004996654773, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+  m_PrefabInstance: {fileID: 1005711084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1012155111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3347495637785161051, guid: 13150bb24f138d0419adda1116fbf5e2, type: 3}
@@ -13910,6 +13915,10 @@ PrefabInstance:
       propertyPath: isOnAtStart
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8778212956312403749, guid: fc59dac483144444191655d728f8406f, type: 3}
+      propertyPath: effect
+      value: 
+      objectReference: {fileID: 1005711085}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc59dac483144444191655d728f8406f, type: 3}
 --- !u!1 &1696164619

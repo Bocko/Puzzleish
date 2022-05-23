@@ -16,7 +16,8 @@ public class PlayerCauseAndEffect : MonoBehaviour
     public float effectTime = 0.05f;
 
     public bool inPresent { get; private set; } = true;
-    CanvasGroup effect;
+    [Header("Teleport Effect")]
+    public CanvasGroup effect;
 
     bool isOn;
     public bool IsOn
@@ -32,7 +33,6 @@ public class PlayerCauseAndEffect : MonoBehaviour
 
     void Start()
     {
-        effect = GameObject.Find("teleportEffect").GetComponent<CanvasGroup>();
         isOn = isOnAtStart;
         handWrap.SetActive(isOn);
         ttd.SetActive(isOn);
@@ -52,14 +52,10 @@ public class PlayerCauseAndEffect : MonoBehaviour
 
     void Teleport()
     {
-        if (inPresent)
-        {
-            transform.Translate(offset * 2 * direction, Space.World);
-        }
-        else
-        {
-            transform.Translate(offset * 2 * -direction, Space.World);
-        }
+        int directionModifier = inPresent ? 1 : -1;
+
+        transform.Translate(offset * 2 * directionModifier * direction, Space.World);
+
         inPresent = !inPresent;
     }
 

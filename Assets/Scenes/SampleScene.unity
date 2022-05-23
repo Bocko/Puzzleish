@@ -3613,7 +3613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6444016143649390652, guid: ade10d2125e80f4488569e274de81327, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade10d2125e80f4488569e274de81327, type: 3}
@@ -4482,6 +4482,10 @@ PrefabInstance:
       propertyPath: testSphere
       value: 
       objectReference: {fileID: 1917194966}
+    - target: {fileID: 8778212956312403749, guid: fc59dac483144444191655d728f8406f, type: 3}
+      propertyPath: effect
+      value: 
+      objectReference: {fileID: 6941401889945377135}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc59dac483144444191655d728f8406f, type: 3}
 --- !u!1001 &6941401889945377134
@@ -4601,3 +4605,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+--- !u!225 &6941401889945377135 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8257163004996654773, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+  m_PrefabInstance: {fileID: 6941401889945377134}
+  m_PrefabAsset: {fileID: 0}
