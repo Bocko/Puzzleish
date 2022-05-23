@@ -3611,6 +3611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseScreenHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 6444016143649390652, guid: ade10d2125e80f4488569e274de81327, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade10d2125e80f4488569e274de81327, type: 3}
 --- !u!224 &1906067900 stripped
@@ -4574,6 +4578,26 @@ PrefabInstance:
     - target: {fileID: 6941401888877379047, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941401888900784244, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941401888900784244, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941401888900784244, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941401888900784244, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941401888900784244, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7952b4d5874aef649b9ce3cbfce00c29, type: 3}
