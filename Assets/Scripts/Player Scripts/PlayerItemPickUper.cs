@@ -32,6 +32,9 @@ public class PlayerItemPickUper : MonoBehaviour
     float distanceBetweenGrabPointAndCenter;
 
     RaycastHit hitInfo;
+    Transform itemT;
+    Collider itemColl;
+    Rigidbody itemRB;
 
     PlayerLook playerLook;
     void Start()
@@ -94,6 +97,7 @@ public class PlayerItemPickUper : MonoBehaviour
             {
                 AddTossForce(mouseX, mouseY);
             }
+            ResetItemCompHolders();
 
         }// move the selected object to the offset point relative to the player
         else if (fire1Down) //somehting in hand and left mouse is down
@@ -110,7 +114,7 @@ public class PlayerItemPickUper : MonoBehaviour
                 ItemRotation(mouseX, mouseY);
             }
 
-            hitInfo.transform.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);//applying pos and rot of holdingPoint to the held item
+            itemT.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);//applying pos and rot of holdingPoint to the held item
 
             Debug.DrawRay(headPivotPoint.position, (holdingPoint.position - headPivotPoint.position).normalized * distance);
         }
@@ -146,10 +150,14 @@ public class PlayerItemPickUper : MonoBehaviour
 
         HandEmpty = false;
 
-        distance = Vector3.Distance(headPivotPoint.position, hitInfo.transform.position);
-        distanceBetweenGrabPointAndCenter = Vector3.Distance(hitInfo.transform.position, hitInfo.point);
+        itemT = hitInfo.transform;
+        itemColl = hitInfo.collider;
+        itemRB = itemColl.attachedRigidbody;
 
-        holdingPoint.SetPositionAndRotation(hitInfo.transform.position, hitInfo.transform.rotation);
+        distance = Vector3.Distance(headPivotPoint.position, itemT.position);
+        distanceBetweenGrabPointAndCenter = Vector3.Distance(itemT.position, hitInfo.point);
+
+        holdingPoint.SetPositionAndRotation(itemT.position, itemT.rotation);
 
         EnablePickedupObject(false);
     }
@@ -177,13 +185,20 @@ public class PlayerItemPickUper : MonoBehaviour
         HandReleased?.Invoke();
 
         HandEmpty = true;
-        holdingPoint.position = headPivotPoint.position;
+        holdingPoint.localPosition = Vector3.zero;
         EnablePickedupObject(true);
+    }
+
+    void ResetItemCompHolders()
+    {
+        itemT = null;
+        itemColl = null;
+        itemRB = null;
     }
 
     void AddTossForce(float mouseX, float mouseY)
     {
-        hitInfo.collider.attachedRigidbody.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
+        itemRB.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
     }
 
     void ChargeThrow()
@@ -198,7 +213,7 @@ public class PlayerItemPickUper : MonoBehaviour
     {
         float finalForce = maxForce * Mathf.Clamp01(currentCharge);
         currentCharge = 0;
-        hitInfo.collider.attachedRigidbody.AddForce(headPivotPoint.forward * finalForce, ForceMode.Impulse);
+        itemRB.AddForce(headPivotPoint.forward * finalForce, ForceMode.Impulse);
     }
 
     Vector3 GetThrowForce(float mouseX, float mouseY)
@@ -222,13 +237,11 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void EnablePickedupObject(bool enable)//now objectives needs to have 2 colliders :)))) one for collision and it gets disabled when picked up the other is just a trigger to still get the event when the it enters the objective target trigger :)
     {
-        hitInfo.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        hitInfo.transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        hitInfo.transform.GetComponent<Rigidbody>().useGravity = enable;
-        hitInfo.collider.enabled = enable;
+        itemRB.velocity = Vector3.zero;
+        itemRB.angularVelocity = Vector3.zero;
+        itemRB.useGravity = enable;
+        itemColl.enabled = enable;
     }
-
-
 
     private void OnDrawGizmos()
     {
