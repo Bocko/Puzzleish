@@ -7,6 +7,7 @@ public class WeightChecker : MonoBehaviour
     public TextMeshPro weightReadout;
 
     List<Collider> collidersInChecker;
+    string scaleWeightTag = "ScaleWeight";
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class WeightChecker : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("ScaleWeight"))
+        if (!other.CompareTag(scaleWeightTag))
         {
             return;
         }
@@ -34,7 +35,7 @@ public class WeightChecker : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("ScaleWeight"))
+        if (!other.CompareTag(scaleWeightTag))
         {
             return;
         }
