@@ -5,16 +5,23 @@ public class WaterMover : MonoBehaviour
 {
     public float minScale = 5;
     public float maxScale = 7;
+    private bool waveEnabled;
 
-    void Start()
+    void OnEnable()
     {
+        waveEnabled = true;
         StartCoroutine(WaterWaving());
+    }
+
+    void OnDisable()
+    {
+        waveEnabled = false;
     }
 
     IEnumerator WaterWaving()
     {
         float percent = 0;
-        while (true)
+        while (waveEnabled)
         {
             percent += Time.deltaTime;
 
