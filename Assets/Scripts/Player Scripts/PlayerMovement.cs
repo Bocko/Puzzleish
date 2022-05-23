@@ -136,10 +136,9 @@ public class PlayerMovement : MonoBehaviour
         //adding fake force downwards on obejct that is below the player
         if (Physics.Raycast(groundChecker.position, Vector3.down, out RaycastHit hitInfo, groundDistance, groundMask))
         {
-            if (hitInfo.collider.attachedRigidbody != null)
-            {
-                hitInfo.collider.attachedRigidbody.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);
-            }
+            Rigidbody itemRB = hitInfo.collider.attachedRigidbody;
+            if (itemRB == null) return;
+            itemRB.AddForceAtPosition(mass * Mathf.Abs(verticalVelocity.y) * Vector3.down, hitInfo.point);
         }
     }
 
