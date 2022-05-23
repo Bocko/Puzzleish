@@ -526,6 +526,7 @@ MonoBehaviour:
   defaultHeight: 2
   crouchedHeight: 1.5
   crouchTime: 0.1
+  playerBody: {fileID: 1206693859059586211}
 --- !u!114 &1206693859040432572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +641,7 @@ MonoBehaviour:
   offset: 45
   direction: {x: 1, y: 0, z: 0}
   effectTime: 0.05
+  effect: {fileID: 0}
 --- !u!143 &1206693859040432546
 CharacterController:
   m_ObjectHideFlags: 0

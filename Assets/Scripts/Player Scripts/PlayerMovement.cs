@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public float defaultHeight = 2;
     public float crouchedHeight = 1.5f;
     public float crouchTime = 0.1f;
+    public Transform playerBody;
+
     float verticalAdjusmentAmount = .25f;
 
     Vector3 jetpackVelocity; // velocity for the jetpack
@@ -37,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
 
     CharacterController controller;
     PlayerLook playerLook;
-    Transform playerBody;
 
     public bool onGround
     {
@@ -53,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerLook = GetComponent<PlayerLook>();
-        playerBody = transform.Find("Player Body");
         verticalAdjusmentAmount = (defaultHeight - crouchedHeight) / 2;
     }
 

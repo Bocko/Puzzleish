@@ -27,6 +27,7 @@ public class PlayerItemPickUper : MonoBehaviour
     public string currentItemName { get; private set; }
     public bool moveable { get; private set; }
 
+    string moveableTag = "Moveable";
     bool HandEmpty;
     float distance;
     float distanceBetweenGrabPointAndCenter;
@@ -63,7 +64,7 @@ public class PlayerItemPickUper : MonoBehaviour
         {
             if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
             {
-                if (!hitInfo.collider.CompareTag("Moveable"))//check if the object is moveable
+                if (!hitInfo.collider.CompareTag(moveableTag))//check if the object is moveable
                 {
                     currentItemName = "";
                     moveable = false;
