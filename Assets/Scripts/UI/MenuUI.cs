@@ -6,4 +6,9 @@ public class MenuUI : MonoBehaviour
     {
         GameManager.instance.LoadScene(SceneIndexes.TUTORIALISH);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
