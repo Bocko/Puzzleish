@@ -6,7 +6,7 @@ public class NextLevelLoader : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Tags.PlayerTag))
         {
             if (GameManager.instance != null)
             {

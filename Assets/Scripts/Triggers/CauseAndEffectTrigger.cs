@@ -10,9 +10,6 @@ public class CauseAndEffectTrigger : MonoBehaviour
     public float waitTimeAfterFirstMessage = 2f;
     public float secondMessageWaitTime = 3f;
 
-    [Header("Tag")]
-    public string playerTag = "Player";
-
     [Header("Texts")]
     public string firstMessageText = "What the hell?!..";
     public string secondMessageText = "Its like I have traveled forward in time.";
@@ -30,7 +27,7 @@ public class CauseAndEffectTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(Tags.PlayerTag))
         {
             if (!played)
             {

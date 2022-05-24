@@ -5,12 +5,13 @@ public class ItemTrigger : MonoBehaviour
     public enum item { JETPACK, TTDEVICE }
     public enum itemStatus { ON, OFF }
 
+    [Header("Settings")]
     public item itemToSwitch;
     public itemStatus statusToSetItem;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Tags.PlayerTag))
         {
             switch (itemToSwitch)
             {

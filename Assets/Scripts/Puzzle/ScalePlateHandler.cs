@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class ScalePlateHandler : MonoBehaviour
 {
-    public string scaleTag = "ScaleWeight";
-
     public event System.Action<float> WeightChange;
     List<Collider> weights = new List<Collider>();
 
     void OnTriggerEnter(Collider other)//sending event when a new cube is inside the plate trigger and adding it to a list
     {
-        if (other.CompareTag(scaleTag))
+        if (other.CompareTag(Tags.ScaleWeightTag))
         {
             weights.Add(other);
             WeightChange?.Invoke(other.GetComponent<ScaleWeight>().weight);
@@ -19,7 +17,7 @@ public class ScalePlateHandler : MonoBehaviour
 
     void OnTriggerExit(Collider other)//sending event when a new cube is inside the plate trigger and removing it form the list
     {
-        if (other.CompareTag(scaleTag))
+        if (other.CompareTag(Tags.ScaleWeightTag))
         {
             weights.Remove(other);
             WeightChange?.Invoke(-other.GetComponent<ScaleWeight>().weight);

@@ -5,7 +5,6 @@ using TMPro;
 public class WeightChecker : MonoBehaviour
 {
     public TextMeshPro weightReadout;
-    public string scaleWeightTag = "ScaleWeight";
     public string readyText = "READY";
     public string tooManyText = "TOO MANY OBJECTS";
 
@@ -19,7 +18,7 @@ public class WeightChecker : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(scaleWeightTag))
+        if (!other.CompareTag(Tags.ScaleWeightTag))
         {
             return;
         }
@@ -37,7 +36,7 @@ public class WeightChecker : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag(scaleWeightTag))
+        if (!other.CompareTag(Tags.ScaleWeightTag))
         {
             return;
         }

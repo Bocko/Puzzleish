@@ -5,7 +5,6 @@ public class OnLadderMovement : MonoBehaviour
     public Transform headPivotPoint;
     public float onLadderSpeed = 7f;
     public float onLadderJumpForce = 100f;
-    public string ladderTag = "Ladder";
 
     bool onLadder = false;
     bool savedJetPackSetting;
@@ -40,7 +39,7 @@ public class OnLadderMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(ladderTag))
+        if (other.CompareTag(Tags.LadderTag))
         {
             PlayerMovementEnabled(false);
         }
@@ -48,7 +47,7 @@ public class OnLadderMovement : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(ladderTag))
+        if (other.CompareTag(Tags.LadderTag))
         {
             PlayerMovementEnabled(true);
         }

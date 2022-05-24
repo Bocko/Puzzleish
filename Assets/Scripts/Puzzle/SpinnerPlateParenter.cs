@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class SpinnerPlateParenter : MonoBehaviour
 {
-    public string playerTag = "Player";
-
     Transform originalParent;
 
     private void OnTriggerEnter(Collider other)//adds the player as a child of the spinner so the player spins like the spinner....
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(Tags.PlayerTag))
         {
             originalParent = other.transform.parent;
             other.transform.parent = transform;
@@ -17,7 +15,7 @@ public class SpinnerPlateParenter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(Tags.PlayerTag))
         {
             other.transform.parent = originalParent;
         }
