@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//source: https://www.youtube.com/watch?v=J1ng1zA3-Pk
 public class ProgressBar : MonoBehaviour
 {
     public float minimum;

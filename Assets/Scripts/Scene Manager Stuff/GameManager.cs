@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//source: https://www.youtube.com/watch?v=iXWFTgFNRdM
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
