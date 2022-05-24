@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 totalSceneProgress = (totalSceneProgress / scenesLoading.Count) * 100f;
-                progressBar.ChangeCurrent(Mathf.RoundToInt(totalSceneProgress));
+                progressBar.ChangeCurrent(totalSceneProgress);
 
                 yield return null;
             }

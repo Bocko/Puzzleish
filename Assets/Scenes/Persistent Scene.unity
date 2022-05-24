@@ -835,9 +835,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3017739939874793486, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: current
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017739939874793486, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: barColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017739939874793486, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: barColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017739939874793486, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: barColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017739939874793486, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: barColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5908116421556881267, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
       propertyPath: m_Name
       value: ProgressBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354024527845659716, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bda1c1fd45572f4a80e57f68b824e05, type: 3}
