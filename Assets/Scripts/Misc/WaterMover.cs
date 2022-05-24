@@ -5,6 +5,7 @@ public class WaterMover : MonoBehaviour
 {
     public float minScale = 5;
     public float maxScale = 7;
+
     private bool waveEnabled;
 
     void OnEnable()

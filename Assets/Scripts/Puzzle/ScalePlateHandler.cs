@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class ScalePlateHandler : MonoBehaviour
 {
+    public string scaleTag = "ScaleWeight";
+
     public event System.Action<float> WeightChange;
     List<Collider> weights = new List<Collider>();
-    private readonly string scaleTag = "ScaleWeight";
 
     void OnTriggerEnter(Collider other)//sending event when a new cube is inside the plate trigger and adding it to a list
     {

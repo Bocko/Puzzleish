@@ -24,10 +24,14 @@ public class PlayerItemPickUper : MonoBehaviour
     public float chargeRate = .5f;
     public float maxForce = 20;
 
+    [Header("Tag")]
+    public string moveableTag = "Moveable";
+
     public string currentItemName { get; private set; }
     public bool moveable { get; private set; }
 
-    string moveableTag = "Moveable";
+
+
     bool HandEmpty;
     float distance;
     float distanceBetweenGrabPointAndCenter;

@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class SpinnerPlateParenter : MonoBehaviour
 {
+    public string playerTag = "Player";
+
     Transform originalParent;
-    private string playerTag = "Player";
+
     private void OnTriggerEnter(Collider other)//adds the player as a child of the spinner so the player spins like the spinner....
     {
         if (other.CompareTag(playerTag))

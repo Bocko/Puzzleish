@@ -4,25 +4,33 @@ using TMPro;
 
 public class ScaleManager : MonoBehaviour
 {
+    [Header("Components")]
     public TextMeshPro middleText;
     public TextMeshPro leftText;
     public TextMeshPro rightText;
     public DoorHandler doorHandler;
-    public float weightLimitPerPlate = 20;
     public ScalePlateHandler leftPlateHandler;
     public ScalePlateHandler rightPlateHandler;
     public Transform leftPlateHolder;
     public Transform rightPlateHolder;
     public Transform middleHandle;
+
+    [Header("Settings")]
+    public float weightLimitPerPlate = 20;
     public float moveUnitPerWeight = 0.02f;
     public float rotationUnitPerWeight = 0.25f;
     public float defaultPlateHeight = 1;
     public float moveTime = 0.1f;
 
+    [Header("Plate and Weight properties")]
+    public float halfOfPlateThiccnes = .05f;
+    public float halfOfWeightThiccnes = .125f;
+
+    [Header("Completed Text")]
+    public string completedText = "SCALE COMPLETED!";
+
     float leftPlateSum = 0;
     float rightPlateSum = 0;
-    float halfOfPlateThiccnes = .05f;
-    float halfOfWeightThiccnes = .125f;
 
     void Start()
     {
@@ -56,7 +64,7 @@ public class ScaleManager : MonoBehaviour
             doorHandler.SetState(DoorHandler.state.OPEN);
             if (NotificationManager.instance != null)
             {
-                NotificationManager.instance.ShowNotification("SCALE COMPLETED!", 1);
+                NotificationManager.instance.ShowNotification(completedText, 1);
             }
         }
         else

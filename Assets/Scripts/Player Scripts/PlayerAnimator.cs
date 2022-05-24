@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
+    [Header("Trigger names")]
+    public string handCloseTriggerName = "TriggerClose";
+    public string handOpenTriggerName = "TriggerOpen";
+    public string snapTriggerName = "TTDSnap";
+
     Animator handAnimator;
     PlayerItemPickUper pickuper;
     PlayerCauseAndEffect playerCnE;
-
-    private const string handCloseTriggerName = "TriggerClose";
-    private const string handOpenTriggerName = "TriggerOpen";
-    private const string snapTriggerName = "TTDSnap";
 
     void Start()
     {

@@ -5,14 +5,16 @@ using TMPro;
 public class WeightChecker : MonoBehaviour
 {
     public TextMeshPro weightReadout;
+    public string scaleWeightTag = "ScaleWeight";
+    public string readyText = "READY";
+    public string tooManyText = "TOO MANY OBJECTS";
 
     List<Collider> collidersInChecker;
-    string scaleWeightTag = "ScaleWeight";
 
     void Start()
     {
         collidersInChecker = new List<Collider>();
-        weightReadout.text = "READY";
+        weightReadout.text = readyText;
     }
 
     void OnTriggerEnter(Collider other)
@@ -29,7 +31,7 @@ public class WeightChecker : MonoBehaviour
         }
         else
         {
-            weightReadout.text = "TOO MANY OBJECTS";
+            weightReadout.text = tooManyText;
         }
     }
 
@@ -43,7 +45,7 @@ public class WeightChecker : MonoBehaviour
         collidersInChecker.Remove(other);
         if (collidersInChecker.Count == 0)
         {
-            weightReadout.text = "READY";
+            weightReadout.text = readyText;
         }
         else if (collidersInChecker.Count < 2)
         {
@@ -51,7 +53,7 @@ public class WeightChecker : MonoBehaviour
         }
         else
         {
-            weightReadout.text = "TOO MANY OBJECTS";
+            weightReadout.text = tooManyText;
         }
     }
 
