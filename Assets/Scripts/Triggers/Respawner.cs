@@ -23,8 +23,8 @@ public class Respawner : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawIcon(transform.position, "RotateTool@2x", false, gizmoColor);
-        Gizmos.DrawIcon(respawnPos.position, "PreTexR@2x", false, gizmoColor);
+        Gizmos.DrawIcon(transform.position, UnityIcons.RespawnerTriggerIcon, false, gizmoColor);
+        Gizmos.DrawIcon(respawnPos.position, UnityIcons.RespawnerPointIcon, false, gizmoColor);
         Gizmos.DrawWireCube(transform.position, transform.localScale);
     }
 }

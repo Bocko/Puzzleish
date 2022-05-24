@@ -54,6 +54,6 @@ public class ItemTrigger : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, transform.localScale);
-        Gizmos.DrawIcon(transform.position, itemToSwitch == item.JETPACK ? "d_Spotlight Icon" : "UnityEditor.ProfilerWindow@2x", false, statusToSetItem == itemStatus.ON ? Color.green : Color.red);
+        Gizmos.DrawIcon(transform.position, itemToSwitch == item.JETPACK ? UnityIcons.JetpackIcon : UnityIcons.TTDIcon, false, statusToSetItem == itemStatus.ON ? Color.green : Color.red);
     }
 }
