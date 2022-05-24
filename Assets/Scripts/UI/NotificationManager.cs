@@ -12,8 +12,6 @@ public class NotificationManager : MonoBehaviour
     public float lowerPosition = -50;
     public float moveTime = 0.25f;
 
-    List<RectTransform> texts = new List<RectTransform>();
-
     void Awake()
     {
         instance = this;
@@ -33,7 +31,7 @@ public class NotificationManager : MonoBehaviour
     IEnumerator AnimateNotification(string textToShow, float delayTime)
     {
         RectTransform noti = Instantiate(notification, notificationCanvas);
-        TextMeshProUGUI text = noti.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI text = noti.GetComponentInChildren<TextMeshProUGUI>();
         text.text = textToShow;
 
         float percent = 0;
