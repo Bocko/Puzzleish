@@ -24750,6 +24750,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4637650230099057353, guid: ade10d2125e80f4488569e274de81327, type: 3}
+      propertyPath: playerLook
+      value: 
+      objectReference: {fileID: 1540061655}
     - target: {fileID: 6444016143649390652, guid: ade10d2125e80f4488569e274de81327, type: 3}
       propertyPath: m_Name
       value: PauseScreenHolder
@@ -32597,6 +32601,17 @@ PrefabInstance:
       objectReference: {fileID: 235786889}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc59dac483144444191655d728f8406f, type: 3}
+--- !u!114 &1540061655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1206693859040432572, guid: fc59dac483144444191655d728f8406f, type: 3}
+  m_PrefabInstance: {fileID: 1540061654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0890eb65847ebd43a8c19fbb21b25eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1550576679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39085,6 +39100,8 @@ MonoBehaviour:
   firstMessageWaitTime: 2
   waitTimeAfterFirstMessage: 2
   secondMessageWaitTime: 3
+  firstMessageText: What the hell?!..
+  secondMessageText: Its like I have traveled forward in time.
 --- !u!65 &1887094012
 BoxCollider:
   m_ObjectHideFlags: 0

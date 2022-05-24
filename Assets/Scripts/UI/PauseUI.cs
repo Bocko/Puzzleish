@@ -2,43 +2,40 @@ using UnityEngine;
 
 public class PauseUI : MonoBehaviour
 {
+    public enum PauseState { RUNNING, PAUSED, HELP }
+
     public GameObject pauseScreen;
     public GameObject buttonHolder;
     public GameObject helpScreen;
-    bool isPaused = false;
-    bool helpOpen = false;
-    PlayerLook playerLook;
 
-    void Start()
-    {
-        playerLook = GameObject.Find("First Person Player").GetComponent<PlayerLook>();
-    }
+    public PlayerLook playerLook;
+
+    PauseState pauseState = PauseState.RUNNING;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            switch (pauseState)
             {
-                if (helpOpen)
-                {
+                case PauseState.RUNNING:
+                    PauseGame();
+                    break;
+                case PauseState.PAUSED:
+                    ResumeGame();
+                    break;
+                case PauseState.HELP:
                     HideHelp();
-                    return;
-                }
-                ResumeGame();
-                isPaused = false;
-            }
-            else
-            {
-                PauseGame();
-                isPaused = true;
+                    break;
             }
         }
     }
 
     private void PauseGame()
     {
+        pauseState = PauseState.PAUSED;
         Cursor.lockState = CursorLockMode.None;
+
         playerLook.enabled = false;
         pauseScreen.SetActive(true);
         Time.timeScale = 0;
@@ -46,7 +43,9 @@ public class PauseUI : MonoBehaviour
 
     private void ResumeGame()
     {
+        pauseState = PauseState.RUNNING;
         Cursor.lockState = CursorLockMode.Locked;
+
         playerLook.enabled = true;
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
@@ -68,16 +67,18 @@ public class PauseUI : MonoBehaviour
 
     public void ShowHelp()
     {
+        pauseState = PauseState.HELP;
+
         buttonHolder.SetActive(false);
         helpScreen.SetActive(true);
-        helpOpen = true;
     }
 
     public void HideHelp()
     {
+        pauseState = PauseState.PAUSED;
+
         buttonHolder.SetActive(true);
         helpScreen.SetActive(false);
-        helpOpen = false;
     }
 
     public void ExitToMenu()

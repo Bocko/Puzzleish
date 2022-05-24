@@ -5873,6 +5873,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4637650230099057353, guid: ade10d2125e80f4488569e274de81327, type: 3}
+      propertyPath: playerLook
+      value: 
+      objectReference: {fileID: 2017576589}
     - target: {fileID: 6444016143649390652, guid: ade10d2125e80f4488569e274de81327, type: 3}
       propertyPath: m_Name
       value: PauseScreenHolder
@@ -8789,6 +8793,17 @@ PrefabInstance:
       objectReference: {fileID: 788278132}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc59dac483144444191655d728f8406f, type: 3}
+--- !u!114 &2017576589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1206693859040432572, guid: fc59dac483144444191655d728f8406f, type: 3}
+  m_PrefabInstance: {fileID: 2017576588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0890eb65847ebd43a8c19fbb21b25eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2027624373
 GameObject:
   m_ObjectHideFlags: 0
