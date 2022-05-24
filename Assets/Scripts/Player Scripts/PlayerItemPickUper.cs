@@ -47,11 +47,11 @@ public class PlayerItemPickUper : MonoBehaviour
     void Update()
     {
         fire1Down = Input.GetButtonDown("Fire1") || fire1Down; //fire1Down is true if the fire1 button was pressed down or if it was previously pressed
-        fire1Down = (fire1Down && Input.GetButtonUp("Fire1")) ? false : fire1Down; //reseting fireiDown if its true the button was released
+        fire1Down = (fire1Down && Input.GetButtonUp("Fire1")) ? false : fire1Down; //reseting fireiDown if its true and the button was released
 
         bool fire3Up = Input.GetButtonUp("Fire3");
 
-        fire1Down = (!HandEmpty && fire3Up) ? false : fire1Down; //reseting if fire3 down and theres something in the hand
+        fire1Down = (!HandEmpty && fire3Up) ? false : fire1Down; //reseting fire1 if fire3 down and there is something in the hand
 
         bool fire3Down = Input.GetAxisRaw("Fire3") == 1;
         bool fire2Down = Input.GetAxisRaw("Fire2") == 1;
@@ -61,34 +61,11 @@ public class PlayerItemPickUper : MonoBehaviour
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
         {
-            if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
-            {
-                if (!hitInfo.collider.CompareTag(Tags.MoveableTag))//check if the object is moveable
-                {
-                    currentItemName = "";
-                    moveable = false;
-                    return;
-                }
-
-                currentItemName = hitInfo.collider.name;
-                moveable = true;
-
-                //if the player hold mouse 0 (left mouse) the object can be moved by the player
-                if (fire1Down)
-                {
-                    GrabItem();
-                }
-            }
-            else
-            {
-                currentItemName = "";
-                moveable = false;
-            }
-
+            EmptyHandRaycasting();
         }// if the player lets go of the mouse button the object falls?
         else if (!fire1Down) //something in hand and left mouse is up
         {
-            Releaseitem();//item get released and if the mouse wheel was also let go the item will get some forward force 
+            Releaseitem();//item gets released and if the mouse wheel was also let go the item will get some forward force 
             if (fire3Up)
             {
                 ThrowHeldItem();
@@ -119,18 +96,38 @@ public class PlayerItemPickUper : MonoBehaviour
             Debug.DrawRay(headPivotPoint.position, (holdingPoint.position - headPivotPoint.position).normalized * distance);
         }
 
-        if (playerLook.lockMouseMovement && !fire2Down)
-        {
-            playerLook.lockMouseMovement = false;
-        }
-
-        if (currentCharge > 0 && HandEmpty)
-        {
-            currentCharge = 0;
-        }
+        ResetLookLock(fire2Down);
+        ResetCharge();
 
         //debug ray for the throwforce
         Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, GetThrowForce(mouseX, mouseY));
+    }
+
+    void EmptyHandRaycasting()
+    {
+        if (Physics.Raycast(headPivotPoint.position, headPivotPoint.forward, out hitInfo, maxPickupDistance, pickupMask, QueryTriggerInteraction.Ignore))
+        {
+            if (!hitInfo.collider.CompareTag(Tags.MoveableTag))//check if the object is moveable
+            {
+                currentItemName = "";
+                moveable = false;
+                return;
+            }
+
+            currentItemName = hitInfo.collider.name;
+            moveable = true;
+
+            //if the player hold mouse 0 (left mouse) the object can be moved by the player
+            if (fire1Down)
+            {
+                GrabItem();
+            }
+        }
+        else
+        {
+            currentItemName = "";
+            moveable = false;
+        }
     }
 
     void ItemRotation(float mouseX, float mouseY)
@@ -187,6 +184,22 @@ public class PlayerItemPickUper : MonoBehaviour
         HandEmpty = true;
         holdingPoint.localPosition = Vector3.zero;
         EnablePickedupObject(true);
+    }
+
+    void ResetLookLock(bool fire2Down)
+    {
+        if (playerLook.lockMouseMovement && !fire2Down)
+        {
+            playerLook.lockMouseMovement = false;
+        }
+    }
+
+    void ResetCharge()
+    {
+        if (currentCharge > 0 && HandEmpty)
+        {
+            currentCharge = 0;
+        }
     }
 
     void ResetItemCompHolders()
