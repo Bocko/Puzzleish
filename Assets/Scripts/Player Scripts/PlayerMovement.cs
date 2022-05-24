@@ -59,15 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //adding gravity over time
-        verticalVelocity.y += -gravity * gravityMultiplier * Time.deltaTime;
-
-        if (onGround && verticalVelocity.y < 0)
-        {
-            //if on the ground reset the saved velocity to 0 and add const gravity to vertical velocity
-            savedVelocity = Vector3.zero;
-            verticalVelocity.y = -gravity;
-        }
+        Gravity();
 
         float movementVertical = Input.GetAxisRaw("Vertical");
         float movementHorizontal = Input.GetAxisRaw("Horizontal");
@@ -82,6 +74,50 @@ public class PlayerMovement : MonoBehaviour
             Crouch();
         }
 
+        MovementCalculation(inputDir, walkDown);
+
+        //if the jump key is pressed and the player is on the ground add enough upwards velocity to reach the set jump height
+        if (Input.GetButtonDown("Jump") && onGround)
+        {
+            Jump();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        finalVelocity = Vector3.zero;
+
+        FakeDownForceBelowPlayer();
+
+        moveVelocity += savedVelocity;
+
+        SpeedLimiter();
+
+        verticalVelocity += jetpackVelocity;
+
+        finalVelocity += verticalVelocity;
+        finalVelocity += moveVelocity;
+
+        VelocityLimitForStuckage();
+
+        controller.Move(finalVelocity * Time.deltaTime);
+    }
+
+    void Gravity()
+    {
+        //adding gravity over time
+        verticalVelocity.y += -gravity * gravityMultiplier * Time.deltaTime;
+
+        if (onGround && verticalVelocity.y < 0)
+        {
+            //if on the ground reset the saved velocity to 0 and add const gravity to vertical velocity
+            savedVelocity = Vector3.zero;
+            verticalVelocity.y = -gravity;
+        }
+    }
+
+    void MovementCalculation(Vector3 inputDir, bool walkDown)
+    {
         if (onGround)
         {
             //if on the ground and the walk key is held down or the player is crouched reduce movement speed
@@ -99,36 +135,22 @@ public class PlayerMovement : MonoBehaviour
                 savedVelocity = Vector3.zero;
             }
         }
-        //if the jump key is pressed and the player is on the ground add enough upwards velocity to reach the set jump height
-        if (Input.GetButtonDown("Jump") && onGround)
-        {
-            verticalVelocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
-            //saving the horizontal velocity so the jump keeps the players "momentum"(?)
-            savedVelocity = controller.velocity;
-        }
     }
 
-    void FixedUpdate()
+    void Jump()
     {
-        finalVelocity = Vector3.zero;
+        verticalVelocity.y = Mathf.Sqrt(jumpHeight * 2 * gravity * gravityMultiplier);
+        //saving the horizontal velocity so the jump keeps the players "momentum"(?)
+        savedVelocity = controller.velocity;
+    }
 
-        FakeDownForceBelowPlayer();
-
-        moveVelocity += savedVelocity;
+    void SpeedLimiter()
+    {
         //limit speed so that when in the air you cant go faster than the limit when holding the forward key
         if (moveVelocity.sqrMagnitude > Mathf.Pow(speed, 2))
         {
             moveVelocity = moveVelocity.normalized * speed;
         }
-
-        verticalVelocity += jetpackVelocity;
-
-        finalVelocity += verticalVelocity;
-        finalVelocity += moveVelocity;
-
-        VelocityLimitForStuckage();
-
-        controller.Move(finalVelocity * Time.deltaTime);
     }
 
     void FakeDownForceBelowPlayer()
