@@ -96,55 +96,38 @@ public class ScaleManager : MonoBehaviour
     IEnumerator MovePlate()
     {
         float dif = Mathf.Clamp(leftPlateSum - rightPlateSum, -40, 40);//clamped so no funky stuff with overloading the scale alright?
-        float asd = Mathf.Abs(moveUnitPerWeight * dif);
+        float moveOffset = Mathf.Abs(moveUnitPerWeight * dif);
 
         float percent = 0;
         float moveSpeed = 1 / moveTime;
         //moving all the cubes the same amount as the plates
-        if (dif == 0)// move the scales hands to the middle
+
+        float leftPlateNewPos = 1;
+        float rightPlateNewPos = 1;
+        Vector3 middleBarNewRot = Vector3.zero;
+
+        if (dif > 0)
         {
-            while (percent < 1)
-            {
-                percent += Time.deltaTime * moveSpeed;
-
-                leftPlateHolder.position = new Vector3(leftPlateHolder.position.x, Mathf.Lerp(leftPlateHolder.position.y, 1, percent), leftPlateHolder.position.z);
-                leftPlateHandler.AdjustWeightsOnPlate(leftPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                rightPlateHolder.position = new Vector3(rightPlateHolder.position.x, Mathf.Lerp(rightPlateHolder.position.y, 1, percent), rightPlateHolder.position.z);
-                rightPlateHandler.AdjustWeightsOnPlate(rightPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                middleHandle.rotation = Quaternion.Lerp(middleHandle.rotation, Quaternion.Euler(Vector3.zero), percent);
-
-                yield return null;
-            }
+            leftPlateNewPos = 1 - moveOffset;
+            rightPlateNewPos = 1 + moveOffset;
         }
-        else if (dif > 0)// move the left hand down and the right up
+        else if (dif < 0)
         {
-            while (percent < 1)
-            {
-                percent += Time.deltaTime * moveSpeed;
-
-                leftPlateHolder.position = new Vector3(leftPlateHolder.position.x, Mathf.Lerp(leftPlateHolder.position.y, 1 - asd, percent), leftPlateHolder.position.z);
-                leftPlateHandler.AdjustWeightsOnPlate(leftPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                rightPlateHolder.position = new Vector3(rightPlateHolder.position.x, Mathf.Lerp(rightPlateHolder.position.y, 1 + asd, percent), rightPlateHolder.position.z);
-                rightPlateHandler.AdjustWeightsOnPlate(rightPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                middleHandle.rotation = Quaternion.Lerp(middleHandle.rotation, Quaternion.Euler(0, 0, dif * rotationUnitPerWeight), percent);
-
-                yield return null;
-            }
+            leftPlateNewPos = 1 + moveOffset;
+            rightPlateNewPos = 1 - moveOffset;
         }
-        else// move the right down and the left up
+
+        while (percent < 1)
         {
-            while (percent < 1)
-            {
-                percent += Time.deltaTime * moveSpeed;
+            percent += Time.deltaTime * moveSpeed;
 
-                leftPlateHolder.position = new Vector3(leftPlateHolder.position.x, Mathf.Lerp(leftPlateHolder.position.y, 1 + asd, percent), leftPlateHolder.position.z);
-                leftPlateHandler.AdjustWeightsOnPlate(leftPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                rightPlateHolder.position = new Vector3(rightPlateHolder.position.x, Mathf.Lerp(rightPlateHolder.position.y, 1 - asd, percent), rightPlateHolder.position.z);
-                rightPlateHandler.AdjustWeightsOnPlate(rightPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
-                middleHandle.rotation = Quaternion.Lerp(middleHandle.rotation, Quaternion.Euler(0, 0, dif * rotationUnitPerWeight), percent);
+            leftPlateHolder.position = new Vector3(leftPlateHolder.position.x, Mathf.Lerp(leftPlateHolder.position.y, leftPlateNewPos, percent), leftPlateHolder.position.z);
+            leftPlateHandler.AdjustWeightsOnPlate(leftPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
+            rightPlateHolder.position = new Vector3(rightPlateHolder.position.x, Mathf.Lerp(rightPlateHolder.position.y, rightPlateNewPos, percent), rightPlateHolder.position.z);
+            rightPlateHandler.AdjustWeightsOnPlate(rightPlateHolder.position.y + halfOfPlateThiccnes + halfOfWeightThiccnes);
+            middleHandle.rotation = Quaternion.Lerp(middleHandle.rotation, Quaternion.Euler(middleBarNewRot), percent);
 
-                yield return null;
-            }
+            yield return null;
         }
     }
 }
