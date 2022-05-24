@@ -6,13 +6,15 @@ public class GameUI : MonoBehaviour
 {
     [Header("Item Pick")]
     public Image pointer;
-    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemNameText;
     public Color highlightedPointerColor;
+    Color defaultPointerColor;
+    bool moveable;
 
     [Header("Stance Indicator")]
     public Image stanceHolder;
-    public Sprite standing;
-    public Sprite crouching;
+    public Sprite standingSprite;
+    public Sprite crouchingSprite;
     bool crouched;
 
     [Header("Jetpack")]
@@ -21,6 +23,7 @@ public class GameUI : MonoBehaviour
     public GameObject jetpackUIHolder;
     public Gradient fuelGradient;
     bool jetpackIsOn;
+    float currentFuel;
 
     [Header("Time Travel Device")]
     public GameObject TimeDeviceHolder;
@@ -38,8 +41,6 @@ public class GameUI : MonoBehaviour
     PlayerJetpack playerJetpack;
     PlayerCauseAndEffect playerCnE;
 
-    Color defaultPointerColor;
-
     void Start()
     {
         playerItemPickUper = FindObjectOfType<PlayerItemPickUper>();
@@ -47,13 +48,15 @@ public class GameUI : MonoBehaviour
         playerJetpack = FindObjectOfType<PlayerJetpack>();
         playerCnE = FindObjectOfType<PlayerCauseAndEffect>();
 
-        itemName.text = "";
+        itemNameText.text = "";
         defaultPointerColor = pointer.color;
+        moveable = playerItemPickUper.moveable;
 
         crouched = playerMovement.isCrouched;
 
         jetpackIsOn = playerJetpack.isOnAtStart;
         jetpackUIHolder.SetActive(jetpackIsOn);
+        currentFuel = playerJetpack.fuel;
 
         ttdIsOn = playerCnE.isOnAtStart;
         inPresent = playerCnE.inPresent;
@@ -71,14 +74,12 @@ public class GameUI : MonoBehaviour
 
     void UpdatePointer()
     {
-        itemName.text = playerItemPickUper.currentItemName;
-        if (playerItemPickUper.moveable)
+        if (moveable != playerItemPickUper.moveable)
         {
-            pointer.color = highlightedPointerColor;
-        }
-        else
-        {
-            pointer.color = defaultPointerColor;
+            moveable = playerItemPickUper.moveable;
+
+            itemNameText.text = playerItemPickUper.currentItemName;
+            pointer.color = moveable ? highlightedPointerColor : defaultPointerColor;
         }
     }
 
@@ -87,14 +88,7 @@ public class GameUI : MonoBehaviour
         if (crouched != playerMovement.isCrouched)
         {
             crouched = playerMovement.isCrouched;
-            if (crouched)
-            {
-                stanceHolder.sprite = crouching;
-            }
-            else
-            {
-                stanceHolder.sprite = standing;
-            }
+            stanceHolder.sprite = crouched ? crouchingSprite : standingSprite;
         }
     }
 
@@ -108,9 +102,13 @@ public class GameUI : MonoBehaviour
 
         if (!jetpackIsOn) return;
 
-        float fuelPercent = Mathf.Clamp01(playerJetpack.fuel / playerJetpack.maxFuel);
-        jetpackFuelBarRect.localScale = new Vector3(fuelPercent, 1, 1);
-        jetpackFuelBarImage.color = GetColorFromGradient(fuelPercent);
+        if (currentFuel != playerJetpack.fuel)
+        {
+            currentFuel = playerJetpack.fuel;
+            float fuelPercent = Mathf.Clamp01(playerJetpack.fuel / playerJetpack.maxFuel);
+            jetpackFuelBarRect.localScale = new Vector3(fuelPercent, 1, 1);
+            jetpackFuelBarImage.color = GetColorFromGradient(fuelPercent);
+        }
     }
 
     void UpdateTimeTravelDeviceUI()
@@ -139,7 +137,11 @@ public class GameUI : MonoBehaviour
 
     void UpdateThrowRadialBar()
     {
-        if (playerItemPickUper.currentCharge > 0)
+        if (playerItemPickUper.currentCharge >= 1)
+        {
+            return;
+        }
+        else if (playerItemPickUper.currentCharge > 0)
         {
             throwBar.barColor = GetColorFromGradient(playerItemPickUper.currentCharge);
             throwBar.ChangeCurrent(playerItemPickUper.currentCharge);

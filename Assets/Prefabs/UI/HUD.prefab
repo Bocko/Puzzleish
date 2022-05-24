@@ -348,11 +348,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 6941401888900784245}
-  itemName: {fileID: 6941401889268994575}
+  itemNameText: {fileID: 6941401889268994575}
   highlightedPointerColor: {r: 0.0071456432, g: 1, b: 0, a: 1}
   stanceHolder: {fileID: 6941401889307512559}
-  standing: {fileID: 21300000, guid: 4243330992a5b744780dbc102c08c249, type: 3}
-  crouching: {fileID: 21300000, guid: 24a67595503c5cb4c9f638e62a235aae, type: 3}
+  standingSprite: {fileID: 21300000, guid: 4243330992a5b744780dbc102c08c249, type: 3}
+  crouchingSprite: {fileID: 21300000, guid: 24a67595503c5cb4c9f638e62a235aae, type: 3}
   jetpackFuelBarRect: {fileID: 6941401888572948857}
   jetpackFuelBarImage: {fileID: 6941401888572948859}
   jetpackUIHolder: {fileID: 6941401889723300792}
