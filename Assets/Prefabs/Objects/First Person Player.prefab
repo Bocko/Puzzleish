@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 8778212956312403749}
   - component: {fileID: 1206693859040432546}
   - component: {fileID: 1206693859040432575}
+  - component: {fileID: 4737515084226965610}
   m_Layer: 9
   m_Name: First Person Player
   m_TagString: Player
@@ -560,7 +561,6 @@ MonoBehaviour:
   headPivotPoint: {fileID: 1206693858224310646}
   onLadderSpeed: 5
   onLadderJumpForce: 10
-  ladderTag: Ladder
 --- !u!114 &1206693859040432571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6440ac0def01de34d9b45bf55775ae2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handCloseTriggerName: TriggerClose
+  handOpenTriggerName: TriggerOpen
+  snapTriggerName: TTDSnap
 --- !u!114 &8778212956312403749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +679,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4737515084226965610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206693859040432544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa69a2c4e08012498068796eef340e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouseX: 0
+  MouseY: 0
+  Fire1Down: 0
+  Fire2Down: 0
+  Fire3Down: 0
+  Fire3Up: 0
+  Horizontal: 0
+  Vertical: 0
+  Jump: 0
+  Crouch: 0
+  Walk: 0
+  TimeTravel: 0
 --- !u!1 &1206693859059586208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1082,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd7aa59bfc7cdc4da99a591db268be7, type: 3}
+--- !u!4 &1981109160038281099 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dbd7aa59bfc7cdc4da99a591db268be7, type: 3}
+  m_PrefabInstance: {fileID: 2086548943904688224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7509879893450361221 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: dbd7aa59bfc7cdc4da99a591db268be7, type: 3}
@@ -1063,11 +1095,6 @@ GameObject:
 --- !u!1 &7215499648342984816 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: dbd7aa59bfc7cdc4da99a591db268be7, type: 3}
-  m_PrefabInstance: {fileID: 2086548943904688224}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1981109160038281099 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dbd7aa59bfc7cdc4da99a591db268be7, type: 3}
   m_PrefabInstance: {fileID: 2086548943904688224}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1167981397192406321 stripped

@@ -45,9 +45,11 @@ public class PlayerJetpack : MonoBehaviour
     }
 
     PlayerMovement playerMovement;
+    InputHandler inputHandler;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        inputHandler = GetComponent<InputHandler>();
         fuel = maxFuel;
         isOn = isOnAtStart;
         jetpackHolder.SetActive(isOn);
@@ -64,7 +66,6 @@ public class PlayerJetpack : MonoBehaviour
     {
         if (!isOn) return;
 
-        bool jetpackDown = Input.GetAxis("Jetpack") == 1;
         playerMovement.SetJetpackVelocity(Vector3.zero);
 
         if (playerMovement.onGround)
@@ -87,7 +88,7 @@ public class PlayerJetpack : MonoBehaviour
         else //if the player is NOT on the ground and the button for the jetpack is pressed and theres fuel start adding upwards force and start reducing the fuel
         {
             timeWaited = 0;
-            if (jetpackDown && fuel > 0)
+            if (inputHandler.Jetpack && fuel > 0)
             {
                 leftEM.enabled = true;
                 rightEM.enabled = true;

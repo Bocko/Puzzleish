@@ -37,26 +37,22 @@ public class PlayerItemPickUper : MonoBehaviour
     Rigidbody itemRB;
 
     PlayerLook playerLook;
+    InputHandler inputHandler;
+
     void Start()
     {
         playerLook = GetComponent<PlayerLook>();
+        inputHandler = GetComponent<InputHandler>();
         HandEmpty = true;
     }
 
     bool fire1Down = false;
     void Update()
     {
-        fire1Down = Input.GetButtonDown("Fire1") || fire1Down; //fire1Down is true if the fire1 button was pressed down or if it was previously pressed
-        fire1Down = (fire1Down && Input.GetButtonUp("Fire1")) ? false : fire1Down; //reseting fireiDown if its true and the button was released
+        fire1Down = inputHandler.Fire1Down || fire1Down; //fire1Down is true if the fire1 button was pressed down or if it was previously pressed
+        fire1Down = (fire1Down && inputHandler.Fire1Up) ? false : fire1Down; //reseting fireiDown if its true and the button was released
 
-        bool fire3Up = Input.GetButtonUp("Fire3");
-
-        fire1Down = (!HandEmpty && fire3Up) ? false : fire1Down; //reseting fire1 if fire3 down and there is something in the hand
-
-        bool fire3Down = Input.GetAxisRaw("Fire3") == 1;
-        bool fire2Down = Input.GetAxisRaw("Fire2") == 1;
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        fire1Down = (!HandEmpty && inputHandler.Fire3Up) ? false : fire1Down; //reseting fire1 if fire3 down and there is something in the hand
 
         //if the players hand is empty cast a ray to check if something that can be picked up is in front of it 
         if (HandEmpty)
@@ -66,13 +62,13 @@ public class PlayerItemPickUper : MonoBehaviour
         else if (!fire1Down) //something in hand and left mouse is up
         {
             Releaseitem();//item gets released and if the mouse wheel was also let go the item will get some forward force 
-            if (fire3Up)
+            if (inputHandler.Fire3Up)
             {
                 ThrowHeldItem();
             }
             else
             {
-                AddTossForce(mouseX, mouseY);
+                AddTossForce();
             }
             ResetItemCompHolders();
 
@@ -80,15 +76,15 @@ public class PlayerItemPickUper : MonoBehaviour
         else if (fire1Down) //somehting in hand and left mouse is down
         {
             MoveItemWithWheel();
-            if (fire3Down)
+            if (inputHandler.Fire3Down)
             {
                 ChargeThrow();
             }
 
             //if the right mouse button is held down rotate the object holder by the mouse
-            if (fire2Down)
+            if (inputHandler.Fire2Down)
             {
-                ItemRotation(mouseX, mouseY);
+                ItemRotation();
             }
 
             itemT.SetPositionAndRotation(holdingPoint.position, holdingPoint.rotation);//applying pos and rot of holdingPoint to the held item
@@ -96,11 +92,11 @@ public class PlayerItemPickUper : MonoBehaviour
             Debug.DrawRay(headPivotPoint.position, (holdingPoint.position - headPivotPoint.position).normalized * distance);
         }
 
-        ResetLookLock(fire2Down);
+        ResetLookLock();
         ResetCharge();
 
         //debug ray for the throwforce
-        Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, GetThrowForce(mouseX, mouseY));
+        Debug.DrawRay(headPivotPoint.position + headPivotPoint.forward * maxPickupDistance, GetThrowForce());
     }
 
     void EmptyHandRaycasting()
@@ -130,15 +126,15 @@ public class PlayerItemPickUper : MonoBehaviour
         }
     }
 
-    void ItemRotation(float mouseX, float mouseY)
+    void ItemRotation()
     {
         playerLook.lockMouseMovement = true;
         //rotating holding point around it self on the Y axis and on a body rotation corrected X axis so the object always rotates the same way and the body's rotation does not matter
         //or rotates around a point infront of the player at the same distance as the objects center from the players head
         //its not yet decided to which one to use
 
-        holdingPoint.RotateAround(holdingPoint.position, Vector3.up, mouseX * rotateSens);
-        holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, mouseY * rotateSens);
+        holdingPoint.RotateAround(holdingPoint.position, Vector3.up, inputHandler.MouseX * rotateSens);
+        holdingPoint.RotateAround(holdingPoint.position, Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Vector3.right, inputHandler.MouseY * rotateSens);
     }
 
     void GrabItem()
@@ -161,7 +157,7 @@ public class PlayerItemPickUper : MonoBehaviour
 
     void MoveItemWithWheel()
     {
-        float moveGrabedItem = Input.GetAxisRaw("Mouse ScrollWheel");
+        float moveGrabedItem = inputHandler.MouseWheel;
 
         //if theres something in the hand and there was scrolling adjust the distance accordingly
         Vector3 dirToCurrentObjectCenter = (holdingPoint.position - headPivotPoint.position).normalized;
@@ -186,9 +182,9 @@ public class PlayerItemPickUper : MonoBehaviour
         EnablePickedupObject(true);
     }
 
-    void ResetLookLock(bool fire2Down)
+    void ResetLookLock()
     {
-        if (playerLook.lockMouseMovement && !fire2Down)
+        if (playerLook.lockMouseMovement && !inputHandler.Fire2Down)
         {
             playerLook.lockMouseMovement = false;
         }
@@ -209,9 +205,9 @@ public class PlayerItemPickUper : MonoBehaviour
         itemRB = null;
     }
 
-    void AddTossForce(float mouseX, float mouseY)
+    void AddTossForce()
     {
-        itemRB.AddForce(GetThrowForce(mouseX, mouseY), ForceMode.Impulse);
+        itemRB.AddForce(GetThrowForce(), ForceMode.Impulse);
     }
 
     void ChargeThrow()
@@ -229,23 +225,18 @@ public class PlayerItemPickUper : MonoBehaviour
         itemRB.AddForce(headPivotPoint.forward * finalForce, ForceMode.Impulse);
     }
 
-    Vector3 GetThrowForce(float mouseX, float mouseY)
+    Vector3 GetThrowForce()
     {
         //rotating the force so its always perpendicular to the players x axis
         //the force is rotated by multipling it with the main bodys y rotation
         //rotating on the x axis so when looking up or down the force is always perpendicular to the players y axis
         //the force is rotated by the headPivotpoints x axis and then its rotated by the bodys y axis
         Vector3 rotatedXDirection = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up)
-                                   * Vector3.right * Mathf.Clamp(GetPlayerSensMouse(mouseX), -minMaxMouseThrowInput, minMaxMouseThrowInput);
+                                   * Vector3.right * Mathf.Clamp(inputHandler.MouseXPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput);
         Vector3 rotatedYDirection = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * Quaternion.AngleAxis(headPivotPoint.eulerAngles.x, Vector3.right)
-                                   * Vector3.up * Mathf.Clamp(GetPlayerSensMouse(mouseY), -minMaxMouseThrowInput, minMaxMouseThrowInput);
+                                   * Vector3.up * Mathf.Clamp(inputHandler.MouseYPlayerSens, -minMaxMouseThrowInput, minMaxMouseThrowInput);
 
         return (rotatedXDirection + rotatedYDirection) * throwForce;
-    }
-
-    float GetPlayerSensMouse(float mouse)
-    {
-        return mouse * playerLook.mouseSens;
     }
 
     void EnablePickedupObject(bool enable)//now objectives needs to have 2 colliders :)))) one for collision and it gets disabled when picked up the other is just a trigger to still get the event when the it enters the objective target trigger :)

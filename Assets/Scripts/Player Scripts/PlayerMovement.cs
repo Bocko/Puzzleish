@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     CharacterController controller;
     PlayerLook playerLook;
+    InputHandler inputHandler;
 
     public bool onGround
     {
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerLook = GetComponent<PlayerLook>();
+        inputHandler = GetComponent<InputHandler>();
         verticalAdjusmentAmount = (defaultHeight - crouchedHeight) / 2;
     }
 
@@ -61,23 +63,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Gravity();
 
-        float movementVertical = Input.GetAxisRaw("Vertical");
-        float movementHorizontal = Input.GetAxisRaw("Horizontal");
-        bool crouchDown = Input.GetAxis("Crouch") == 1;
-        bool walkDown = Input.GetAxis("Walk") == 1;
-
         //normalized input vector
-        Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * transform.forward).normalized;
+        Vector3 inputDir = (inputHandler.Horizontal * transform.right + inputHandler.Vertical * transform.forward).normalized;
 
-        if (isCrouched != crouchDown)
+        if (isCrouched != inputHandler.Crouch)
         {
             Crouch();
         }
 
-        MovementCalculation(inputDir, walkDown);
+        MovementCalculation(inputDir, inputHandler.Walk);
 
         //if the jump key is pressed and the player is on the ground add enough upwards velocity to reach the set jump height
-        if (Input.GetButtonDown("Jump") && onGround)
+        if (inputHandler.Jump && onGround)
         {
             Jump();
         }

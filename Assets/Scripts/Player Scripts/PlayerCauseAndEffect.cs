@@ -31,8 +31,11 @@ public class PlayerCauseAndEffect : MonoBehaviour
         }
     }
 
+    InputHandler inputHandler;
+
     void Start()
     {
+        inputHandler = GetComponent<InputHandler>();
         isOn = isOnAtStart;
         handWrap.SetActive(isOn);
         ttd.SetActive(isOn);
@@ -42,7 +45,7 @@ public class PlayerCauseAndEffect : MonoBehaviour
     {
         if (isOn)
         {
-            if (Input.GetButtonDown("TimeTravel"))
+            if (inputHandler.TimeTravel)
             {
                 onTeleport?.Invoke();
                 StartCoroutine(Fade(effectTime));

@@ -11,12 +11,14 @@ public class OnLadderMovement : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerJetpack playerJetpack;
     CharacterController controller;
+    InputHandler inputHandler;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerJetpack = GetComponent<PlayerJetpack>();
         controller = GetComponent<CharacterController>();
+        inputHandler = GetComponent<InputHandler>();
     }
 
     void Update()
@@ -25,12 +27,9 @@ public class OnLadderMovement : MonoBehaviour
         //when on ladder the default player movement is disabled and this script moves the player
         if (onLadder)
         {
-            float movementVertical = Input.GetAxisRaw("Vertical");
-            float movementHorizontal = Input.GetAxisRaw("Horizontal");
-
             //instead of moving forward of the body now tha player moves where its looking with the camera
             //with this the player can climb in the ladder trigger when the camera is pointing up or down
-            Vector3 inputDir = (movementHorizontal * transform.right + movementVertical * headPivotPoint.forward).normalized;
+            Vector3 inputDir = (inputHandler.Horizontal * transform.right + inputHandler.Vertical * headPivotPoint.forward).normalized;
             Vector3 upDownVelocity = inputDir * onLadderSpeed;
 
             controller.Move(upDownVelocity * Time.deltaTime);
