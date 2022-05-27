@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             Crouch();
         }
 
-        MovementCalculation(inputDir, inputHandler.Walk);
+        MovementCalculation(inputDir);
 
         //if the jump key is pressed and the player is on the ground add enough upwards velocity to reach the set jump height
         if (inputHandler.Jump && onGround)
@@ -113,12 +113,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void MovementCalculation(Vector3 inputDir, bool walkDown)
+    void MovementCalculation(Vector3 inputDir)
     {
         if (onGround)
         {
             //if on the ground and the walk key is held down or the player is crouched reduce movement speed
-            moveVelocity = inputDir * ((isCrouched || walkDown) ? walkSpeed : speed);
+            moveVelocity = inputDir * ((isCrouched || inputHandler.Walk) ? walkSpeed : speed);
         }
         else
         {
