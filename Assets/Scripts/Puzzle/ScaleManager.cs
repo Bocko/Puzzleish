@@ -104,7 +104,7 @@ public class ScaleManager : MonoBehaviour
 
         float leftPlateNewPos = 1;
         float rightPlateNewPos = 1;
-        Vector3 middleBarNewRot = Vector3.zero;
+        Vector3 middleBarNewRot = new Vector3(0, 0, dif * rotationUnitPerWeight);
 
         if (dif > 0)
         {
